@@ -22,13 +22,17 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "agac project",
 		description:
-			"wip",
+			"a community of developers, kinda active",
 		image: "/images/projects/agacproject.gif",
 		url: "https://discord.gg/agac",
 		stack: [
 			{
 				name: "TailwindCSS",
 				icon: "tailwindcss"
+			},
+			{
+				name: "React",
+				icon: "react"
 			}
 		]
 	},
@@ -36,7 +40,7 @@ export const projects: ProjectInfo[] = [
 		name: "bbcode generator",
 		description:
 			"bbcode generator for gtaw:tr sadcr",
-		image: "",
+		image: "/images/projects/bbcode.png",
 		url: "https://denizwpsadcr.vercel.app/",
 		stack: [
 			{
