@@ -24,7 +24,7 @@ export const projects: ProjectInfo[] = [
 		description:
 			"a community of developers, kinda active",
 		image: "/images/projects/agacproject.gif",
-		url: "https://discord.gg/agac",
+		url: "https://discord.gg/MAvMM37dx3",
 		stack: [
 			{
 				name: "TailwindCSS",
@@ -58,7 +58,7 @@ export const projects: ProjectInfo[] = [
 		description:
 			"Follow the FiveM servers, twitch streamers playing on the server, and don't miss instant content.",
 		image: "/images/projects/povs.png",
-		url: "https://povs.live",
+		url: "https://povs.xyz",
 		stack: [
 			{
 				name: "TailwindCSS",
