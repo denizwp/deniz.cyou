@@ -20,6 +20,19 @@ export interface ProjectInfo {
 
 export const projects: ProjectInfo[] = [
 	{
+		name: "agac project",
+		description:
+			"wip",
+		image: "/images/projects/agacproject.gif",
+		url: "https://discord.gg/agac",
+		stack: [
+			{
+				name: "TailwindCSS",
+				icon: "tailwindcss"
+			}
+		]
+	},
+	{
 		name: "bbcode generator",
 		description:
 			"bbcode generator for gtaw:tr sadcr",
@@ -35,5 +48,22 @@ export const projects: ProjectInfo[] = [
 				icon: "react"
 			}
 		]
-	}
+	},
+	{
+		name: "povs.live",
+		description:
+			"Follow the FiveM servers, twitch streamers playing on the server, and don't miss instant content.",
+		image: "/images/projects/povs.png",
+		url: "https://povs.live",
+		stack: [
+			{
+				name: "TailwindCSS",
+				icon: "tailwindcss"
+			},
+			{
+				name: "React",
+				icon: "react"
+			}
+		]
+	},
 ];
