@@ -13,6 +13,16 @@ export const skills: SkillInfo[] = [
 		bg: "#ecdb4f"
 	},
 	{
+		name: "React",
+		icon: "react",
+		href: "https://reactjs.org/"
+	},
+	{
+		name: "Vue",
+		icon: "vue",
+		href: "https://vuejs.org/"
+	},
+	{
 		name: "HTML",
 		icon: "html",
 		href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
@@ -25,10 +35,9 @@ export const skills: SkillInfo[] = [
 		bg: "#3076bd"
 	},
 	{
-		name: "MongoDB",
-		icon: "mongodb",
-		href: "https://www.mongodb.com/",
-		bg: "#0f3430"
+		name: "Tailwind CSS",
+		icon: "tailwind",
+		href: "https://tailwindcss.com/"
 	},
 	{
 		name: "Node.js",
@@ -41,13 +50,9 @@ export const skills: SkillInfo[] = [
 		href: "https://github.com/"
 	},
 	{
-		name: "Tailwind CSS",
-		icon: "tailwind",
-		href: "https://tailwindcss.com/"
-	},
-	{
-		name: "React",
-		icon: "react",
-		href: "https://reactjs.org/"
+		name: "MongoDB",
+		icon: "mongodb",
+		href: "https://www.mongodb.com/",
+		bg: "#0f3430"
 	}
 ];
