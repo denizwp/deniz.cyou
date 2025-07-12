@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				<link rel="preconnect" href="https://fonts.gstatic.com" />
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
 
-				<link rel="icon" type="image/x-icon" href="https://teamnood.xyz/favicon.png"/>
+				<link rel="icon" type="image/x-icon" href="/tree.ico" />
 			</Head>
 			<Layout>
 				<Component {...pageProps} />
