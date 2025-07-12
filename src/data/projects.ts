@@ -20,41 +20,11 @@ export interface ProjectInfo {
 
 export const projects: ProjectInfo[] = [
 	{
-		name: "agac project",
+		name: "bbcode generator",
 		description:
-			"wip",
-		image: "/images/projects/agacproject.gif",
-		url: "https://discord.gg/agac",
-		stack: [
-			{
-				name: "TailwindCSS",
-				icon: "tailwindcss"
-			}
-		]
-	},
-	{
-		name: "povs.live",
-		description:
-			"Follow the FiveM servers, twitch streamers playing on the server, and don't miss instant content.",
-		image: "/images/projects/povs.png",
-		url: "https://povs.live",
-		stack: [
-			{
-				name: "TailwindCSS",
-				icon: "tailwindcss"
-			},
-			{
-				name: "React",
-				icon: "react"
-			}
-		]
-	},
-		{
-		name: "teamnood.com",
-		description:
-			"teamnood.com is a community project that brings esports teams and players together and organizes tournaments.",
-		image: "/images/projects/nood.png",
-		url: "https://teamnood.com",
+			"bbcode generator for gtaw:tr sadcr",
+		image: "",
+		url: "https://denizwpsadcr.vercel.app/",
 		stack: [
 			{
 				name: "TailwindCSS",
