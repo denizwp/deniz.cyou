@@ -24,7 +24,7 @@ export default function Projects() {
 					key={name}
 					className="mb-4 flex flex-col rounded-lg bg-slate-900"
 				>
-					<div className="relative h-24">
+					<div className="relative h-40">
 						<Image
 							src={image}
 							alt=""
@@ -63,20 +63,24 @@ export default function Projects() {
 					<div className="p-4">
 						<div className="flex items-start">
 							<div>
-								<h2 className="mb-2 font-heading font-extrabold text-2xl">
+								<h2 className="mb-2 font-heading font-bold text-2xl">
 									{name}
 								</h2>
-								<p className="text-lg">{description}</p>
+								{description && (
+									<p className="text-base">{description}</p>
+								)}
 							</div>
-							<a
-								href={url}
-								target="_blank"
-								rel="noreferrer noopener"
-								title={`Visit ${name}`}
-								className="ml-auto transition hover:opacity-80"
+							{ url && (
+								<a
+									href={url}
+									target="_blank"
+									rel="noreferrer noopener"
+									title={`Visit ${name}`}
+									className="ml-auto transition hover:opacity-80"
 							>
 								<ExternalLinkIcon className="w-6 h-6" />
 							</a>
+							)}
 						</div>
 					</div>
 				</div>

@@ -45,6 +45,11 @@ export const skills: SkillInfo[] = [
 		href: "https://nodejs.org/en/"
 	},
 	{
+		name: "PHP",
+		icon: "php",
+		href: "https://www.php.net/"	
+	},
+	{
 		name: "GitHub",
 		icon: "github",
 		href: "https://github.com/"
@@ -54,5 +59,10 @@ export const skills: SkillInfo[] = [
 		icon: "mongodb",
 		href: "https://www.mongodb.com/",
 		bg: "#0f3430"
+	},
+	{
+		name: "MySQL",
+		icon: "mysql",
+		href: "https://www.mysql.com/"
 	}
 ];

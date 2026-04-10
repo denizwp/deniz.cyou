@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@800&family=Outfit:wght@500;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html,
+	body {
+		@apply bg-black;
+	}
+
+	html {
+		@apply overflow-x-hidden overflow-y-scroll;
+		-webkit-tap-highlight-color: transparent;
+		scrollbar-color: #fff2 #000;
+		scrollbar-width: thin;
+	}
+
+	*:focus-visible {
+		outline: 2px solid white;
+		outline-offset: 4px;
+	}
+
+	::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
+	::-webkit-scrollbar-track {
+		background: black;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #ffffff22;
+	}
+	::-webkit-scrollbar-button {
+		display: none;
+	}
+	::-webkit-scrollbar-corner {
+		display: none;
+	}
+}
