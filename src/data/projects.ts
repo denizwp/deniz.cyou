@@ -101,7 +101,7 @@ export const projects: ProjectInfo[] = [
   },
   {
     name: "povs.live",
-    description: "lame ass website for gta servers",
+    description: "lame ass website for gta rp streamers",
     image: "/images/projects/povs.png",
     url: "https://povs.xyz",
     stack: [],
