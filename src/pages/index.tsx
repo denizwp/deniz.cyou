@@ -26,7 +26,7 @@ export default function Home({
 		<>
 			<GenericMeta
 				title="deniz 👋"
-				description="My portfolio and personal website."
+				description="lul"
 			/>
 
 			<h1 className="heading mb-2">
