@@ -79,7 +79,7 @@ export const projects: ProjectInfo[] = [
     name: "movie proxy",
     description: "a movie proxy that converts every movie link to a proxied one for gtaw turkiye",
     image: "/images/projects/movie.png",
-    url: "https://proxy.buymeacookie.xyz/",
+    url: "https://proxy.deniz.cyou/",
     stack: [
       {
         name: "PHP",
