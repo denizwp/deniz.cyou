@@ -40,8 +40,6 @@ export default function Projects() {
 			<h2 className="font-bold text-3xl mb-4">Past 6 Months</h2>
 			<TrackList tracks={topMusic?.medium.items} />
 
-			<h2 className="font-bold text-3xl mb-4">All Time</h2>
-			<TrackList tracks={topMusic?.long.items} />
 		</>
 	);
 }
