@@ -34,9 +34,9 @@ export default function Home({
 			</h1>
 
 			<p className="mb-4">
-				Hi! I&apos;m Deniz, a{" "}
+				hi... this is deniz - a{" "}
 				<span className="text-sky-500 font-semibold">17-year-old developer</span>{" "}
-				from <a className="text-red-400 font-semibold hover:text-red-500 duration-200" href="https://en.wikipedia.org/wiki/Turkey" target="_blank">Turkiye</a>.
+				from <a className="text-red-400 font-semibold hover:text-red-500 duration-200" href="https://en.wikipedia.org/wiki/Turkey" target="_blank">turkiye</a>.
 			</p>
 
 			<p className="mb-2 flex flex-wrap gap-2 items-center">
