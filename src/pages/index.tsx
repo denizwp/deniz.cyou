@@ -35,7 +35,7 @@ export default function Home({
 
 			<p className="mb-4">
 				hi... this is deniz - a{" "}
-				<span className="text-sky-500 font-semibold">17-year-old developer</span>{" "}
+				<span className="text-sky-500 font-semibold">18-year-old developer</span>{" "}
 				from <a className="text-red-400 font-semibold hover:text-red-500 duration-200" href="https://en.wikipedia.org/wiki/Turkey" target="_blank">turkiye</a>.
 			</p>
 
