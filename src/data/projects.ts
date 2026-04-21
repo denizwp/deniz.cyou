@@ -76,6 +76,34 @@ export const projects: ProjectInfo[] = [
     ],
   },
   {
+    name: "music app",
+    description: "apple music but for gtaw turkiye",
+    image: "/images/projects/music.png",
+    url: "",
+    stack: [
+      {
+        name: "GitHub",
+        icon: "github",
+      },
+      {
+        name: "React",
+        icon: "react",
+      },
+      {
+        name: "Tailwind CSS",
+        icon: "tailwind",
+      },
+      {
+        name: "PHP",
+        icon: "php",
+      },
+      {
+        name: "MySQL",
+        icon: "mysql",
+      },
+    ],
+  },
+  {
     name: "movie proxy",
     description: "a movie proxy that converts every movie link to a proxied one for gtaw turkiye",
     image: "/images/projects/movie.png",
