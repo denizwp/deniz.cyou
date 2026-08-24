@@ -18,7 +18,7 @@ export type NowPlayingResponse =
 const api = new Spotify({
 	clientId: 'f91c8a8166064b5b81f065f0c6b86c64',
 	clientSecret: '054d95eb48ea4e29958384e95f7b961a',
-	refreshToken: 'AQBXherdJuYPcoGDSCVuj7TECKD6I3QVtGG_esV3cU9uEp72k97FGrf1EHLpgXuuDqrxfQp4ykDBPA2yRoBQJC1PKXbuYONpWh0A-lSVvoiwrstNjRB7u6fzH07ngi00Tqg'
+	refreshToken: 'AQA2i6fF5DU152uPbbcRjjUktVlfHuxaSLYzAzxLS79NVoi54ds4FiYcUVarukbAw3oGVsnieoo2sL92BsxPZgGEJAuZ2xflk_4sk1qRc2MhEOtrtAVrc5VlxwkbjAZ5Ohk'
 });
 let expirationTime = 0;
 
