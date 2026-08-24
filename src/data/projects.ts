@@ -194,10 +194,6 @@ export const projects: ProjectInfo[] = [
     url: "https://buymeacookie.xyz/",
     stack: [
       {
-        name: "GitHub",
-        icon: "github",
-      },
-      {
         name: "React",
         icon: "react",
       },
@@ -222,10 +218,6 @@ export const projects: ProjectInfo[] = [
     url: "https://soundloop.app/",
     stack: [
       {
-        name: "GitHub",
-        icon: "github",
-      },
-      {
         name: "React",
         icon: "react",
       },
@@ -249,10 +241,6 @@ export const projects: ProjectInfo[] = [
     image: "/images/projects/vetric.png",
     url: "https://vetric.online/",
     stack: [
-      {
-        name: "GitHub",
-        icon: "github",
-      },
       {
         name: "React",
         icon: "react",
