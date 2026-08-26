@@ -23,7 +23,7 @@ export const projects: ProjectInfo[] = [
     name: "deniz's tools",
     description: "a multi-purpose tool website (like a proxy, a story creator, mesh viewer and more)",
     image: "/images/projects/movie.png",
-    url: "https://proxy.deniz.cyou/",
+    url: "https://tools.deniz.cyou/",
     stack: [
       {
         name: "React",
