@@ -97,16 +97,6 @@ export const uses: UsesGroup[] = [
 				name: "Blender",
 				icon: "blender",
 				url: "https://www.blender.org/"
-			},
-			{
-				name: "Spotify",
-				src: "/images/spotify.png",
-				url: "https://open.spotify.com/user/szviltwriiiu23qzw5uriwtw7"
-			},
-			{
-				name: "Cloudflare",
-				icon: "cloudflare",
-				url: "https://www.cloudflare.com/"
 			}
 		]
 	}

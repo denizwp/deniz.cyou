@@ -16,7 +16,7 @@ export default function Uses() {
 	return (
 		<main className="wrapper fade">
 			<GenericMeta
-				title="Uses 🛠️"
+				title="Uses"
 				description="The software and tools I use every day."
 			/>
 
