@@ -37,16 +37,6 @@ export const uses: UsesGroup[] = [
 				name: "Tailwind CSS IntelliSense",
 				domain: "tailwindcss.com",
 				url: "https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss"
-			},
-			{
-				name: "Intelephense",
-				domain: "intelephense.com",
-				url: "https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client"
-			},
-			{
-				name: "vscord",
-				domain: "discord.com",
-				url: "https://marketplace.visualstudio.com/items?itemName=LeonardSSH.vscord"
 			}
 		]
 	},
