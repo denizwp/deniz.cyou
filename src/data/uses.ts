@@ -1,20 +1,13 @@
-export interface UsesIconItem {
+export interface UsesItem {
 	name: string;
 	url?: string;
 	/** a skillicons.dev slug */
-	icon: string;
-	src?: never;
-}
-
-export interface UsesCustomItem {
-	name: string;
-	url?: string;
-	icon?: never;
-	/** a full image url, for anything skillicons.dev doesn't have */
+	icon?: string;
+	/** a domain, resolved to a logo through logo.dev */
+	domain?: string;
+	/** a full image url, for anything the other two don't cover */
 	src?: string;
 }
-
-export type UsesItem = UsesIconItem | UsesCustomItem;
 
 export interface UsesGroup {
 	title: string;
@@ -32,22 +25,27 @@ export const uses: UsesGroup[] = [
 			},
 			{
 				name: "Slack Theme",
+				domain: "slack.com",
 				url: "https://marketplace.visualstudio.com/items?itemName=felipe-mendes.slack-theme"
 			},
 			{
 				name: "Prettier",
+				domain: "prettier.io",
 				url: "https://prettier.io/"
 			},
 			{
 				name: "Tailwind CSS IntelliSense",
+				domain: "tailwindcss.com",
 				url: "https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss"
 			},
 			{
 				name: "Intelephense",
+				domain: "intelephense.com",
 				url: "https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client"
 			},
 			{
 				name: "vscord",
+				domain: "discord.com",
 				url: "https://marketplace.visualstudio.com/items?itemName=LeonardSSH.vscord"
 			}
 		]

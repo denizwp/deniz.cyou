@@ -6,6 +6,12 @@ import { uses } from "../data/uses";
 
 const skillIconsEndpoint = "https://skillicons.dev/icons?theme=dark&i=";
 
+// publishable key: it ships to the browser inside the image url by design.
+// restrict it by domain in the logo.dev dashboard rather than hiding it.
+const logoDevToken = "pk_Yb0fJ73UST2bOQAxWsv8ag";
+const logoDevEndpoint = (domain: string) =>
+	`https://img.logo.dev/${domain}?token=${logoDevToken}&size=128&format=png`;
+
 export default function Uses() {
 	return (
 		<main className="wrapper fade">
@@ -28,9 +34,11 @@ export default function Uses() {
 					<h2 className="font-bold text-2xl">{title}</h2>
 
 					<ul className="mt-4 flex flex-wrap gap-2">
-						{items.map(({ name, url, icon, src }) => {
+						{items.map(({ name, url, icon, domain, src }) => {
 							const logo = icon
 								? `${skillIconsEndpoint}${icon}`
+								: domain
+								? logoDevEndpoint(domain)
 								: src;
 
 							const content = (
