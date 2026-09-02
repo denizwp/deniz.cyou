@@ -9,7 +9,7 @@ const skillIconsEndpoint = "https://skillicons.dev/icons?theme=dark&i=";
 export default function Projects() {
 	return (
 		<main className="wrapper fade">
-			<GenericMeta title="Projects 📙" description="Some of my projects." />
+			<GenericMeta title="Projects" description="Some of my projects." />
 
 			<h1 className="header">
 				Projects{" "}

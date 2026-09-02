@@ -26,7 +26,7 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getStaticProps>) {
 	return (
 		<main className="wrapper fade">
-			<GenericMeta title="deniz 👋" description="lul" />
+			<GenericMeta title="deniz" description="lul" />
 
 			<h1 className="header">
 				deniz <HomeIcon className="ml-4 h-10 w-10 text-orange-400" />

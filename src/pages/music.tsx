@@ -34,7 +34,7 @@ export default function Music() {
 	return (
 		<main>
 			<GenericMeta
-				title="Music 🎶"
+				title="Music"
 				description="Tracks I've listened to the most on Spotify."
 			/>
 
