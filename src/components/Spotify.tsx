@@ -43,7 +43,7 @@ export default function Spotify() {
 	const progress = data?.track ? clamp(time / data.track.duration_ms) : 0;
 
 	return (
-		<div className="mt-4 flex items-center rounded-2xl bg-gray-900">
+		<div className="mt-4 flex items-center rounded-2xl bg-ink-900">
 			<div className="w-20 h-20 shrink-0">
 				<Image
 					src={
@@ -54,7 +54,7 @@ export default function Spotify() {
 					width={256}
 					height={256}
 					priority={true}
-					className="w-20 h-20 object-cover object-center rounded-2xl bg-gray-800"
+					className="w-20 h-20 object-cover object-center rounded-2xl bg-ink-800"
 				/>
 			</div>
 
@@ -107,12 +107,12 @@ export default function Spotify() {
 				<div
 					className="ml-auto shrink-0 w-12 h-12 mr-4 rounded-full"
 					style={{
-						background: `conic-gradient(#374151 ${
+						background: `conic-gradient(#20372b ${
 							progress * 100
-						}%, #1f2937 0)`
+						}%, #16281f 0)`
 					}}
 				>
-					<div className="w-10 h-10 mt-1 ml-1 rounded-full bg-gray-900 grid place-items-center text-gray-400">
+					<div className="w-10 h-10 mt-1 ml-1 rounded-full bg-ink-900 grid place-items-center text-gray-400">
 						{data.isPaused ? (
 							<PlayIcon className="w-4 h-4" />
 						) : (

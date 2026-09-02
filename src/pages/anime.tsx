@@ -24,7 +24,7 @@ export default function Anime() {
 						href={url}
 						target="_blank"
 						rel="noreferrer noopener"
-						className="group relative flex items-center h-40 px-6 md:px-8 overflow-hidden rounded-xl bg-gray-900 transition duration-300 hf:scale-[1.02]"
+						className="group relative flex items-center h-40 px-6 md:px-8 overflow-hidden rounded-xl bg-ink-900 transition duration-300 hf:scale-[1.02]"
 					>
 						<Image
 							src={image}

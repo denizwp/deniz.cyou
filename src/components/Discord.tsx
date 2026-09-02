@@ -40,7 +40,7 @@ export default function Discord() {
 	const avatar = lanyard?.discord_user.avatar;
 
 	return (
-		<div className="mt-8 flex items-center rounded-2xl bg-gray-900">
+		<div className="mt-8 flex items-center rounded-2xl bg-ink-900">
 			<div className="relative w-20 h-20 shrink-0">
 				{avatar ? (
 					<>
@@ -52,17 +52,17 @@ export default function Discord() {
 							width={256}
 							height={256}
 							priority={true}
-							className="w-20 h-20 rounded-2xl bg-gray-800 object-cover"
+							className="w-20 h-20 rounded-2xl bg-ink-800 object-cover"
 						/>
 
 						<span
-							className={`z-10 absolute w-4 h-4 bottom-1 right-1 rounded-full ring-4 ring-gray-900 ${getStatusColor(
+							className={`z-10 absolute w-4 h-4 bottom-1 right-1 rounded-full ring-4 ring-ink-900 ${getStatusColor(
 								lanyard?.discord_status
 							)}`}
 						/>
 					</>
 				) : (
-					<div className="w-20 h-20 rounded-2xl bg-gray-800" />
+					<div className="w-20 h-20 rounded-2xl bg-ink-800" />
 				)}
 			</div>
 

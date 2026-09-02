@@ -2,6 +2,12 @@ import { useEffect, useRef, useState } from "preact/hooks";
 
 const AMOUNT = 20;
 
+// deep jade -> teal, kept dark so it reads as green-black over gray-950
+const HUE_MIN = 140;
+const HUE_RANGE = 40;
+const LIGHTNESS = 40;
+const POINTER_HUE = 155;
+
 interface Boid {
 	x: number;
 	y: number;
@@ -39,7 +45,7 @@ export default function BackgroundEffect() {
 				vx: 0,
 				vy: 0,
 				base: Math.random() + 1,
-				hue: Math.random() * 60 + 240
+				hue: Math.random() * HUE_RANGE + HUE_MIN
 			});
 		}
 
@@ -144,7 +150,7 @@ export default function BackgroundEffect() {
 			if (mouseStopRef.current) {
 				mouseStopRef.current.setAttribute(
 					"stop-color",
-					`hsla(270, 100%, 50%, ${
+					`hsla(${POINTER_HUE}, 100%, ${LIGHTNESS}%, ${
 						strength * (pressed * 0.125 + 0.125)
 					})`
 				);
@@ -190,11 +196,11 @@ export default function BackgroundEffect() {
 					>
 						<stop
 							offset="0%"
-							stop-color={`hsla(${hue}, 100%, 50%, 0.1)`}
+							stop-color={`hsla(${hue}, 100%, ${LIGHTNESS}%, 0.12)`}
 						/>
 						<stop
 							offset="100%"
-							stop-color={`hsla(${hue}, 100%, 50%, 0)`}
+							stop-color={`hsla(${hue}, 100%, ${LIGHTNESS}%, 0)`}
 						/>
 					</radialGradient>
 				))}
@@ -210,9 +216,12 @@ export default function BackgroundEffect() {
 					<stop
 						ref={mouseStopRef}
 						offset="0%"
-						stop-color="hsla(270, 100%, 50%, 0)"
+						stop-color={`hsla(${POINTER_HUE}, 100%, ${LIGHTNESS}%, 0)`}
 					/>
-					<stop offset="100%" stop-color="hsla(270, 100%, 50%, 0)" />
+					<stop
+						offset="100%"
+						stop-color={`hsla(${POINTER_HUE}, 100%, ${LIGHTNESS}%, 0)`}
+					/>
 				</radialGradient>
 			</defs>
 

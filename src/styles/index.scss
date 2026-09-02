@@ -7,7 +7,7 @@
 
 @layer base {
 	html {
-		@apply bg-gray-950 text-white;
+		@apply bg-ink-950 text-white;
 
 		color-scheme: dark;
 	}
@@ -15,12 +15,8 @@
 	html {
 		@apply overflow-x-hidden overflow-y-scroll;
 		-webkit-tap-highlight-color: transparent;
-		scrollbar-color: theme("colors.gray.800") theme("colors.gray.950");
+		scrollbar-color: theme("colors.ink.800") theme("colors.ink.950");
 		scrollbar-width: thin;
-	}
-
-	body {
-		@apply bg-gray-950;
 	}
 
 	*:focus-visible {
@@ -33,10 +29,10 @@
 		height: 0.5rem;
 	}
 	::-webkit-scrollbar-track {
-		background: theme("colors.gray.950");
+		background: theme("colors.ink.950");
 	}
 	::-webkit-scrollbar-thumb {
-		background: theme("colors.gray.800");
+		background: theme("colors.ink.800");
 	}
 	::-webkit-scrollbar-button {
 		display: none;
@@ -45,7 +41,7 @@
 		display: none;
 	}
 	::-webkit-scrollbar-thumb:active {
-		background: theme("colors.gray.700");
+		background: theme("colors.ink.700");
 	}
 
 	@media (prefers-reduced-motion: reduce) {

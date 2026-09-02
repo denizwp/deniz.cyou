@@ -27,7 +27,7 @@ export default function Projects() {
 						href={url}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="group grid sm:grid-cols-2 rounded-xl overflow-hidden bg-gray-900 hf:scale-[1.02] transition duration-300"
+						className="group grid sm:grid-cols-2 rounded-xl overflow-hidden bg-ink-900 hf:scale-[1.02] transition duration-300"
 					>
 						<div className="p-6 md:p-8 max-sm:row-start-2">
 							<h2 className="font-bold text-2xl">{name}</h2>
@@ -42,7 +42,7 @@ export default function Projects() {
 								{stack.map(({ name, icon, src }) => (
 									<div
 										key={name}
-										className="w-7 h-7 rounded-[25%] bg-gray-800 relative group/icon"
+										className="w-7 h-7 rounded-[25%] bg-ink-800 relative group/icon"
 										title={name}
 									>
 										<Image
@@ -58,7 +58,7 @@ export default function Projects() {
 											className="w-full h-full rounded-[25%] bg-[#242938]"
 										/>
 
-										<span className="absolute mb-1 px-2 py-1 text-sm text-white bg-gray-800 opacity-0 group-hover/icon:opacity-100 transition pointer-events-none bottom-full left-1/2 -translate-x-1/2 rounded-lg w-max">
+										<span className="absolute mb-1 px-2 py-1 text-sm text-white bg-ink-800 opacity-0 group-hover/icon:opacity-100 transition pointer-events-none bottom-full left-1/2 -translate-x-1/2 rounded-lg w-max">
 											{name}
 										</span>
 									</div>

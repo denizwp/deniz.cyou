@@ -93,7 +93,7 @@ export default function Music() {
 									width={512}
 									height={512}
 									priority={i < 5}
-									className="w-full h-full object-cover rounded-xl bg-gray-800 transition duration-300 group-hv:brightness-50 group-hv:scale-[1.02]"
+									className="w-full h-full object-cover rounded-xl bg-ink-800 transition duration-300 group-hv:brightness-50 group-hv:scale-[1.02]"
 								/>
 
 								<div
@@ -119,7 +119,7 @@ export default function Music() {
 					: [...new Array(20)].map((_, i) => (
 							<div
 								key={i}
-								className="aspect-square rounded-xl bg-gray-900 animate-pulse"
+								className="aspect-square rounded-xl bg-ink-900 animate-pulse"
 							/>
 					  ))}
 			</div>

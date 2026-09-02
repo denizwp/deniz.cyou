@@ -13,6 +13,15 @@ module.exports = {
 			...defaultTheme.screens
 		},
 		extend: {
+			colors: {
+				// near-black jade, used for every surface
+				ink: {
+					950: "#040f0b",
+					900: "#0c1a14",
+					800: "#16281f",
+					700: "#20372b"
+				}
+			},
 			fontFamily: {
 				sans: ['"Inter"', ...defaultTheme.fontFamily.sans],
 				heading: ['"Inter"', ...defaultTheme.fontFamily.sans]
