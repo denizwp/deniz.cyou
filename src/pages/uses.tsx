@@ -1,7 +1,10 @@
 import { DesktopComputerIcon } from "@heroicons/react/solid";
+import Image from "next/future/image";
 
 import GenericMeta from "../components/GenericMeta";
 import { uses } from "../data/uses";
+
+const skillIconsEndpoint = "https://skillicons.dev/icons?theme=dark&i=";
 
 export default function Uses() {
 	return (
@@ -24,32 +27,50 @@ export default function Uses() {
 				<section key={title} className="mt-8">
 					<h2 className="font-bold text-2xl">{title}</h2>
 
-					<ul className="mt-4 grid sm:grid-cols-2 gap-3">
-						{items.map(({ name, description, url }) => (
-							<li
-								key={name}
-								className="rounded-xl bg-ink-900 p-4 transition"
-							>
-								{url ? (
-									<a
-										href={url}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="font-semibold border-b border-transparent transition hv:border-current"
-									>
-										{name}
-									</a>
-								) : (
-									<span className="font-semibold">
-										{name}
-									</span>
-								)}
+					<ul className="mt-4 flex flex-wrap gap-2">
+						{items.map(({ name, url, icon, src }) => {
+							const logo = icon
+								? `${skillIconsEndpoint}${icon}`
+								: src;
 
-								<p className="mt-1 text-sm text-gray-400">
-									{description}
-								</p>
-							</li>
-						))}
+							const content = (
+								<>
+									{logo && (
+										<Image
+											src={logo}
+											alt=""
+											width={64}
+											height={64}
+											quality={100}
+											className="w-5 h-5 rounded-[25%]"
+										/>
+									)}
+									{name}
+								</>
+							);
+
+							const className =
+								"flex items-center gap-2 pl-3 pr-4 py-2 rounded-xl bg-ink-900 text-gray-300 transition";
+
+							return (
+								<li key={name}>
+									{url ? (
+										<a
+											href={url}
+											target="_blank"
+											rel="noopener noreferrer"
+											className={`${className} hf:bg-ink-800 hf:text-white`}
+										>
+											{content}
+										</a>
+									) : (
+										<span className={className}>
+											{content}
+										</span>
+									)}
+								</li>
+							);
+						})}
 					</ul>
 				</section>
 			))}

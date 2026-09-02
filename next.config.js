@@ -16,7 +16,8 @@ const config = {
 			"cdn.discordapp.com",
 			"i.scdn.co",
 			"skillicons.dev",
-			"avatars.githubusercontent.com"
+			"avatars.githubusercontent.com",
+			"img.logo.dev"
 		],
 		dangerouslyAllowSVG: true,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"

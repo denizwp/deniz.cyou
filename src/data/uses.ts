@@ -1,8 +1,20 @@
-export interface UsesItem {
+export interface UsesIconItem {
 	name: string;
-	description: string;
 	url?: string;
+	/** a skillicons.dev slug */
+	icon: string;
+	src?: never;
 }
+
+export interface UsesCustomItem {
+	name: string;
+	url?: string;
+	icon?: never;
+	/** a full image url, for anything skillicons.dev doesn't have */
+	src?: string;
+}
+
+export type UsesItem = UsesIconItem | UsesCustomItem;
 
 export interface UsesGroup {
 	title: string;
@@ -15,33 +27,27 @@ export const uses: UsesGroup[] = [
 		items: [
 			{
 				name: "VS Code",
-				description: "i write everything here.",
+				icon: "vscode",
 				url: "https://code.visualstudio.com/"
 			},
 			{
 				name: "Slack Theme",
-				description: "dark mode, the one i keep coming back to.",
 				url: "https://marketplace.visualstudio.com/items?itemName=felipe-mendes.slack-theme"
 			},
 			{
 				name: "Prettier",
-				description: "my default formatter for html and typescript.",
 				url: "https://prettier.io/"
 			},
 			{
 				name: "Tailwind CSS IntelliSense",
-				description: "class autocomplete, hard to work without it.",
 				url: "https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss"
 			},
 			{
 				name: "Intelephense",
-				description: "php language support for the older projects.",
 				url: "https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client"
 			},
 			{
 				name: "vscord",
-				description:
-					"puts what i'm editing on my discord status — the card on the home page.",
 				url: "https://marketplace.visualstudio.com/items?itemName=LeonardSSH.vscord"
 			}
 		]
@@ -51,32 +57,42 @@ export const uses: UsesGroup[] = [
 		items: [
 			{
 				name: "TypeScript",
-				description: "the default language for anything i start now.",
+				icon: "ts",
 				url: "https://www.typescriptlang.org/"
 			},
 			{
-				name: "React & Next.js",
-				description: "the skeleton of most of my projects, this site included.",
+				name: "React",
+				icon: "react",
+				url: "https://react.dev/"
+			},
+			{
+				name: "Next.js",
+				icon: "nextjs",
 				url: "https://nextjs.org/"
 			},
 			{
 				name: "Tailwind CSS",
-				description: "styling in 10 of the 12 projects on this site.",
+				icon: "tailwind",
 				url: "https://tailwindcss.com/"
 			},
 			{
 				name: "Node.js",
-				description: "backends and small tools.",
+				icon: "nodejs",
 				url: "https://nodejs.org/"
 			},
 			{
-				name: "MySQL & MongoDB",
-				description: "whichever the project asks for.",
+				name: "MySQL",
+				icon: "mysql",
 				url: "https://www.mysql.com/"
 			},
 			{
+				name: "MongoDB",
+				icon: "mongodb",
+				url: "https://www.mongodb.com/"
+			},
+			{
 				name: "PHP",
-				description: "still shows up in a few of the older ones.",
+				icon: "php",
 				url: "https://www.php.net/"
 			}
 		]
@@ -86,22 +102,22 @@ export const uses: UsesGroup[] = [
 		items: [
 			{
 				name: "Figma",
-				description: "where interfaces get drawn before they get coded.",
+				icon: "figma",
 				url: "https://www.figma.com/@denizwp"
 			},
 			{
 				name: "Blender",
-				description: "for when i'm messing with 3d.",
+				icon: "blender",
 				url: "https://www.blender.org/"
 			},
 			{
 				name: "Spotify",
-				description: "always open while coding — live on the home page.",
+				src: "/images/spotify.png",
 				url: "https://open.spotify.com/user/szviltwriiiu23qzw5uriwtw7"
 			},
 			{
 				name: "Cloudflare",
-				description: "dns and everything sitting in front of deniz.cyou.",
+				icon: "cloudflare",
 				url: "https://www.cloudflare.com/"
 			}
 		]
