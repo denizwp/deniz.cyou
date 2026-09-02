@@ -30,7 +30,10 @@ module.exports = {
 						width: "700px"
 					},
 					"@screen lg": {
-						width: "800px"
+						width: "900px"
+					},
+					"@screen xl": {
+						width: "1000px"
 					}
 				}
 			});

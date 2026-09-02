@@ -29,17 +29,17 @@ export default function Home({
 				description="lul"
 			/>
 
-			<h1 className="heading mb-2">
+			<h1 className="heading mb-4">
 				deniz! <HomeIcon className="ml-4 h-12 w-12 text-orange-400" />
 			</h1>
 
-			<p className="mb-4">
+			<p className="mb-6 leading-relaxed">
 				hi... this is deniz - a{" "}
 				<span className="text-sky-500 font-semibold">18-year-old developer</span>{" "}
 				from <a className="text-red-400 font-semibold hover:text-red-500 duration-200" href="https://en.wikipedia.org/wiki/Turkey" target="_blank">turkiye</a>.
 			</p>
 
-			<p className="mb-2 flex flex-wrap gap-2 items-center">
+			<p className="mb-3 flex flex-wrap gap-3 items-center">
 				{socials.map(({ name, image, url }) => (
 					<a
 						key={name}
@@ -59,11 +59,11 @@ export default function Home({
 				))}
 			</p>
 
-			<p className="mb-4 text-base text-gray-300">
+			<p className="mb-8 text-base text-gray-300">
 				<Clock />
 			</p>
 
-			<hr className="mb-4 bg-slate-800 border-none h-0.5" />
+			<hr className="mb-8 bg-slate-800 border-none h-0.5" />
 
 			<Discord />
 			<Spotify />

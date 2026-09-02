@@ -8,7 +8,7 @@ interface TrackListProps {
 export function TrackList({ tracks, priority = false }: TrackListProps) {
 	return (
 		<div className="relative w-screen ml-[calc(-50vw)] left-1/2 mb-12 [mask-image:linear-gradient(to_right,#000_0%,#000_75%,#0000_100%)] lg:[mask-image:linear-gradient(to_right,#0000_0%,#000_25%,#000_75%,#0000_100%)] before:z-10">
-			<div className="lg:px-[calc(50vw-400px)] md:px-[calc(50vw-350px)] px-8 lg:scroll-pl-[calc(50vw-400px)] md:scroll-pl-[calc(50vw-350px)] scroll-pl-8 grid grid-rows-2 grid-cols-[repeat(12,9rem)] md:grid-cols-[repeat(12,12rem)] lg:grid-cols-[repeat(12,14rem)] grid-flow-col gap-4 overflow-scroll no-scrollbar snap-x snap-mandatory">
+			<div className="xl:px-[calc(50vw-500px)] lg:px-[calc(50vw-450px)] md:px-[calc(50vw-350px)] px-8 xl:scroll-pl-[calc(50vw-500px)] lg:scroll-pl-[calc(50vw-450px)] md:scroll-pl-[calc(50vw-350px)] scroll-pl-8 grid grid-rows-2 grid-cols-[repeat(12,9rem)] md:grid-cols-[repeat(12,12rem)] lg:grid-cols-[repeat(12,14rem)] grid-flow-col gap-4 overflow-scroll no-scrollbar snap-x snap-mandatory">
 				{tracks
 					? tracks.map(track => (
 							<Track

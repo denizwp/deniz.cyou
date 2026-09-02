@@ -50,7 +50,7 @@ const pages: PageData[] = [
 
 export default function Navbar() {
 	return (
-		<nav className="mb-12 flex flex-wrap items-center gap-x-8 font-bold">
+		<nav className="mb-14 flex flex-wrap items-center gap-x-8 gap-y-1 font-bold">
 			{pages.map(({ href, title, Icon, color }) => (
 				<ActiveLink
 					href={href}

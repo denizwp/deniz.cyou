@@ -27,17 +27,17 @@ export default function Projects() {
 				description="My top music on Spotify."
 			/>
 
-			<h1 className="heading mb-2">
+			<h1 className="heading mb-3">
 				Music{" "}
 				<MusicNoteIcon className="ml-4 h-12 w-12 text-violet-400" />
 			</h1>
 
-			<p className="text-lg mb-4">My top tracks on Spotify.</p>
+			<p className="text-lg text-gray-300 mb-10">My top tracks on Spotify.</p>
 
-			<h2 className="font-bold text-3xl mb-4">Past Month</h2>
+			<h2 className="font-bold text-3xl mb-5">Past Month</h2>
 			<TrackList tracks={topMusic?.short.items} priority={true} />
 
-			<h2 className="font-bold text-3xl mb-4">Past 6 Months</h2>
+			<h2 className="font-bold text-3xl mb-5">Past 6 Months</h2>
 			<TrackList tracks={topMusic?.medium.items} />
 
 		</>

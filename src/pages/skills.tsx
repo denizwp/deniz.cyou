@@ -14,15 +14,15 @@ export default function Skills() {
 				description="Skills I've picked up over the years."
 			/>
 
-			<h1 className="heading mb-2">
+			<h1 className="heading mb-3">
 				Skills <CubeIcon className="ml-4 h-12 w-12 text-rose-400" />
 			</h1>
 
-			<p className="mb-4">
+			<p className="mb-8 text-lg text-gray-300">
 				Skills and technologies I use to build things.
 			</p>
 
-			<div className="fade-in grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 gap-2 sm:gap-4">
+			<div className="fade-in grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4">
 				{skills.map(({ name, icon, href, bg }) => (
 					<a
 						key={icon}
