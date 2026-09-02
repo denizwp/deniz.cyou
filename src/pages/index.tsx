@@ -6,6 +6,7 @@ import Image from "next/future/image";
 import { Clock } from "../components/Clock";
 import Discord from "../components/Discord";
 import GenericMeta from "../components/GenericMeta";
+import GitHub from "../components/GitHub";
 import Spotify from "../components/Spotify";
 import { Weather } from "../components/Weather";
 import { socials } from "../data/socials";
@@ -72,6 +73,7 @@ export default function Home({
 
 			<Discord />
 			<Spotify />
+			<GitHub />
 		</main>
 	);
 }

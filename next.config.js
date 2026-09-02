@@ -12,7 +12,12 @@ const config = {
 	swcMinify: true,
 	i18n: { locales: ["en-US"], defaultLocale: "en-US" },
 	images: {
-		domains: ["cdn.discordapp.com", "i.scdn.co", "skillicons.dev"],
+		domains: [
+			"cdn.discordapp.com",
+			"i.scdn.co",
+			"skillicons.dev",
+			"avatars.githubusercontent.com"
+		],
 		dangerouslyAllowSVG: true,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
 	},
