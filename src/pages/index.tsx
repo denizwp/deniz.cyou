@@ -23,30 +23,37 @@ export default function Home({
 	age
 }: InferGetServerSidePropsType<typeof getStaticProps>) {
 	return (
-		<>
-			<GenericMeta
-				title="deniz 👋"
-				description="lul"
-			/>
+		<main className="wrapper fade">
+			<GenericMeta title="deniz 👋" description="lul" />
 
-			<h1 className="heading mb-4">
-				deniz! <HomeIcon className="ml-4 h-12 w-12 text-orange-400" />
+			<h1 className="header">
+				deniz <HomeIcon className="ml-4 h-10 w-10 text-orange-400" />
 			</h1>
 
-			<p className="mb-6 leading-relaxed">
-				hi... this is deniz - a{" "}
-				<span className="text-sky-500 font-semibold">18-year-old developer</span>{" "}
-				from <a className="text-red-400 font-semibold hover:text-red-500 duration-200" href="https://en.wikipedia.org/wiki/Turkey" target="_blank">turkiye</a>.
+			<p className="mt-4 text-gray-400">
+				hi... this is <b className="text-gray-200">deniz</b> &mdash; an{" "}
+				<span className="text-sky-400">18-year-old developer</span>{" "}
+				from{" "}
+				<a
+					className="text-red-400 transition hf:text-red-300"
+					href="https://en.wikipedia.org/wiki/Turkey"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					turkiye
+				</a>
+				.
 			</p>
 
-			<p className="mb-3 flex flex-wrap gap-3 items-center">
+			<div className="my-6 flex flex-wrap gap-5 items-center">
 				{socials.map(({ name, image, url }) => (
 					<a
 						key={name}
 						href={url}
+						aria-label={name}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="w-6 h-6 hover:opacity-80 transition"
+						className="w-6 h-6 opacity-70 transition hf:opacity-100"
 					>
 						<Image
 							src={image}
@@ -57,16 +64,12 @@ export default function Home({
 						/>
 					</a>
 				))}
-			</p>
+			</div>
 
-			<p className="mb-8 text-base text-gray-300">
-				<Clock />
-			</p>
-
-			<hr className="mb-8 bg-slate-800 border-none h-0.5" />
+			<Clock />
 
 			<Discord />
 			<Spotify />
-		</>
+		</main>
 	);
 }

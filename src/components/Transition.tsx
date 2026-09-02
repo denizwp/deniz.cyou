@@ -15,7 +15,7 @@ export default function Transition({ children }: PropsWithChildren<{}>) {
 	}, [children]);
 
 	return (
-		<div className={currentChild !== children ? "fade-out" : "fade-in"}>
+		<div className={currentChild !== children ? "fade-out" : ""}>
 			{currentChild}
 		</div>
 	);

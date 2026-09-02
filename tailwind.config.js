@@ -1,5 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+const plugin = require("tailwindcss/plugin");
 
+/** @type {import("tailwindcss").Config} */
 module.exports = {
 	content: [
 		"./src/components/**/*.{ts,tsx,js,jsx}",
@@ -12,31 +14,21 @@ module.exports = {
 		},
 		extend: {
 			fontFamily: {
-				heading: ["Inter", ...defaultTheme.fontFamily.sans],
-				sans: ["Outfit", ...defaultTheme.fontFamily.sans]
+				sans: ['"Inter"', ...defaultTheme.fontFamily.sans],
+				heading: ['"Inter"', ...defaultTheme.fontFamily.sans]
 			}
 		}
 	},
 	variants: {},
-	corePlugins: {
-		container: false
-	},
 	plugins: [
-		function ({ addComponents }) {
-			addComponents({
-				".container": {
-					width: "100%",
-					"@screen md": {
-						width: "700px"
-					},
-					"@screen lg": {
-						width: "900px"
-					},
-					"@screen xl": {
-						width: "1000px"
-					}
-				}
-			});
-		}
+		plugin(({ addVariant }) => {
+			addVariant("hf", ["&:hover", "&:focus"]);
+			addVariant("hv", ["&:hover", "&:focus-visible"]);
+			addVariant("group-hf", [".group:hover &", ".group:focus &"]);
+			addVariant("group-hv", [
+				".group:hover &",
+				".group:focus-visible &"
+			]);
+		})
 	]
 };

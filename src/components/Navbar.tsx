@@ -50,20 +50,23 @@ const pages: PageData[] = [
 
 export default function Navbar() {
 	return (
-		<nav className="mb-14 flex flex-wrap items-center gap-x-8 gap-y-1 font-bold">
-			{pages.map(({ href, title, Icon, color }) => (
-				<ActiveLink
-					href={href}
-					key={href}
-					activeClass="after:inset-x-0"
-					nonActiveClass="after:opacity-0 after:inset-x-1/2 hover:after:opacity-100 hover:after:inset-x-1/4"
-				>
-					<a className="py-2 flex items-center relative after:absolute after:bottom-0 after:h-0.5 after:bg-white after:rounded after:transition-all">
-						{title}
-						<Icon className={`w-5 h-5 ml-2 ${color}`} />
-					</a>
-				</ActiveLink>
-			))}
+		<nav className="wrapper mt-20 md:mt-32 text-gray-400">
+			<ul className="flex flex-wrap gap-x-10 gap-y-2">
+				{pages.map(({ href, title, Icon, color }) => (
+					<li key={href}>
+						<ActiveLink
+							href={href}
+							activeClass="text-white"
+							nonActiveClass="hf:text-gray-300"
+						>
+							<a className="flex items-center gap-2 transition">
+								{title}
+								<Icon className={`w-5 h-5 ${color}`} />
+							</a>
+						</ActiveLink>
+					</li>
+				))}
+			</ul>
 		</nav>
 	);
 }

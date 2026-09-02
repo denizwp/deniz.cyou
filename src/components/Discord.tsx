@@ -14,24 +14,13 @@ const USER_ID = "317004664002576386";
 const statusColors: Record<string, string> = {
 	online: "bg-emerald-500",
 	idle: "bg-amber-400",
-	dnd: "bg-rose-400"
+	dnd: "bg-rose-400",
+	offline: "bg-gray-600"
 };
 
 const getStatusColor = (
 	status: "online" | "idle" | "dnd" | "offline" | undefined
-) => {
-	if (!status) return "bg-gray-400";
-
-	const str = statusColors[status];
-
-	if (!str) return "bg-gray-400";
-
-	return str;
-};
-
-const capitalize = (str: string) => {
-	return str[0].toUpperCase() + str.slice(1);
-};
+) => statusColors[status ?? ""] ?? "bg-gray-600";
 
 export default function Discord() {
 	const { status: lanyard } = useLanyard({
@@ -44,58 +33,63 @@ export default function Discord() {
 		activity => activity.type !== 2 && activity.type !== 4
 	);
 
+	const customStatus = lanyard?.activities.find(
+		activity => activity.type === 4
+	);
+
+	const avatar = lanyard?.discord_user.avatar;
+
 	return (
-		<div className="mb-4 flex gap-2 items-center text-base leading-snug">
-			{lanyard?.discord_user.avatar ? (
-				<div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 relative">
-					<Image
-						src={`https://cdn.discordapp.com/avatars/${USER_ID}/${
-							lanyard?.discord_user.avatar
-						}.${
-							lanyard?.discord_user.avatar.startsWith("a_")
-								? "gif"
-								: "webp"
-						}?size=256`}
-						alt="Discord Avatar"
-						width={256}
-						height={256}
-						priority={true}
-						className="rounded-full"
-					/>
-					<div
-						className={`absolute bottom-0.5 right-0.5 w-3 h-3 md:w-4 md:h-4 rounded-full ring-[3px] md:ring-4 ring-black ${getStatusColor(
-							lanyard?.discord_status
-						)} cursor-pointer group flex justify-center`}
-					>
-						<div className="text-sm absolute z-10 mb-1 px-2 py-1 bg-slate-900 opacity-0 group-hover:opacity-100 transition pointer-events-none bottom-full rounded-lg w-max">
-							{capitalize(lanyard?.discord_status)} on{" "}
-							{lanyard.active_on_discord_mobile
-								? "Mobile"
-								: "Desktop"}
-						</div>
-					</div>
-				</div>
-			) : (
-				<div className="w-16 h-16 md:w-20 md:h-20 bg-gray-800 rounded-full"></div>
-			)}
-			{lanyard ? (
-				<div>
-					<p>
-						{lanyard?.discord_user.display_name}
-						<span className="ml-2 opacity-80">
-							{lanyard?.discord_user.username}
-						</span>
+		<div className="mt-8 flex items-center rounded-2xl bg-gray-900">
+			<div className="relative w-20 h-20 shrink-0">
+				{avatar ? (
+					<>
+						<Image
+							src={`https://cdn.discordapp.com/avatars/${USER_ID}/${avatar}.${
+								avatar.startsWith("a_") ? "gif" : "webp"
+							}?size=256`}
+							alt="Discord Avatar"
+							width={256}
+							height={256}
+							priority={true}
+							className="w-20 h-20 rounded-2xl bg-gray-800 object-cover"
+						/>
+
+						<span
+							className={`z-10 absolute w-4 h-4 bottom-1 right-1 rounded-full ring-4 ring-gray-900 ${getStatusColor(
+								lanyard?.discord_status
+							)}`}
+						/>
+					</>
+				) : (
+					<div className="w-20 h-20 rounded-2xl bg-gray-800" />
+				)}
+			</div>
+
+			<div className="min-w-0 pl-4 py-2 pr-6 text-base leading-snug">
+				<p className="line-clamp-1 break-all text-gray-400">
+					{lanyard ? (
+						<>
+							<span className="font-semibold text-white">
+								{lanyard.discord_user.display_name}
+							</span>
+							<span className="ml-2">
+								{lanyard.discord_user.username}
+							</span>
+						</>
+					) : (
+						"Loading..."
+					)}
+				</p>
+
+				{customStatus?.state && (
+					<p className="line-clamp-1 break-all text-sm text-gray-400">
+						{customStatus.state}
 					</p>
-					<p>
-						{lanyard?.activities[0]?.type === 4
-							? lanyard?.activities[0]?.state
-							: null}
-					</p>
-					<OtherActivities activities={otherActivities} />
-				</div>
-			) : (
-				<div className="w-32 opacity-80">Loading...</div>
-			)}
+				)}
+
+				<OtherActivities activities={otherActivities} />
+			</div>
 		</div>
 	);
 }
@@ -109,10 +103,6 @@ const activityTypes = [
 	"Competing in"
 ];
 
-const getActivityType = (type: number) => {
-	return activityTypes[type];
-};
-
 interface OtherActivitiesProps {
 	activities: Activity[] | undefined;
 }
@@ -121,9 +111,7 @@ function OtherActivities({ activities }: OtherActivitiesProps) {
 	const [now, setNow] = useState(new Date());
 
 	useEffect(() => {
-		const interval = setInterval(() => {
-			setNow(new Date());
-		}, 1000);
+		const interval = setInterval(() => setNow(new Date()), 1000);
 
 		return () => clearInterval(interval);
 	}, []);
@@ -131,18 +119,16 @@ function OtherActivities({ activities }: OtherActivitiesProps) {
 	return (
 		<>
 			{activities?.map(activity => (
-				<p key={activity.id} className="flex-grow">
-					<span className="opacity-80">
-						{getActivityType(activity.type)}
-					</span>{" "}
-					{activity.name}{" "}
-					<span className="opacity-80">
-						for{" "}
-						{formatDistanceStrict(
-							now,
-							activity.timestamps?.start ?? activity.created_at
-						)}
-					</span>
+				<p
+					key={activity.id}
+					className="line-clamp-1 break-all text-sm text-gray-400"
+				>
+					{activityTypes[activity.type]}{" "}
+					<span className="text-gray-200">{activity.name}</span> for{" "}
+					{formatDistanceStrict(
+						now,
+						activity.timestamps?.start ?? activity.created_at
+					)}
 				</p>
 			))}
 		</>

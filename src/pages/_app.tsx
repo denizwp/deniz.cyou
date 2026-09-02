@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					name="viewport"
 					content="initial-scale=1.0, width=device-width"
 				/>
-				<meta name="theme-color" content="#000000" />
+				<meta name="theme-color" content="#030712" />
 				
 				<link rel="preconnect" href="https://fonts.gstatic.com" />
 				<link rel="preconnect" href="https://fonts.googleapis.com" />

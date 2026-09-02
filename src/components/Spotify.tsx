@@ -1,4 +1,4 @@
-import { PauseIcon, PlayIcon } from "@heroicons/react/solid";
+import { MusicNoteIcon, PauseIcon, PlayIcon } from "@heroicons/react/solid";
 import Image from "next/future/image";
 import { useEffect, useState } from "preact/hooks";
 import useSWR from "swr";
@@ -8,16 +8,9 @@ import type {
 	NowPlayingResponseSuccess
 } from "../pages/api/nowPlaying";
 
-const formatDuration = (ms: number) => {
-	const seconds = Math.floor((ms / 1000) % 60)
-		.toString()
-		.padStart(2, "0");
-	const minutes = Math.floor(ms / 1000 / 60);
-
-	return `${minutes}:${seconds}`;
-};
-
 const fetcher = (url: string) => fetch(url).then(res => res.json());
+
+const clamp = (n: number) => Math.max(Math.min(n, 1), 0);
 
 export default function Spotify() {
 	const { data } = useSWR<NowPlayingResponseSuccess, NowPlayingResponseError>(
@@ -29,17 +22,17 @@ export default function Spotify() {
 	const [time, setTime] = useState(0);
 
 	useEffect(() => {
-		if (!data?.progessMs || !data.track) return;
+		if (data?.progessMs === undefined || !data.track) return;
 
 		const started = Date.now();
 
 		const interval = setInterval(() => {
 			setTime(
 				data.isPaused
-					? data.progessMs
+					? data.progessMs!
 					: Math.min(
 							data.progessMs! + Date.now() - started,
-							data?.track?.duration_ms!
+							data.track!.duration_ms
 					  )
 			);
 		}, 100);
@@ -47,9 +40,11 @@ export default function Spotify() {
 		return () => clearInterval(interval);
 	}, [data]);
 
+	const progress = data?.track ? clamp(time / data.track.duration_ms) : 0;
+
 	return (
-		<div className="flex gap-2 items-center text-base leading-snug">
-			<div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
+		<div className="mt-4 flex items-center rounded-2xl bg-gray-900">
+			<div className="w-20 h-20 shrink-0">
 				<Image
 					src={
 						data?.track?.album.images[0]?.url ??
@@ -59,35 +54,34 @@ export default function Spotify() {
 					width={256}
 					height={256}
 					priority={true}
-					className="w-16 h-16 md:w-20 md:h-20 object-cover object-center rounded-lg"
+					className="w-20 h-20 object-cover object-center rounded-2xl bg-gray-800"
 				/>
 			</div>
-			<div className="basis-full">
-				<p>
+
+			<div className="min-w-0 pl-4 py-2 pr-4 text-base leading-snug">
+				<p className="line-clamp-1 break-all text-gray-400">
 					{data?.track ? (
 						<>
 							<a
 								href={data.track.external_urls.spotify}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="font-bold border-b border-[#fff4] transition hover:border-white"
+								className="mr-1 font-semibold text-white border-b border-transparent transition hv:border-current"
 							>
 								{data.track.name}
-							</a>{" "}
-							by{" "}
+							</a>
+
 							{data.track.artists.map((artist, i) => (
-								<span key={data.track?.id + artist.id}>
+								<span key={artist.id}>
+									{i !== 0 && ", "}
 									<a
 										href={artist.external_urls.spotify}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="border-b border-[#fff4] transition hover:border-white"
+										className="border-b border-transparent transition hv:border-current"
 									>
 										{artist.name}
 									</a>
-									{i < data.track?.artists.length! - 1
-										? ", "
-										: null}
 								</span>
 							))}
 						</>
@@ -95,68 +89,38 @@ export default function Spotify() {
 						"Not Listening to Anything"
 					)}
 				</p>
-				<p className="opacity-80">
-					{data?.track ? (
-						<>
-							on{" "}
-							<a
-								href={data.track.album.external_urls.spotify}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="border-b border-[#fff4] transition hover:border-white"
-							>
-								{data.track.album.name}
-							</a>
-						</>
-					) : null}
-				</p>
-				<p className="opacity-80 flex items-center gap-1">
-					{data?.isPlayingNow && data.track ? (
-						<span className="block w-full max-w-sm mt-2">
-							<span className="block h-0.5 rounded overflow-hidden bg-[#5e5e5e]">
-								<span
-									className="block h-full bg-white"
-									style={{
-										width: `${
-											(time! / data.track.duration_ms) *
-											100
-										}%`
-									}}
-								/>
-							</span>
-							<span className="flex items-center text-sm">
-								<span className="basis-full">
-									{formatDuration(time!)}
-								</span>
-								<span>
-									{data?.isPaused ? (
-										<PlayIcon className="text-white h-4 w-4" />
-									) : (
-										<PauseIcon className="text-white h-4 w-4" />
-									)}
-								</span>
-								<span className="basis-full text-right">
-									{formatDuration(data.track.duration_ms)}
-								</span>
-							</span>
-						</span>
-					) : (
-						<>
-							<span className="w-4 h-4">
-								<Image
-									src="/images/spotify.png"
-									alt=""
-									width={48}
-									height={48}
-									className="w-4 h-4"
-								/>
-							</span>
-							{data?.track ? <>Last Played on </> : null}
-							Spotify
-						</>
-					)}
+
+				<p className="flex items-center gap-1 text-sm text-gray-400">
+					<MusicNoteIcon className="w-4 h-4 shrink-0 text-emerald-400" />
+
+					<span className="line-clamp-1 break-all">
+						{data?.isPlayingNow
+							? "Listening Now"
+							: data?.track
+							? "Last Played on Spotify"
+							: "Spotify"}
+					</span>
 				</p>
 			</div>
+
+			{data?.isPlayingNow && (
+				<div
+					className="ml-auto shrink-0 w-12 h-12 mr-4 rounded-full"
+					style={{
+						background: `conic-gradient(#374151 ${
+							progress * 100
+						}%, #1f2937 0)`
+					}}
+				>
+					<div className="w-10 h-10 mt-1 ml-1 rounded-full bg-gray-900 grid place-items-center text-gray-400">
+						{data.isPaused ? (
+							<PlayIcon className="w-4 h-4" />
+						) : (
+							<PauseIcon className="w-4 h-4" />
+						)}
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

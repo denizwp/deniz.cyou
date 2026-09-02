@@ -1,13 +1,17 @@
+import BackgroundEffect from "./BackgroundEffect";
 import Navbar from "./Navbar";
 import Transition from "./Transition";
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
 	return (
-		<div className="md:container md:px-0 mx-auto my-20 md:my-28 px-6 sm:px-8 text-white text-xl">
+		<>
+			<BackgroundEffect />
+
 			<Navbar />
-			<main>
+
+			<div className="mt-16 md:mt-20 mb-20 md:mb-32 text-white">
 				<Transition>{children}</Transition>
-			</main>
-		</div>
+			</div>
+		</>
 	);
 }

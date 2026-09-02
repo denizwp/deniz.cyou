@@ -6,41 +6,44 @@ import { anime } from "../data/anime";
 
 export default function Anime() {
 	return (
-		<>
-			<GenericMeta
-				title="Anime ✨"
-				description="Some anime I've watched."
-			/>
+		<main className="wrapper fade">
+			<GenericMeta title="Anime ✨" description="Some anime I've watched." />
 
-			<h1 className="heading mb-2">
+			<h1 className="header">
 				Anime{" "}
-				<SparklesIcon className="ml-4 h-12 w-12 text-yellow-300" />
+				<SparklesIcon className="ml-4 h-10 w-10 text-yellow-300" />
 			</h1>
 
-			<p className="text-lg mb-4">Some anime I&apos;ve watched.</p>
+			<p className="mt-4 mb-8 text-gray-400">
+				Some anime I&apos;ve watched.
+			</p>
 
 			{anime.map(({ name, description, image, url }, i) => (
-				<a
-					key={name}
-					href={url}
-					target="_blank"
-					rel="noreferrer noopener"
-					className="group relative flex items-center justify-items-start h-40 px-4 sm:px-8 mb-4 overflow-hidden bg-slate-900 rounded-lg before:absolute before:inset-0 before:z-10 before:bg-black before:opacity-0 before:transition before:duration-300 hover:before:opacity-50"
-				>
-					<Image
-						src={image}
-						alt={name}
-						width={1200}
-						height={240}
-						className="absolute top-0 left-0 w-full h-full object-cover rounded-lg transition duration-300 group-hover:scale-[1.02]"
-						priority={i < 3}
-					/>
-					<div className="z-20 w-full transition duration-300 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100">
-						<h2 className="font-bold text-3xl">{name}</h2>
-						<p className="text-lg">{description}</p>
-					</div>
-				</a>
+				<div key={name} className="mt-4">
+					<a
+						href={url}
+						target="_blank"
+						rel="noreferrer noopener"
+						className="group relative flex items-center h-40 px-6 md:px-8 overflow-hidden rounded-xl bg-gray-900 transition duration-300 hf:scale-[1.02]"
+					>
+						<Image
+							src={image}
+							alt={name}
+							width={1200}
+							height={240}
+							priority={i < 3}
+							className="absolute top-0 left-0 w-full h-full object-cover transition duration-300 group-hv:brightness-50"
+						/>
+
+						<div className="z-20 w-full transition duration-300 scale-95 opacity-0 group-hv:scale-100 group-hv:opacity-100">
+							<h2 className="font-bold text-2xl">{name}</h2>
+							<p className="mt-1 text-base text-gray-200">
+								{description}
+							</p>
+						</div>
+					</a>
+				</div>
 			))}
-		</>
+		</main>
 	);
 }
