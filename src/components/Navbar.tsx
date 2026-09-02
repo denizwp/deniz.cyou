@@ -28,8 +28,8 @@ const pages: PageData[] = [
 		color: "text-blue-400"
 	},
 	{
-		href: "/uses",
-		title: "Uses",
+		href: "/tools",
+		title: "Tools",
 		Icon: DesktopComputerIcon,
 		color: "text-rose-400"
 	},

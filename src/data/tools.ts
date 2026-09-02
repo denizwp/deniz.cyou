@@ -1,4 +1,4 @@
-export interface UsesItem {
+export interface ToolItem {
 	name: string;
 	url?: string;
 	/** a skillicons.dev slug */
@@ -9,12 +9,12 @@ export interface UsesItem {
 	src?: string;
 }
 
-export interface UsesGroup {
+export interface ToolGroup {
 	title: string;
-	items: UsesItem[];
+	items: ToolItem[];
 }
 
-export const uses: UsesGroup[] = [
+export const tools: ToolGroup[] = [
 	{
 		title: "Editor",
 		items: [
@@ -91,7 +91,7 @@ export const uses: UsesGroup[] = [
 			{
 				name: "Figma",
 				icon: "figma",
-				url: "https://www.figma.com/@denizwp"
+				url: "https://www.figma.com/"
 			},
 			{
 				name: "Blender",

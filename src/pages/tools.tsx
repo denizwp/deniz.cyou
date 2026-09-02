@@ -2,7 +2,7 @@ import { DesktopComputerIcon } from "@heroicons/react/solid";
 import Image from "next/future/image";
 
 import GenericMeta from "../components/GenericMeta";
-import { uses } from "../data/uses";
+import { tools } from "../data/tools";
 
 const skillIconsEndpoint = "https://skillicons.dev/icons?theme=dark&i=";
 
@@ -12,16 +12,16 @@ const logoDevToken = "pk_Yb0fJ73UST2bOQAxWsv8ag";
 const logoDevEndpoint = (domain: string) =>
 	`https://img.logo.dev/${domain}?token=${logoDevToken}&size=128&format=png`;
 
-export default function Uses() {
+export default function Tools() {
 	return (
 		<main className="wrapper fade">
 			<GenericMeta
-				title="Uses"
+				title="Tools"
 				description="The software and tools I use every day."
 			/>
 
 			<h1 className="header">
-				Uses{" "}
+				Tools{" "}
 				<DesktopComputerIcon className="ml-4 h-10 w-10 text-rose-400" />
 			</h1>
 
@@ -29,7 +29,7 @@ export default function Uses() {
 				the software and tools i use every day.
 			</p>
 
-			{uses.map(({ title, items }) => (
+			{tools.map(({ title, items }) => (
 				<section key={title} className="mt-8">
 					<h2 className="font-bold text-2xl">{title}</h2>
 
