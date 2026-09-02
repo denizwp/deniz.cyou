@@ -8,7 +8,7 @@ export default function Uses() {
 		<main className="wrapper fade">
 			<GenericMeta
 				title="Uses 🛠️"
-				description="The hardware and software I use every day."
+				description="The software and tools I use every day."
 			/>
 
 			<h1 className="header">
@@ -17,7 +17,7 @@ export default function Uses() {
 			</h1>
 
 			<p className="mt-4 mb-8 text-gray-400">
-				The hardware and software I use every day.
+				the software and tools i use every day.
 			</p>
 
 			{uses.map(({ title, items }) => (

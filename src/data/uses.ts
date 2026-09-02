@@ -11,42 +11,38 @@ export interface UsesGroup {
 
 export const uses: UsesGroup[] = [
 	{
-		title: "Hardware",
-		items: [
-			{
-				name: "TODO: masaüstü / laptop",
-				description: "CPU, GPU, RAM — doldur"
-			},
-			{
-				name: "TODO: monitör",
-				description: "Kaç inç, kaç Hz — doldur"
-			},
-			{
-				name: "TODO: klavye & mouse",
-				description: "Model ve switch — doldur"
-			},
-			{
-				name: "TODO: kulaklık",
-				description: "Model — doldur"
-			}
-		]
-	},
-	{
-		title: "Editor & Terminal",
+		title: "Editor",
 		items: [
 			{
 				name: "VS Code",
-				description: "Her şeyi burada yazıyorum.",
+				description: "i write everything here.",
 				url: "https://code.visualstudio.com/"
 			},
 			{
-				name: "TODO: tema",
-				description: "Hangi renk teması ve font — doldur"
+				name: "Slack Theme",
+				description: "dark mode, the one i keep coming back to.",
+				url: "https://marketplace.visualstudio.com/items?itemName=felipe-mendes.slack-theme"
 			},
 			{
-				name: "Windows Terminal",
-				description: "Windows 11 üzerinde günlük kabuğum.",
-				url: "https://learn.microsoft.com/windows/terminal/"
+				name: "Prettier",
+				description: "my default formatter for html and typescript.",
+				url: "https://prettier.io/"
+			},
+			{
+				name: "Tailwind CSS IntelliSense",
+				description: "class autocomplete, hard to work without it.",
+				url: "https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss"
+			},
+			{
+				name: "Intelephense",
+				description: "php language support for the older projects.",
+				url: "https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client"
+			},
+			{
+				name: "vscord",
+				description:
+					"puts what i'm editing on my discord status — the card on the home page.",
+				url: "https://marketplace.visualstudio.com/items?itemName=LeonardSSH.vscord"
 			}
 		]
 	},
@@ -55,57 +51,57 @@ export const uses: UsesGroup[] = [
 		items: [
 			{
 				name: "TypeScript",
-				description: "Yeni başladığım her şeyin varsayılan dili.",
+				description: "the default language for anything i start now.",
 				url: "https://www.typescriptlang.org/"
 			},
 			{
 				name: "React & Next.js",
-				description: "Bu site dahil çoğu projemin iskeleti.",
+				description: "the skeleton of most of my projects, this site included.",
 				url: "https://nextjs.org/"
 			},
 			{
 				name: "Tailwind CSS",
-				description: "12 projemin 10'unda stil için kullandığım şey.",
+				description: "styling in 10 of the 12 projects on this site.",
 				url: "https://tailwindcss.com/"
 			},
 			{
 				name: "Node.js",
-				description: "Backend ve küçük araçlar için.",
+				description: "backends and small tools.",
 				url: "https://nodejs.org/"
 			},
 			{
 				name: "MySQL & MongoDB",
-				description: "Projelerime göre değişen veritabanlarım.",
+				description: "whichever the project asks for.",
 				url: "https://www.mysql.com/"
 			},
 			{
 				name: "PHP",
-				description: "Bazı eski projelerde hâlâ karşıma çıkıyor.",
+				description: "still shows up in a few of the older ones.",
 				url: "https://www.php.net/"
 			}
 		]
 	},
 	{
-		title: "Design & Etc.",
+		title: "Everything Else",
 		items: [
 			{
 				name: "Figma",
-				description: "Arayüzleri koda dökmeden önce burada çiziyorum.",
+				description: "where interfaces get drawn before they get coded.",
 				url: "https://www.figma.com/@denizwp"
 			},
 			{
 				name: "Blender",
-				description: "3B ile uğraştığım zamanlar için.",
+				description: "for when i'm messing with 3d.",
 				url: "https://www.blender.org/"
 			},
 			{
 				name: "Spotify",
-				description: "Kod yazarken sürekli açık — anasayfada canlı.",
+				description: "always open while coding — live on the home page.",
 				url: "https://open.spotify.com/user/szviltwriiiu23qzw5uriwtw7"
 			},
 			{
 				name: "Cloudflare",
-				description: "DNS ve deniz.cyou'nun önündeki her şey.",
+				description: "dns and everything sitting in front of deniz.cyou.",
 				url: "https://www.cloudflare.com/"
 			}
 		]
