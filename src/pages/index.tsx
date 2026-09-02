@@ -7,6 +7,7 @@ import { Clock } from "../components/Clock";
 import Discord from "../components/Discord";
 import GenericMeta from "../components/GenericMeta";
 import Spotify from "../components/Spotify";
+import { Weather } from "../components/Weather";
 import { socials } from "../data/socials";
 
 const birthday = new Date(2008, 12, 8);
@@ -67,6 +68,7 @@ export default function Home({
 			</div>
 
 			<Clock />
+			<Weather />
 
 			<Discord />
 			<Spotify />
