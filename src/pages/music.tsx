@@ -1,22 +1,20 @@
-import { MusicNoteIcon } from "@heroicons/react/solid";
 import Image from "next/future/image";
 import { useEffect, useState } from "preact/hooks";
 
 import GenericMeta from "../components/GenericMeta";
+import Sidebar from "../components/Sidebar";
 import type { TopMusicResponseSuccess } from "./api/topMusic";
 
 type Range = keyof TopMusicResponseSuccess;
 
 const options: { name: string; value: Range }[] = [
-	{ name: "Past Month", value: "short" },
-	{ name: "Past 6 Months", value: "medium" },
-	{ name: "All Time", value: "long" }
+	{ name: "Past month", value: "short" },
+	{ name: "Past 6 months", value: "medium" },
+	{ name: "All time", value: "long" }
 ];
 
 export default function Music() {
-	const [topMusic, setTopMusic] = useState<TopMusicResponseSuccess | null>(
-		null
-	);
+	const [topMusic, setTopMusic] = useState<TopMusicResponseSuccess | null>(null);
 	const [range, setRange] = useState<Range>("short");
 
 	useEffect(() => {
@@ -29,100 +27,55 @@ export default function Music() {
 			.catch(console.error);
 	}, []);
 
-	const tracks = topMusic?.[range].items;
+	// one cover per album, captioned with the most played track from it
+	const seen = new Set<string>();
+	const tracks = topMusic?.[range].items.filter(t => !seen.has(t.album.id) && seen.add(t.album.id)).slice(0, 24);
 
 	return (
-		<main>
-			<GenericMeta
-				title="Music"
-				description="Tracks I've listened to the most on Spotify."
-			/>
+		<>
+			<GenericMeta title="Music – deniz" description="Tracks deniz has listened to the most on Spotify." />
+			<Sidebar links={["Spotify"]}>listens to a lot of turkish pop, k-pop and whatever adéla put out last.</Sidebar>
+			<h1 className="sr-only">Music</h1>
 
-			<div className="wrapper fade">
-				<h1 className="header">
-					Music{" "}
-					<MusicNoteIcon className="ml-4 h-10 w-10 text-violet-400" />
-				</h1>
-
-				<p className="mt-4 text-gray-400">
-					Tracks I&apos;ve listened to the most on Spotify.
-				</p>
-
-				<div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-gray-400">
-					{options.map(({ name, value }) => (
-						<label
-							key={value}
-							className={`transition cursor-pointer hf:text-gray-300 ${
-								range === value ? "!text-white" : ""
-							}`}
-						>
-							<input
-								type="radio"
-								name="time_range"
-								value={value}
-								checked={range === value}
-								onChange={() => setRange(value)}
-								className="sr-only"
-							/>
-							{name}
-						</label>
-					))}
-				</div>
+			<div className="ranges" role="radiogroup" aria-label="Time range">
+				{options.map(({ name, value }) => (
+					<button
+						key={value}
+						role="radio"
+						aria-checked={range === value}
+						onClick={() => setRange(value)}
+					>
+						{name.toUpperCase()}
+					</button>
+				))}
 			</div>
 
-			<div
-				key={range}
-				className="fade fade-fast fade-delay mt-8 mx-auto max-w-screen-xl px-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 grid-flow-dense"
-			>
+			<div className="tiles" key={range}>
 				{tracks
 					? tracks.map((track, i) => (
 							<a
 								key={track.id}
+								className="work-item"
 								href={track.external_urls.spotify}
 								target="_blank"
 								rel="noopener noreferrer"
-								className={`group aspect-square relative rounded-xl overflow-hidden transition ${
-									i % 10 === 0
-										? "sm:col-span-2 sm:row-span-2"
-										: ""
-								}`}
 							>
 								<Image
 									src={track.album.images[0].url}
-									alt={track.name}
-									width={512}
-									height={512}
-									priority={i < 5}
-									className="w-full h-full object-cover rounded-xl bg-ink-800 transition duration-300 group-hv:brightness-50 group-hv:scale-[1.02]"
+									alt=""
+									width={640}
+									height={640}
+									sizes="(max-width: 860px) 50vw, 22vw"
+									priority={i < 8}
 								/>
-
-								<div
-									className={`z-20 absolute inset-4 flex flex-col justify-end transition duration-300 scale-95 opacity-0 group-hv:scale-100 group-hv:opacity-100 ${
-										i % 10 === 0 ? "sm:scale-[0.975]" : ""
-									}`}
-								>
-									<p className="mb-1 font-bold sm:text-xl line-clamp-3 !leading-tight">
-										{track.name}
-									</p>
-
-									{track.artists.map(artist => (
-										<p
-											key={artist.id}
-											className="text-xs sm:text-sm text-gray-200 !leading-tight"
-										>
-											{artist.name}
-										</p>
-									))}
+								<div className="cap">
+									<b>{track.name}</b>
+									{track.artists.map(a => a.name).join(", ")} —— {track.album.name}
 								</div>
 							</a>
 					  ))
-					: [...new Array(20)].map((_, i) => (
-							<div
-								key={i}
-								className="aspect-square rounded-xl bg-ink-900 animate-pulse"
-							/>
-					  ))}
+					: [...new Array(12)].map((_, i) => <div key={i} className="tile-empty" />)}
 			</div>
-		</main>
+		</>
 	);
 }

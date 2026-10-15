@@ -1,10 +1,10 @@
-import { DesktopComputerIcon } from "@heroicons/react/solid";
 import Image from "next/future/image";
 
 import GenericMeta from "../components/GenericMeta";
+import Sidebar from "../components/Sidebar";
 import { tools } from "../data/tools";
 
-const skillIconsEndpoint = "https://skillicons.dev/icons?theme=dark&i=";
+const skillIconsEndpoint = "https://skillicons.dev/icons?theme=light&i=";
 
 // publishable key: it ships to the browser inside the image url by design.
 // restrict it by domain in the logo.dev dashboard rather than hiding it.
@@ -14,74 +14,38 @@ const logoDevEndpoint = (domain: string) =>
 
 export default function Tools() {
 	return (
-		<main className="wrapper fade">
-			<GenericMeta
-				title="Tools"
-				description="The software and tools I use every day."
-			/>
+		<>
+			<GenericMeta title="Tools – deniz" description="The software and tools deniz uses every day." />
+			<Sidebar>works in vs code with the slack theme, designs in figma and models in blender.</Sidebar>
+			<h1 className="sr-only">Tools</h1>
 
-			<h1 className="header">
-				Tools{" "}
-				<DesktopComputerIcon className="ml-4 h-10 w-10 text-rose-400" />
-			</h1>
-
-			<p className="mt-4 mb-8 text-gray-400">
-				the software and tools i use every day.
-			</p>
-
-			{tools.map(({ title, items }) => (
-				<section key={title} className="mt-8">
-					<h2 className="font-bold text-2xl">{title}</h2>
-
-					<ul className="mt-4 flex flex-wrap gap-2">
-						{items.map(({ name, url, icon, domain, src }) => {
-							const logo = icon
-								? `${skillIconsEndpoint}${icon}`
-								: domain
-								? logoDevEndpoint(domain)
-								: src;
-
-							const content = (
-								<>
-									{logo && (
-										<Image
-											src={logo}
-											alt=""
-											width={64}
-											height={64}
-											quality={100}
-											className="w-5 h-5 rounded-[25%]"
-										/>
-									)}
-									{name}
-								</>
-							);
-
-							const className =
-								"flex items-center gap-2 pl-3 pr-4 py-2 rounded-xl bg-ink-900 text-gray-300 transition";
-
-							return (
-								<li key={name}>
-									{url ? (
-										<a
-											href={url}
-											target="_blank"
-											rel="noopener noreferrer"
-											className={`${className} hf:bg-ink-800 hf:text-white`}
-										>
-											{content}
-										</a>
-									) : (
-										<span className={className}>
-											{content}
-										</span>
-									)}
-								</li>
-							);
-						})}
-					</ul>
-				</section>
-			))}
-		</main>
+			<div className="tiles">
+				{tools.flatMap(({ title, items }) =>
+					items.map(({ name, url, icon, domain, src }) => {
+						const logo = icon ? `${skillIconsEndpoint}${icon}` : domain ? logoDevEndpoint(domain) : src;
+						const body = (
+							<>
+								<div className="tool">
+									{logo && <Image src={logo} alt="" width={128} height={128} quality={100} />}
+								</div>
+								<div className="cap">
+									<b>{name}</b>
+									{title}
+								</div>
+							</>
+						);
+						return url ? (
+							<a key={name} className="work-item" href={url} target="_blank" rel="noopener noreferrer">
+								{body}
+							</a>
+						) : (
+							<div key={name} className="work-item">
+								{body}
+							</div>
+						);
+					})
+				)}
+			</div>
+		</>
 	);
 }

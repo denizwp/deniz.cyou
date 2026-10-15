@@ -1,84 +1,103 @@
-import { CollectionIcon } from "@heroicons/react/solid";
 import Image from "next/future/image";
 
 import GenericMeta from "../components/GenericMeta";
-import { projects } from "../data/projects";
+import Sidebar from "../components/Sidebar";
+import { ProjectInfo, projects } from "../data/projects";
 
-const skillIconsEndpoint = "https://skillicons.dev/icons?theme=dark&i=";
+// the narrow and the wide column, as shares of the content width
+const COLUMNS = [0.4, 0.6];
+// a caption's height, in the same units
+const CAPTION = 0.05;
+
+const ratioOf = (r: string) => {
+	const [w, h] = r.split("/").map(Number);
+	return w / h;
+};
+
+/** keeps reading order while filling whichever column is shorter */
+function intoColumns(items: ProjectInfo[]) {
+	const cols: ProjectInfo[][] = COLUMNS.map(() => []);
+	const heights = COLUMNS.map(() => 0);
+	for (const item of items) {
+		const ratio = ratioOf(item.ratio);
+		// on a tie, wide shots go to the wide column
+		let c = heights[0] < heights[1] ? 0 : heights[1] < heights[0] ? 1 : ratio > 1.3 ? 1 : 0;
+		cols[c].push(item);
+		heights[c] += COLUMNS[c] / ratio + CAPTION;
+	}
+	return cols;
+}
+
+const host = (url: string) => {
+	try {
+		return new URL(url).host + new URL(url).pathname.replace(/\/$/, "");
+	} catch {
+		return "";
+	}
+};
+
+function Work({ name, description, image, ratio, position, url, stack }: ProjectInfo) {
+	const caption = (
+		<div className="cap">
+			<b>{name}</b>
+			{description}
+			{stack.length > 0 && <> —— {stack.map(s => s.name).join(", ")}</>}
+			{url && (
+				<>
+					<br />
+					<span className="is-grey">{host(url)}</span>
+				</>
+			)}
+		</div>
+	);
+	const picture = (
+		<Image
+			src={image}
+			alt=""
+			width={1200}
+			height={Math.round(1200 / ratioOf(ratio))}
+			sizes="(max-width: 860px) 100vw, 50vw"
+			style={{ aspectRatio: ratio, objectPosition: position ?? "50% 50%" }}
+			priority
+		/>
+	);
+
+	return url ? (
+		<a className="work-item" href={url} target="_blank" rel="noopener noreferrer">
+			{picture}
+			{caption}
+		</a>
+	) : (
+		<div className="work-item">
+			{picture}
+			{caption}
+		</div>
+	);
+}
 
 export default function Projects() {
+	const [narrow, wide] = intoColumns(projects);
+
 	return (
-		<main className="wrapper fade">
-			<GenericMeta title="Projects" description="Some of my projects." />
-
-			<h1 className="header">
-				Projects{" "}
-				<CollectionIcon className="ml-4 h-10 w-10 text-blue-400" />
-			</h1>
-
-			<p className="mt-4 mb-8 text-gray-400">
-				things i&apos;ve built and maintain &mdash; {projects.length} of
-				them so far.
-			</p>
-
-			{projects.map(({ name, description, image, url, stack }) => (
-				<div key={name} className="mt-4">
-					<a
-						href={url}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="group grid sm:grid-cols-2 rounded-xl overflow-hidden bg-ink-900 hf:scale-[1.02] transition duration-300"
-					>
-						<div className="p-6 md:p-8 max-sm:row-start-2">
-							<h2 className="font-bold text-2xl">{name}</h2>
-
-							{description && (
-								<p className="mt-2 text-base text-gray-400">
-									{description}
-								</p>
-							)}
-
-							<div className="mt-4 flex flex-wrap gap-2">
-								{stack.map(({ name, icon, src }) => (
-									<div
-										key={name}
-										className="w-7 h-7 rounded-[25%] bg-ink-800 relative group/icon"
-										title={name}
-									>
-										<Image
-											src={
-												icon !== undefined
-													? `${skillIconsEndpoint}${icon}`
-													: src
-											}
-											width={120}
-											height={120}
-											alt={name}
-											quality={100}
-											className="w-full h-full rounded-[25%] bg-[#242938]"
-										/>
-
-										<span className="absolute mb-1 px-2 py-1 text-sm text-white bg-ink-800 opacity-0 group-hover/icon:opacity-100 transition pointer-events-none bottom-full left-1/2 -translate-x-1/2 rounded-lg w-max">
-											{name}
-										</span>
-									</div>
-								))}
-							</div>
-						</div>
-
-						<div className="relative overflow-hidden max-sm:h-32">
-							<Image
-								src={image}
-								alt=""
-								width={1200}
-								height={800}
-								priority={true}
-								className="absolute top-0 left-0 w-full h-full object-cover object-center"
-							/>
-						</div>
-					</a>
+		<>
+			<GenericMeta title="Projects – deniz" description="Things deniz has built and still looks after." />
+			<Sidebar>
+				is an 18-year-old developer from turkiye, building web apps for real and made-up companies, mostly
+				in react, node.js and mysql.
+			</Sidebar>
+			<h1 className="sr-only">Projects</h1>
+			<div className="works">
+				<div className="works-col">
+					{narrow.map(p => (
+						<Work key={p.name} {...p} />
+					))}
 				</div>
-			))}
-		</main>
+				<div className="works-col">
+					{wide.map(p => (
+						<Work key={p.name} {...p} />
+					))}
+				</div>
+			</div>
+		</>
 	);
 }
