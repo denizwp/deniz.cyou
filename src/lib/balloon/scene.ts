@@ -42,6 +42,7 @@ export interface BalloonSceneOptions {
 	font: string;
 	onHover: (index: number | null) => void;
 	onPick: (index: number) => void;
+	onDrag: (dragging: boolean) => void;
 	reducedMotion: boolean;
 }
 
@@ -342,6 +343,7 @@ export class BalloonScene {
 	private onDown = (e: PointerEvent) => {
 		if (this.hovered < 0) return;
 		this.dragging = { i: this.hovered, x: e.clientX, y: e.clientY, moved: 0 };
+		this.opts.onDrag(true);
 		this.renderer.domElement.setPointerCapture(e.pointerId);
 	};
 
@@ -372,6 +374,7 @@ export class BalloonScene {
 		const d = this.dragging;
 		if (!d) return;
 		this.dragging = null;
+		this.opts.onDrag(false);
 		if (d.moved < 6) {
 			// a squeeze, then go
 			this.letters[d.i].sv -= 4;

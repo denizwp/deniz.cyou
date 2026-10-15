@@ -22,7 +22,6 @@ export default function Balloons({ home }: { home: boolean }) {
 	const router = useRouter();
 	const hostRef = useRef<HTMLDivElement>(null);
 	const labelRef = useRef<HTMLDivElement>(null);
-	const stickerRef = useRef<HTMLDivElement>(null);
 	const sceneRef = useRef<BalloonScene | null>(null);
 	const routerRef = useRef(router);
 	routerRef.current = router;
@@ -44,8 +43,9 @@ export default function Balloons({ home }: { home: boolean }) {
 					const label = labelRef.current;
 					if (label && i !== null) label.textContent = letters[i].label;
 					label?.classList.toggle("is-shown", i !== null);
-					stickerRef.current?.classList.toggle("is-lifted", i !== null);
+					host.classList.toggle("is-hovering", i !== null);
 				},
+				onDrag: dragging => host.classList.toggle("is-dragging", dragging),
 				onPick: i => {
 					const { href } = letters[i];
 					if (href.startsWith("http")) window.open(href, "_blank", "noopener,noreferrer");
@@ -57,16 +57,11 @@ export default function Balloons({ home }: { home: boolean }) {
 			scene.build().catch(console.error);
 		});
 
-		// the pine from the favicon follows the pointer, and the label rides with it
+		// the label rides along with the pointer
 		const onMove = (e: PointerEvent) => {
-			const sticker = stickerRef.current;
-			if (sticker) {
-				sticker.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-				sticker.classList.add("is-moving");
-			}
 			if (labelRef.current) {
-				labelRef.current.style.left = `${e.clientX + 26}px`;
-				labelRef.current.style.top = `${e.clientY - 58}px`;
+				labelRef.current.style.left = `${e.clientX + 24}px`;
+				labelRef.current.style.top = `${e.clientY - 50}px`;
 			}
 		};
 		window.addEventListener("pointermove", onMove);
@@ -87,9 +82,6 @@ export default function Balloons({ home }: { home: boolean }) {
 		<>
 			<div className="scene" ref={hostRef} aria-hidden="true" />
 			<div className="scene-label" ref={labelRef} aria-hidden="true" />
-			<div className="sticker" ref={stickerRef} aria-hidden="true">
-				<img src="/images/tree.png" alt="" width={32} height={32} />
-			</div>
 		</>
 	);
 }

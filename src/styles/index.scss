@@ -52,46 +52,40 @@
 	}
 }
 
-/* ---------- the pine that stands in for the pointer ---------- */
+/* ---------- cursors: the windows 11 set from the music app ---------- */
 
-.sticker {
-	position: fixed;
-	left: 0;
-	top: 0;
-	z-index: 1000;
-	width: 52px;
-	height: 52px;
-	margin: -26px 0 0 -26px;
-	pointer-events: none;
-	display: none;
-	opacity: 0;
-
-	&.is-moving {
-		opacity: 1;
-	}
-
-	img {
-		width: 100%;
-		height: 100%;
-		image-rendering: pixelated;
-		transition: transform 260ms var(--ease);
-	}
-
-	&.is-lifted img {
-		transform: rotate(-12deg) scale(1.25);
-	}
+:root {
+	--cur-default: url("/cursors/arrow.cur") 2 2, default;
+	--cur-pointer: url("/cursors/hand.cur") 6 1, pointer;
+	--cur-text: url("/cursors/ibeam.cur") 16 16, text;
+	--cur-move: url("/cursors/sizeall.cur") 16 16, move;
+	--cur-not-allowed: url("/cursors/no.cur") 16 16, not-allowed;
 }
 
-@media (pointer: fine) {
-	.sticker {
-		display: block;
-	}
+html {
+	cursor: var(--cur-default);
+}
 
-	html,
-	a,
-	button {
-		cursor: none;
-	}
+a,
+button,
+[role="button"],
+[role="radio"],
+select,
+summary,
+label {
+	cursor: var(--cur-pointer);
+}
+
+input[type="text"],
+input[type="search"],
+textarea,
+[contenteditable="true"] {
+	cursor: var(--cur-text);
+}
+
+:disabled,
+[aria-disabled="true"] {
+	cursor: var(--cur-not-allowed) !important;
 }
 
 /* ---------- balloons ---------- */
@@ -106,6 +100,15 @@
 	z-index: 20;
 	touch-action: none;
 	transition: height 1100ms var(--ease);
+
+	// over a letter you can click it; holding one you can throw it
+	&.is-hovering {
+		cursor: var(--cur-pointer);
+	}
+
+	&.is-dragging {
+		cursor: var(--cur-move);
+	}
 
 	canvas {
 		display: block;
