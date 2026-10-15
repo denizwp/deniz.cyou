@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "preact/hooks";
 
 import { socials } from "../data/socials";
-import Balloons, { letters } from "./Balloons";
+import Balloons from "./Balloons";
 
 const pages = [
 	{ href: "/", title: "Home" },
@@ -51,24 +51,13 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 
 	return (
 		<div className={home ? "site is-home" : "site"}>
-			{home ? (
-				// the letters are the menu at home; this list is for keyboards and screen readers
-				<nav className="letter-nav" aria-label="Pages">
-					{letters.map(({ label, href }) => (
-						<Link key={href} href={href}>
-							<a>{label}</a>
-						</Link>
-					))}
-				</nav>
-			) : (
-				<nav className="pills" aria-label="Pages">
-					{pages.map(({ href, title }) => (
-						<Link key={href} href={href}>
-							<a aria-current={pathname === href ? "page" : undefined}>{title}</a>
-						</Link>
-					))}
-				</nav>
-			)}
+			<nav className="pills" aria-label="Pages">
+				{pages.map(({ href, title }) => (
+					<Link key={href} href={href}>
+						<a aria-current={pathname === href ? "page" : undefined}>{title}</a>
+					</Link>
+				))}
+			</nav>
 
 			<Elsewhere />
 

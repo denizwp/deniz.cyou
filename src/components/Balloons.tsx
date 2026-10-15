@@ -85,5 +85,3 @@ export default function Balloons({ home }: { home: boolean }) {
 		</>
 	);
 }
-
-export { letters };

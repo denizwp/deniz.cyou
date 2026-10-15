@@ -165,11 +165,6 @@ textarea,
 	}
 }
 
-.is-home .elsewhere {
-	right: auto;
-	left: 25px;
-}
-
 .pills {
 	position: fixed;
 	top: 30px;
@@ -198,31 +193,6 @@ textarea,
 		&[aria-current] {
 			background: #000;
 			color: #fff;
-		}
-	}
-}
-
-// at home the letters are the menu; this one only shows up for a keyboard
-.letter-nav {
-	position: fixed;
-	top: 70px;
-	left: 25px;
-	z-index: 40;
-	display: flex;
-	gap: 8px;
-
-	a {
-		position: absolute;
-		left: -9999px;
-		border: 3px solid #000;
-		border-radius: 999px;
-		padding: 4px 10px;
-		background: #fff;
-		font-weight: 800;
-		text-transform: uppercase;
-
-		&:focus {
-			position: static;
 		}
 	}
 }
@@ -495,26 +465,26 @@ textarea,
 		margin-top: 32px;
 	}
 
-	// the sidebar carries these links on the inner pages
-	.elsewhere {
-		display: none;
-	}
-
-	.is-home .elsewhere {
-		display: flex;
-		top: 24px;
-		left: 16px;
-		font-size: 14px;
-	}
-
+	// both rows stay put on every page: the pages on one line, the links under them
 	.pills {
 		left: 12px;
 		right: 12px;
 		top: 16px;
+		flex-wrap: nowrap;
+		gap: 4px;
 
 		a {
-			font-size: 14px;
-			padding: 2px 8px;
+			border-width: 2.5px;
+			padding: 2px 7px;
+			font-size: 13px;
+			line-height: 18px;
 		}
+	}
+
+	.elsewhere {
+		top: 62px;
+		left: 16px;
+		right: auto;
+		font-size: 13px;
 	}
 }
