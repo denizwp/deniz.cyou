@@ -2,10 +2,11 @@ import "../styles/index.scss";
 
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { SWRConfig } from "swr";
 
 import Layout from "../components/Layout";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps<{ fallback?: Record<string, unknown> }>) {
 	return (
 		<>
 			<Head>
@@ -22,9 +23,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 				<link rel="icon" type="image/x-icon" href="/tree.ico" />
 			</Head>
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
+			{/* pages that fetch on the server hand their data to swr here, so nothing pops in */}
+			<SWRConfig value={{ fallback: pageProps.fallback ?? {} }}>
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</SWRConfig>
 		</>
 	);
 }

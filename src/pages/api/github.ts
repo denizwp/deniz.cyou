@@ -79,6 +79,56 @@ function dedupe(events: any[]): any[] {
 	});
 }
 
+/** profile numbers and the latest public activity, cached for ten minutes */
+export async function getGitHub(): Promise<GitHubResponseSuccess> {
+	if (!cached || Date.now() > cachedTime) {
+		const headers = {
+			Accept: "application/vnd.github+json",
+			"User-Agent": USERNAME
+		};
+
+		const [user, events] = await Promise.all([
+			fetch(`https://api.github.com/users/${USERNAME}`, {
+				headers
+			}).then(res => res.json()),
+			fetch(
+				`https://api.github.com/users/${USERNAME}/events/public?per_page=30`,
+				{ headers }
+			).then(res => res.json())
+		]);
+
+		if (user.message) throw new Error(user.message);
+
+		cached = {
+			login: user.login,
+			name: user.name,
+			avatar: user.avatar_url,
+			url: user.html_url,
+			repos: user.public_repos,
+			followers: user.followers,
+			events: dedupe(Array.isArray(events) ? events : [])
+				.map((event: any) => {
+					const text = describe(event);
+					if (!text) return null;
+
+					return {
+						id: event.id,
+						text,
+						repo: event.repo.name,
+						repoUrl: `https://github.com/${event.repo.name}`,
+						date: event.created_at
+					};
+				})
+				.filter(Boolean)
+				.slice(0, EVENT_LIMIT) as GitHubEvent[]
+		};
+
+		cachedTime = Date.now() + 10 * 60 * 1000;
+	}
+
+	return cached;
+}
+
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse<GitHubResponse>
@@ -89,56 +139,13 @@ export default async function handler(
 	}
 
 	try {
-		if (!cached || Date.now() > cachedTime) {
-			const headers = {
-				Accept: "application/vnd.github+json",
-				"User-Agent": USERNAME
-			};
-
-			const [user, events] = await Promise.all([
-				fetch(`https://api.github.com/users/${USERNAME}`, {
-					headers
-				}).then(res => res.json()),
-				fetch(
-					`https://api.github.com/users/${USERNAME}/events/public?per_page=30`,
-					{ headers }
-				).then(res => res.json())
-			]);
-
-			if (user.message) throw new Error(user.message);
-
-			cached = {
-				login: user.login,
-				name: user.name,
-				avatar: user.avatar_url,
-				url: user.html_url,
-				repos: user.public_repos,
-				followers: user.followers,
-				events: dedupe(Array.isArray(events) ? events : [])
-					.map((event: any) => {
-						const text = describe(event);
-						if (!text) return null;
-
-						return {
-							id: event.id,
-							text,
-							repo: event.repo.name,
-							repoUrl: `https://github.com/${event.repo.name}`,
-							date: event.created_at
-						};
-					})
-					.filter(Boolean)
-					.slice(0, EVENT_LIMIT) as GitHubEvent[]
-			};
-
-			cachedTime = Date.now() + 10 * 60 * 1000;
-		}
+		const data = await getGitHub();
 
 		res.setHeader(
 			"Cache-Control",
 			"public, max-age=0, s-maxage=300, stale-while-revalidate=600"
 		);
-		res.status(200).json(cached);
+		res.status(200).json(data);
 	} catch (err) {
 		res.status(500).json({ error: (err as any)?.message });
 	}

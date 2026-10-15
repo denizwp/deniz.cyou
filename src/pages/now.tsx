@@ -1,24 +1,47 @@
-import formatDistanceStrict from "date-fns/formatDistanceStrict";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
+import type { GetServerSideProps } from "next";
 import { useEffect, useState } from "preact/hooks";
-import { useLanyard } from "react-use-lanyard";
 import useSWR from "swr";
 
+import DiscordCard from "../components/DiscordCard";
 import GenericMeta from "../components/GenericMeta";
+import SpotifyCard from "../components/SpotifyCard";
 import { weatherDescriptions } from "../data/weather";
-import type { GitHubResponseSuccess } from "./api/github";
-import type { NowPlayingResponseSuccess } from "./api/nowPlaying";
-import type { WeatherResponseSuccess } from "./api/weather";
+import { DiscordPresence, getDiscord } from "../lib/discord";
+import { fetcher } from "../lib/fetcher";
+import { getGitHub, GitHubResponseSuccess } from "./api/github";
+import { getNowPlaying } from "./api/nowPlaying";
+import { getWeather, WeatherResponseSuccess } from "./api/weather";
 
-const DISCORD_ID = "317004664002576386";
+interface NowProps {
+	/** when the server fetched everything, so clocks start from the same moment */
+	at: number;
+	discord: DiscordPresence | null;
+	/** swr's starting data, keyed by api route */
+	fallback: Record<string, unknown>;
+}
 
-const fetcher = (url: string) =>
-	fetch(url)
-		.then(res => res.json())
-		.then(data => {
-			if (data?.error) throw data.error;
-			return data;
-		});
+// a slow service shouldn't hold the page; its card fills in on the client instead
+const within = <T,>(promise: Promise<T>, ms: number) =>
+	Promise.race([promise, new Promise<null>(resolve => setTimeout(() => resolve(null), ms))]).catch(() => null);
+
+export const getServerSideProps: GetServerSideProps<NowProps> = async ({ res }) => {
+	const [nowPlaying, weather, github, discord] = await Promise.all([
+		within(getNowPlaying(), 1500),
+		within(getWeather(), 1500),
+		within(getGitHub(), 1500),
+		within(getDiscord(), 1500)
+	]);
+
+	res.setHeader("Cache-Control", "private, no-store");
+
+	const fallback: Record<string, unknown> = {};
+	if (nowPlaying) fallback["/api/nowPlaying"] = nowPlaying;
+	if (weather) fallback["/api/weather"] = weather;
+	if (github) fallback["/api/github"] = github;
+
+	return { props: { at: Date.now(), discord, fallback } };
+};
 
 const clock = new Intl.DateTimeFormat("en-GB", {
 	hour: "2-digit",
@@ -27,98 +50,27 @@ const clock = new Intl.DateTimeFormat("en-GB", {
 	timeZone: "Europe/Istanbul"
 });
 
-const minutes = (ms: number) => {
-	const s = Math.floor(ms / 1000);
-	return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
-};
+function Istanbul({ at }: { at: number }) {
+	const { data } = useSWR<WeatherResponseSuccess>("/api/weather", fetcher);
+	const [now, setNow] = useState(at);
 
-const discordStates: Record<string, string> = {
-	online: "online on discord",
-	idle: "idle on discord",
-	dnd: "do not disturb on discord",
-	offline: "offline on discord"
-};
-
-const activityVerbs = ["playing", "streaming", "listening to", "watching", "", "competing in"];
-
-function useNow(intervalMs: number) {
-	const [now, setNow] = useState<number | null>(null);
 	useEffect(() => {
 		setNow(Date.now());
-		const id = setInterval(() => setNow(Date.now()), intervalMs);
+		const id = setInterval(() => setNow(Date.now()), 10_000);
 		return () => clearInterval(id);
-	}, [intervalMs]);
-	return now;
-}
-
-function Listening() {
-	const { data } = useSWR<NowPlayingResponseSuccess>("/api/nowPlaying", fetcher, { refreshInterval: 5000 });
-	const now = useNow(1000);
-	const [fetchedAt, setFetchedAt] = useState(0);
-	useEffect(() => setFetchedAt(Date.now()), [data]);
-
-	const track = data?.track;
-	if (!track) return <p>not listening to anything.</p>;
-
-	const who = track.artists.map(a => a.name).join(" and ");
-	const song = (
-		<a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-			{track.name}
-		</a>
-	);
-	if (!data.isPlayingNow) return <p>last played {song} by {who}.</p>;
-	if (data.isPaused) return <p>paused {song} by {who}.</p>;
-
-	const at = Math.min(track.duration_ms, data.progessMs + (now && fetchedAt ? now - fetchedAt : 0));
-	return (
-		<p>
-			listening to {song} by {who}, {minutes(at)} of {minutes(track.duration_ms)}.
-		</p>
-	);
-}
-
-function Discord() {
-	const { status } = useLanyard({ userId: DISCORD_ID, socket: true });
-	const now = useNow(30_000);
-	if (!status) return null;
-
-	const custom = status.activities.find(a => a.type === 4)?.state;
-	// spotify is already covered above
-	const others = status.activities.filter(a => a.type !== 2 && a.type !== 4);
-
-	return (
-		<p>
-			{discordStates[status.discord_status] ?? "on discord"}
-			{custom ? `, status ${custom}` : ""}.
-			{now &&
-				others.map(a => (
-					<span key={a.id}>
-						{" "}
-						{activityVerbs[a.type]} {a.name} for {formatDistanceStrict(now, a.timestamps?.start ?? a.created_at)}.
-					</span>
-				))}
-		</p>
-	);
-}
-
-function Istanbul() {
-	const { data } = useSWR<WeatherResponseSuccess>("/api/weather", fetcher);
-	const now = useNow(10_000);
-	if (!now) return <p>in istanbul.</p>;
+	}, []);
 
 	return (
 		<p>
 			it&apos;s {clock.format(now)} in istanbul
-			{data
-				? `, ${Math.round(data.temp)}° with ${weatherDescriptions[data.code] ?? "unusual weather"}.`
-				: "."}
+			{data ? `, ${Math.round(data.temp)}° with ${weatherDescriptions[data.code] ?? "unusual weather"}.` : "."}
 		</p>
 	);
 }
 
 function GitHub() {
 	const { data } = useSWR<GitHubResponseSuccess>("/api/github", fetcher);
-	if (!data) return null;
+	if (!data) return <p>on github as denizwp.</p>;
 
 	const last = data.events[0];
 	return (
@@ -139,30 +91,19 @@ function GitHub() {
 	);
 }
 
-function Cover() {
-	const { data } = useSWR<NowPlayingResponseSuccess>("/api/nowPlaying", fetcher, { refreshInterval: 5000 });
-	const image = data?.track?.album.images[0]?.url;
-	if (!image) return null;
-
-	return (
-		<a className="now-cover" href={data.track!.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-			{/* eslint-disable-next-line @next/next/no-img-element */}
-			<img src={image} alt={`${data.track!.album.name} cover`} width={300} height={300} />
-		</a>
-	);
-}
-
-export default function Now() {
+export default function Now({ at, discord }: NowProps) {
 	return (
 		<>
 			<GenericMeta title="Now – deniz" description="What deniz is up to right now." />
 			<div className="now">
 				<div>
 					<h1 className="now-title">right now</h1>
+					<div className="now-cards">
+						<SpotifyCard at={at} />
+						<DiscordCard initial={discord} at={at} />
+					</div>
 					<div className="now-lead">
-						<Listening />
-						<Discord />
-						<Istanbul />
+						<Istanbul at={at} />
 					</div>
 				</div>
 				<div className="now-side">
@@ -171,7 +112,6 @@ export default function Now() {
 					<a className="now-button" href="https://github.com/denizwp" target="_blank" rel="noopener noreferrer">
 						GITHUB
 					</a>
-					<Cover />
 				</div>
 			</div>
 		</>

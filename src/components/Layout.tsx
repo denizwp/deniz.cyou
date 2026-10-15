@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "preact/hooks";
+import useSWR from "swr";
 
 import { socials } from "../data/socials";
+import { fetcher } from "../lib/fetcher";
+import type { NowPlayingResponseSuccess } from "../pages/api/nowPlaying";
 import Balloons from "./Balloons";
 
 const pages = [
@@ -31,6 +34,25 @@ function IstanbulTime() {
 	}, []);
 
 	return <>{now ?? "--:--"}</>;
+}
+
+/** one plain line about the music, where a copyright notice usually goes */
+function Playing() {
+	const { data } = useSWR<NowPlayingResponseSuccess>("/api/nowPlaying", fetcher, { refreshInterval: 15_000 });
+	const track = data?.track;
+	if (!data) return <p>&nbsp;</p>;
+	if (!track) return <p>not listening to anything right now.</p>;
+
+	const verb = !data.isPlayingNow ? "last played" : data.isPaused ? "paused" : "listening to";
+	return (
+		<p>
+			{verb}{" "}
+			<a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+				{track.name}
+			</a>{" "}
+			by {track.artists.map(a => a.name).join(", ")}
+		</p>
+	);
 }
 
 function Elsewhere() {
@@ -69,15 +91,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 				<p>
 					<b>deniz, Istanbul, Türkiye</b> (41.0082° N, 28.9784° E, <IstanbulTime />)
 				</p>
-				<p className="foot-caps">
-					Copyright © {new Date().getFullYear()} deniz. All rights reserved.{" "}
-					<a href="https://github.com/denizwp" target="_blank" rel="noopener noreferrer">
-						GitHub
-					</a>{" "}
-					<a href="https://www.figma.com/@denizwp" target="_blank" rel="noopener noreferrer">
-						Figma
-					</a>
-				</p>
+				<Playing />
 			</footer>
 		</div>
 	);
