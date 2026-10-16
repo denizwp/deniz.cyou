@@ -128,7 +128,7 @@ export default function Projects() {
 
 	return (
 		<>
-			<GenericMeta title="Projects – deniz" description="Things deniz has built and still looks after." />
+			<GenericMeta title="Projects – deniz" />
 			<Sidebar>
 				is an 18-year-old developer from turkiye, building web apps for real and made-up companies, mostly
 				in react, node.js and mysql.

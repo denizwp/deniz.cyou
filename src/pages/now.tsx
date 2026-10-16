@@ -96,7 +96,7 @@ function GitHub() {
 export default function Now({ at, discord }: NowProps) {
 	return (
 		<>
-			<GenericMeta title="Now – deniz" description="What deniz is up to right now." />
+			<GenericMeta title="Now – deniz" />
 			<Sidebar>is an 18-year-old developer from turkiye. everything on this page is live, straight from spotify, discord and github.</Sidebar>
 			<div className="live">
 				<h1 className="now-title">right now</h1>

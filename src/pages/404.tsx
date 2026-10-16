@@ -5,7 +5,7 @@ import GenericMeta from "../components/GenericMeta";
 export default function Custom404() {
 	return (
 		<>
-			<GenericMeta title="404 – deniz" description="This page doesn't exist." />
+			<GenericMeta title="404 – deniz" />
 			<div className="now">
 				<div>
 					<h1 className="now-title">404</h1>

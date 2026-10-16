@@ -4,7 +4,7 @@ import GenericMeta from "../components/GenericMeta";
 export default function Home() {
 	return (
 		<>
-			<GenericMeta title="deniz" description="deniz is an 18-year-old developer from turkiye." />
+			<GenericMeta title="deniz" />
 			<h1 className="sr-only">deniz, an 18-year-old developer from turkiye</h1>
 		</>
 	);

@@ -1,17 +1,11 @@
 import Head from "next/head";
 
-interface GenericMetaProps {
-	title: string;
-	description: string;
-}
-
-export default function GenericMeta({ title, description }: GenericMetaProps) {
+/** a title and nothing else, so link embeds show just the name */
+export default function GenericMeta({ title }: { title: string }) {
 	return (
 		<Head>
 			<title>{title}</title>
 			<meta property="og:title" content={title} />
-			<meta name="description" content={description} />
-			<meta property="og:description" content={description} />
 		</Head>
 	);
 }

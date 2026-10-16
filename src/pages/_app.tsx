@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps<{ fallback?: Record<string, un
 					name="viewport"
 					content="initial-scale=1.0, width=device-width"
 				/>
-				<meta name="theme-color" content="#ffffff" />
+				<meta name="theme-color" content="#0e5a36" />
 				
 				<link rel="preconnect" href="https://fonts.gstatic.com" />
 				<link rel="preconnect" href="https://fonts.googleapis.com" />

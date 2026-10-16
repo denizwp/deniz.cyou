@@ -36,7 +36,7 @@ export default function Music() {
 
 	return (
 		<>
-			<GenericMeta title="Music – deniz" description="Tracks deniz has listened to the most on Spotify." />
+			<GenericMeta title="Music – deniz" />
 			<Sidebar>listens to a lot of turkish pop, k-pop and whatever adéla put out last.</Sidebar>
 			<h1 className="sr-only">Music</h1>
 

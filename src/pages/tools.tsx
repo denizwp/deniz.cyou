@@ -15,7 +15,7 @@ const logoDevEndpoint = (domain: string) =>
 export default function Tools() {
 	return (
 		<>
-			<GenericMeta title="Tools – deniz" description="The software and tools deniz uses every day." />
+			<GenericMeta title="Tools – deniz" />
 			<Sidebar>works in vs code with the slack theme, designs in figma and models in blender.</Sidebar>
 			<h1 className="sr-only">Tools</h1>
 
