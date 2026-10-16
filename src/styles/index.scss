@@ -52,6 +52,58 @@
 	}
 }
 
+/* ---------- smooth scroll (lenis) ---------- */
+
+html.lenis,
+html.lenis body {
+	height: auto;
+}
+
+.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+	overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+	overflow: hidden;
+}
+
+/* ---------- page transitions ---------- */
+
+.route.is-leaving {
+	animation: route-out 180ms ease-in both;
+}
+
+.route.is-entering {
+	animation: route-in 420ms ease-out both;
+}
+
+// the sidebar is fixed, so it only fades; everything else also rises a little
+.route.is-entering > :not(.side) {
+	animation: route-rise 640ms var(--ease) both;
+}
+
+@keyframes route-out {
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes route-in {
+	from {
+		opacity: 0;
+	}
+}
+
+@keyframes route-rise {
+	from {
+		transform: translateY(18px);
+	}
+}
+
 /* ---------- cursors: the windows 11 set from the music app ---------- */
 
 :root {
@@ -323,6 +375,15 @@ textarea,
 
 .work-pic {
 	display: block;
+}
+
+.work-pattern {
+	width: 100%;
+	overflow: hidden;
+
+	svg {
+		display: block;
+	}
 }
 
 .cap {

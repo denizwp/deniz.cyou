@@ -2,7 +2,7 @@ import Image from "next/future/image";
 
 import GenericMeta from "../components/GenericMeta";
 import Sidebar from "../components/Sidebar";
-import { ProjectInfo, projects } from "../data/projects";
+import { Pattern, ProjectInfo, projects } from "../data/projects";
 
 // the narrow and the wide column, as shares of the content width
 const COLUMNS = [0.4, 0.6];
@@ -40,14 +40,37 @@ const host = (url: string) => {
  * Tells the browser how wide the picture really gets drawn. A crop zooms in,
  * so a cropped shot needs more pixels than the box it sits in, or it blurs.
  */
-function sizesFor({ width, height, ratio }: ProjectInfo, share: number) {
+function sizesFor(width: number, height: number, ratio: string, share: number) {
 	const zoom = Math.max(1, width / height / ratioOf(ratio));
 	const z = zoom.toFixed(2);
 	return `(max-width: 860px) calc((100vw - 20px) * ${z}), calc((100vw - 268px) * ${share * zoom})`;
 }
 
+// the cookie's spacing: marks sit on a staggered grid, every other row shifted half a column
+const COL = 176;
+const ROW = 68;
+
+/** the logo repeated across the card, drawn as svg so it's sharp at any size and never cropped */
+function Cover({ id, pattern, ratio }: { id: string; pattern: Pattern; ratio: string }) {
+	const { mark, ground, width: w, height: h } = pattern;
+	const pid = `wm-${id}`;
+	return (
+		<div className="work-pattern" style={{ aspectRatio: ratio, background: ground }}>
+			<svg width="100%" height="100%" aria-hidden="true">
+				<defs>
+					<pattern id={pid} width={COL} height={ROW * 2} patternUnits="userSpaceOnUse" x="50%" y="50%">
+						<image href={mark} x={COL / 4 - w / 2} y={ROW / 2 - h / 2} width={w} height={h} />
+						<image href={mark} x={(COL * 3) / 4 - w / 2} y={(ROW * 3) / 2 - h / 2} width={w} height={h} />
+					</pattern>
+				</defs>
+				<rect width="100%" height="100%" fill={`url(#${pid})`} />
+			</svg>
+		</div>
+	);
+}
+
 function Work({ share, ...project }: ProjectInfo & { share: number }) {
-	const { name, description, image, width, height, ratio, position, url, stack } = project;
+	const { name, description, image, width, height, ratio, position, pattern, url, stack } = project;
 	const caption = (
 		<div className="cap">
 			<b>{name}</b>
@@ -61,13 +84,15 @@ function Work({ share, ...project }: ProjectInfo & { share: number }) {
 			)}
 		</div>
 	);
-	const picture = (
+	const picture = pattern ? (
+		<Cover id={name.toLowerCase().replace(/[^a-z0-9]+/g, "-")} pattern={pattern} ratio={ratio} />
+	) : (
 		<Image
-			src={image}
+			src={image!}
 			alt=""
-			width={width}
-			height={height}
-			sizes={sizesFor(project, share)}
+			width={width!}
+			height={height!}
+			sizes={sizesFor(width!, height!, ratio, share)}
 			quality={90}
 			style={{ aspectRatio: ratio, objectPosition: position ?? "50% 50%" }}
 			priority

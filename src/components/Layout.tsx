@@ -6,7 +6,9 @@ import useSWR from "swr";
 import { socials } from "../data/socials";
 import { fetcher } from "../lib/fetcher";
 import type { NowPlayingResponseSuccess } from "../pages/api/nowPlaying";
+import { startSmoothScroll } from "../lib/smoothScroll";
 import Balloons from "./Balloons";
+import PageTransition from "./PageTransition";
 
 const pages = [
 	{ href: "/", title: "Home" },
@@ -71,6 +73,10 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 	const { pathname } = useRouter();
 	const home = pathname === "/";
 
+	useEffect(() => {
+		startSmoothScroll();
+	}, []);
+
 	return (
 		<div className={home ? "site is-home" : "site"}>
 			<nav className="pills" aria-label="Pages">
@@ -83,7 +89,9 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 
 			<Elsewhere />
 
-			<main className="page">{children}</main>
+			<main className="page">
+				<PageTransition route={pathname}>{children}</PageTransition>
+			</main>
 
 			<Balloons home={home} />
 

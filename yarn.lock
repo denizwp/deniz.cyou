@@ -1819,6 +1819,11 @@ language-tags@^1.0.5:
   dependencies:
     language-subtag-registry "^0.3.20"
 
+lenis@^1.3.23:
+  version "1.3.23"
+  resolved "https://registry.npmjs.org/lenis/-/lenis-1.3.23.tgz"
+  integrity sha512-YxYq3TJqj9sJNv0V9SkyQHejt14xwyIwgDaaMK89Uf9SxQfIszu+gTQSSphh6BWlLTNVKvvXAGkg+Zf+oFIevg==
+
 levn@^0.4.1:
   version "0.4.1"
   resolved "https://registry.npmjs.org/levn/-/levn-0.4.1.tgz"
@@ -2312,7 +2317,7 @@ react-use-lanyard@^0.3.0:
     swr "^2.0.4"
     tslib "^2.5.0"
 
-"react@^16.11.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18.0.0-0", "react@>= 16", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", react@>=16, "react@npm:@preact/compat":
+"react@^16.11.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18.0.0-0", "react@>= 16", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", react@>=16, react@>=17.0.0, "react@npm:@preact/compat":
   version "17.1.2"
   resolved "https://registry.npmjs.org/@preact/compat/-/compat-17.1.2.tgz"
   integrity sha512-7pOZN9lMDDRQ+6aWvjwTp483KR8/zOpfS83wmOo3zfuLKdngS8/5RLbsFWzFZMGdYlotAhX980hJ75bjOHTwWg==

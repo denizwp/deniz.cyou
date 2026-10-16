@@ -13,7 +13,7 @@ export const work: Stint[] = [
 	{ name: "Retro Store", role: "Developer", url: "https://retrostore.dev", start: "2026-09" },
 	{ name: "GTA World", role: "Web Developer", url: "https://gta.world/", start: "2026-07" },
 	{ name: "VORP", role: "Developer", url: "https://vorp.gg/", start: "2025-03", end: "2025-09" },
-	{ name: "cloud developers", role: "Project Manager & Developer", start: "2024-07", end: "2025-01" }
+	{ name: "teamCloud", role: "Project Manager & Developer", start: "2023-07", end: "2024-09" },
 ];
 
 export const school: Stint[] = [{ name: "Bahçeşehir University", role: "English Language Teaching", start: "2026" }];

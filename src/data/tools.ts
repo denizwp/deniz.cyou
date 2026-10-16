@@ -162,11 +162,6 @@ export const tools: ToolGroup[] = [
 				name: "Blender",
 				icon: "blender",
 				url: "https://www.blender.org/"
-			},
-			{
-				name: "FiveM",
-				domain: "fivem.net",
-				url: "https://fivem.net/"
 			}
 		]
 	}
