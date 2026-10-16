@@ -333,8 +333,9 @@ export class BalloonScene {
 		// ease the margins between the two modes instead of snapping them
 		const target = this.mode === "home" ? 1 : 0;
 		this.homeness += (target - this.homeness) * Math.min(1, dt * 5);
-		const mh = 1.25 - 0.07 * this.homeness;
-		const mw = 1.15 - 0.06 * this.homeness;
+		// more room around the word at home than in the strip
+		const mh = 1.25 + 0.25 * this.homeness;
+		const mw = 1.15 + 0.2 * this.homeness;
 
 		const cam = this.camera;
 		cam.aspect = w / h;
