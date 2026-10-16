@@ -49,17 +49,21 @@ export default function DiscordCard({ initial, at }: { initial: DiscordPresence 
 	const activity = presence.activities.find(a => a.type !== 2 && a.type !== 4);
 	const name = user.global_name ?? user.display_name ?? user.username;
 
+	const profile = `https://discord.com/users/${DISCORD_ID}`;
+
 	return (
-		<a className="card card-discord" href={`https://discord.com/users/${DISCORD_ID}`} target="_blank" rel="noopener noreferrer">
-			<div className="card-avatar">
+		<div className="card card-discord">
+			<a className="card-avatar" href={profile} target="_blank" rel="noopener noreferrer" aria-label={`${name} on Discord`}>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				{avatar && <img src={avatar} alt="" width={128} height={128} />}
 				<span className={`card-dot is-${presence.discord_status}`} />
-			</div>
+			</a>
 			<div className="card-body">
 				<p className="card-caption">{states[presence.discord_status] ?? "Discord"}</p>
 				<p className="card-title">
-					{name}
+					<a href={profile} target="_blank" rel="noopener noreferrer">
+						{name}
+					</a>
 					{name !== user.username && <span className="card-handle"> {user.username}</span>}
 				</p>
 				<p className="card-sub">{custom?.state ?? " "}</p>
@@ -71,6 +75,6 @@ export default function DiscordCard({ initial, at }: { initial: DiscordPresence 
 						: " "}
 				</p>
 			</div>
-		</a>
+		</div>
 	);
 }

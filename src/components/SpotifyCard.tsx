@@ -44,14 +44,31 @@ export default function SpotifyCard({ at }: { at: number }) {
 	const played = Math.min(track.duration_ms, anchor.ms + (running ? now - anchor.at : 0));
 	const share = live ? played / track.duration_ms : 0;
 
+	const link = { target: "_blank", rel: "noopener noreferrer" };
+
 	return (
-		<a className="card card-song" href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-			{/* eslint-disable-next-line @next/next/no-img-element */}
-			<img className="card-art" src={track.album.images[1]?.url ?? track.album.images[0]?.url} alt="" width={300} height={300} />
+		<div className="card card-song">
+			<a className="card-art-link" href={track.album.external_urls.spotify} {...link} aria-label={`${track.album.name} on Spotify`}>
+				{/* eslint-disable-next-line @next/next/no-img-element */}
+				<img className="card-art" src={track.album.images[1]?.url ?? track.album.images[0]?.url} alt="" width={300} height={300} />
+			</a>
 			<div className="card-body">
 				<p className="card-caption">{running ? "Listening now" : live ? "Paused" : "Last played"}</p>
-				<p className="card-title">{track.name}</p>
-				<p className="card-sub">{track.artists.map(a => a.name).join(", ")}</p>
+				<p className="card-title">
+					<a href={track.external_urls.spotify} {...link}>
+						{track.name}
+					</a>
+				</p>
+				<p className="card-sub">
+					{track.artists.map((artist, i) => (
+						<span key={artist.id}>
+							{i > 0 && ", "}
+							<a href={artist.external_urls.spotify} {...link}>
+								{artist.name}
+							</a>
+						</span>
+					))}
+				</p>
 				<div className="card-bar" aria-hidden={!live}>
 					<span style={{ transform: `scaleX(${share})` }} />
 				</div>
@@ -60,6 +77,6 @@ export default function SpotifyCard({ at }: { at: number }) {
 					<span>{minutes(track.duration_ms)}</span>
 				</p>
 			</div>
-		</a>
+		</div>
 	);
 }

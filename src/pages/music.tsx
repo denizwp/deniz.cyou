@@ -13,6 +13,8 @@ const options: { name: string; value: Range }[] = [
 	{ name: "All time", value: "long" }
 ];
 
+const link = { target: "_blank", rel: "noopener noreferrer" };
+
 export default function Music() {
 	const [topMusic, setTopMusic] = useState<TopMusicResponseSuccess | null>(null);
 	const [range, setRange] = useState<Range>("short");
@@ -53,26 +55,38 @@ export default function Music() {
 			<div className="tiles" key={range}>
 				{tracks
 					? tracks.map((track, i) => (
-							<a
-								key={track.id}
-								className="work-item"
-								href={track.external_urls.spotify}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								<Image
-									src={track.album.images[0].url}
-									alt=""
-									width={640}
-									height={640}
-									sizes="(max-width: 860px) 50vw, 22vw"
-									priority={i < 8}
-								/>
+							// the cover and the title open the song; each name opens its own page
+							<div key={track.id} className="work-item">
+								<a className="work-pic" href={track.external_urls.spotify} {...link} aria-label={track.name}>
+									<Image
+										src={track.album.images[0].url}
+										alt=""
+										width={640}
+										height={640}
+										sizes="(max-width: 860px) 50vw, 22vw"
+										priority={i < 8}
+									/>
+								</a>
 								<div className="cap">
-									<b>{track.name}</b>
-									{track.artists.map(a => a.name).join(", ")} —— {track.album.name}
+									<b>
+										<a href={track.external_urls.spotify} {...link}>
+											{track.name}
+										</a>
+									</b>
+									{track.artists.map((artist, k) => (
+										<span key={artist.id}>
+											{k > 0 && ", "}
+											<a href={artist.external_urls.spotify} {...link}>
+												{artist.name}
+											</a>
+										</span>
+									))}{" "}
+									——{" "}
+									<a href={track.album.external_urls.spotify} {...link}>
+										{track.album.name}
+									</a>
 								</div>
-							</a>
+							</div>
 					  ))
 					: [...new Array(12)].map((_, i) => <div key={i} className="tile-empty" />)}
 			</div>

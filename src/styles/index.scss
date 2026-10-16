@@ -299,9 +299,17 @@ textarea,
 		background: #f3f3f3;
 	}
 
-	&:hover .cap b {
+	@at-root a#{&}:hover .cap b {
 		text-decoration: underline;
 	}
+}
+
+.cap a:hover {
+	text-decoration: underline;
+}
+
+.work-pic {
+	display: block;
 }
 
 .cap {
@@ -409,16 +417,6 @@ textarea,
 	padding-right: 12px;
 	font-weight: 800;
 	letter-spacing: -0.032em;
-
-	a {
-		text-decoration: underline;
-		text-decoration-thickness: 3px;
-		text-underline-offset: 4px;
-	}
-
-	.card {
-		text-decoration: none;
-	}
 }
 
 .live-text {
@@ -428,6 +426,12 @@ textarea,
 	gap: 12px 40px;
 	font-size: clamp(1.375rem, 0.9rem + 1vw, 2rem);
 	line-height: 1.3;
+
+	a {
+		text-decoration: underline;
+		text-decoration-thickness: 3px;
+		text-underline-offset: 4px;
+	}
 }
 
 .card {
@@ -439,7 +443,7 @@ textarea,
 	font-weight: 400;
 	letter-spacing: -0.02em;
 
-	&:hover .card-title {
+	a:hover {
 		text-decoration: underline;
 		text-decoration-thickness: 2px;
 		text-underline-offset: 3px;
@@ -451,7 +455,13 @@ textarea,
 	}
 }
 
+.card-art-link {
+	flex: none;
+	display: block;
+}
+
 .card-art {
+	display: block;
 	flex: none;
 	width: 102px;
 	height: 102px;
@@ -462,6 +472,7 @@ textarea,
 
 .card-avatar {
 	position: relative;
+	display: block;
 	flex: none;
 	width: 102px;
 	height: 102px;
