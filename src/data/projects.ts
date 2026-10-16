@@ -32,7 +32,8 @@ export const projects: ProjectInfo[] = [
     image: "/images/projects/movie.png",
     width: 1914,
     height: 375,
-    ratio: "1914 / 375",
+    ratio: "16 / 9",
+    position: "0% 0%",
     url: "https://tools.deniz.cyou/",
     stack: [
       {
@@ -86,7 +87,8 @@ export const projects: ProjectInfo[] = [
     image: "/images/projects/matchup.png",
     width: 1919,
     height: 908,
-    ratio: "1919 / 908",
+    ratio: "4 / 5",
+    position: "59% 50%",
     url: "https://matchup-tr.gta.world/",
     stack: [
       {
@@ -194,7 +196,7 @@ export const projects: ProjectInfo[] = [
     image: "/images/projects/ulsahub.png",
     width: 1919,
     height: 635,
-    ratio: "1919 / 635",
+    ratio: "16 / 9",
     url: "https://ulsahub-tr.gta.world/",
     stack: [
       {
@@ -221,7 +223,7 @@ export const projects: ProjectInfo[] = [
     image: "/images/projects/cookie.png",
     width: 1920,
     height: 1080,
-    ratio: "4 / 3",
+    ratio: "1 / 1",
     url: "https://buymeacookie.xyz/",
     stack: [
       {

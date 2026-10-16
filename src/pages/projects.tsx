@@ -69,8 +69,7 @@ function Work({ share, ...project }: ProjectInfo & { share: number }) {
 			height={height}
 			sizes={sizesFor(project, share)}
 			quality={90}
-			// never stretch a small source past its own size
-			style={{ aspectRatio: ratio, objectPosition: position ?? "50% 50%", maxWidth: width }}
+			style={{ aspectRatio: ratio, objectPosition: position ?? "50% 50%" }}
 			priority
 		/>
 	);
