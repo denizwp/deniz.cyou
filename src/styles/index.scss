@@ -204,20 +204,6 @@ textarea,
 
 /* ---------- chrome ---------- */
 
-// on the inner pages the content scrolls under the fixed menu and blurs there
-.site:not(.is-home)::before {
-	content: "";
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	z-index: 25;
-	height: 84px;
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
-	pointer-events: none;
-}
-
 .elsewhere {
 	position: fixed;
 	top: 30px;
@@ -802,10 +788,6 @@ textarea,
 	.stint-when {
 		padding-top: 0;
 		text-align: left;
-	}
-
-	.site:not(.is-home)::before {
-		height: 92px;
 	}
 
 	// both rows stay put on every page: the pages on one line, the links under them
