@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import useSWR from "swr";
 
 import { fetcher } from "../lib/fetcher";
@@ -19,7 +19,11 @@ export default function SpotifyCard({ at }: { at: number }) {
 	const [anchor, setAnchor] = useState({ ms: data?.progessMs ?? 0, at });
 	const [now, setNow] = useState(at);
 
-	useEffect(() => setAnchor({ ms: data?.progessMs ?? 0, at: Date.now() }), [data]);
+	// the snapshot the page came with was taken at `at`; anything newer was taken just now
+	const first = useRef(data);
+	useEffect(() => {
+		if (data !== first.current) setAnchor({ ms: data?.progessMs ?? 0, at: Date.now() });
+	}, [data]);
 	useEffect(() => {
 		setNow(Date.now());
 		const id = setInterval(() => setNow(Date.now()), 1000);
@@ -69,13 +73,18 @@ export default function SpotifyCard({ at }: { at: number }) {
 						</span>
 					))}
 				</p>
-				<div className="card-bar" aria-hidden={!live}>
-					<span style={{ transform: `scaleX(${share})` }} />
-				</div>
-				<p className="card-times">
-					<span>{live ? minutes(played) : " "}</span>
-					<span>{minutes(track.duration_ms)}</span>
-				</p>
+				{/* a bar only means something while the song is playing or paused */}
+				{live && (
+					<>
+						<div className="card-bar" aria-hidden="true">
+							<span style={{ transform: `scaleX(${share})` }} />
+						</div>
+						<p className="card-times">
+							<span>{minutes(played)}</span>
+							<span>{minutes(track.duration_ms)}</span>
+						</p>
+					</>
+				)}
 			</div>
 		</div>
 	);

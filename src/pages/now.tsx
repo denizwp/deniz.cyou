@@ -1,5 +1,5 @@
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
-import type { GetServerSideProps } from "next";
+import type { GetStaticProps } from "next";
 import { useEffect, useState } from "preact/hooks";
 import useSWR from "swr";
 
@@ -23,26 +23,26 @@ interface NowProps {
 	fallback: Record<string, unknown>;
 }
 
-// a slow service shouldn't hold the page; its card fills in on the client instead
+// a slow service shouldn't hold the build; its card fills in on the client instead
 const within = <T,>(promise: Promise<T>, ms: number) =>
 	Promise.race([promise, new Promise<null>(resolve => setTimeout(() => resolve(null), ms))]).catch(() => null);
 
-export const getServerSideProps: GetServerSideProps<NowProps> = async ({ res }) => {
+// built ahead and refreshed at most every 30s, so the page opens at once with a recent
+// snapshot; swr and the discord socket bring it up to the second right after
+export const getStaticProps: GetStaticProps<NowProps> = async () => {
 	const [nowPlaying, weather, github, discord] = await Promise.all([
-		within(getNowPlaying(), 1500),
-		within(getWeather(), 1500),
-		within(getGitHub(), 1500),
-		within(getDiscord(), 1500)
+		within(getNowPlaying(), 4000),
+		within(getWeather(), 4000),
+		within(getGitHub(), 4000),
+		within(getDiscord(), 4000)
 	]);
-
-	res.setHeader("Cache-Control", "private, no-store");
 
 	const fallback: Record<string, unknown> = {};
 	if (nowPlaying) fallback["/api/nowPlaying"] = nowPlaying;
 	if (weather) fallback["/api/weather"] = weather;
 	if (github) fallback["/api/github"] = github;
 
-	return { props: { at: Date.now(), discord, fallback } };
+	return { props: { at: Date.now(), discord, fallback }, revalidate: 30 };
 };
 
 const clock = new Intl.DateTimeFormat("en-GB", {

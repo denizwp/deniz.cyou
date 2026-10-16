@@ -11,6 +11,12 @@
 	--surface: #1a1c1b;
 	--track: #2b2e2c;
 	--accent: #43b37a;
+	// the music app's white cursor set, for dark grounds
+	--cur-default: url("/cursors/light/arrow.cur") 2 2, default;
+	--cur-pointer: url("/cursors/light/hand.cur") 6 1, pointer;
+	--cur-text: url("/cursors/light/ibeam.cur") 16 16, text;
+	--cur-move: url("/cursors/light/sizeall.cur") 16 16, move;
+	--cur-not-allowed: url("/cursors/light/no.cur") 16 16, not-allowed;
 	color-scheme: dark;
 }
 
