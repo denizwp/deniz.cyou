@@ -55,7 +55,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "deniz's tools",
 		description: "a multi-purpose toolbox — a proxy, a story creator, a mesh viewer and more",
-		pattern: { mark: "/images/projects/marks/tree.png", ground: "#f3f3f3", width: 45, height: 54 },
+		pattern: { mark: "/images/projects/marks/tree.png", ground: "var(--surface)", width: 45, height: 54 },
 		ratio: "16 / 9",
 		url: "https://tools.deniz.cyou/",
 		stack: [{ name: "React", icon: "react" }, { name: "Node.js", icon: "nodejs" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "MongoDB", icon: "mongodb" }]
@@ -63,7 +63,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "azuki",
 		description: "a fictional technology company",
-		pattern: { mark: "/images/projects/marks/azuki.svg", ground: "#f3f3f3", width: 48, height: 48 },
+		pattern: { mark: "/images/projects/marks/azuki.svg", ground: "var(--surface)", width: 48, height: 48 },
 		ratio: "1910 / 716",
 		url: "https://azuki.deniz.cyou/",
 		stack: [{ name: "React", icon: "react" }, { name: "Node.js", icon: "nodejs" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "MySQL", icon: "mysql" }]
@@ -71,7 +71,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "matchup",
 		description: "a dating app",
-		pattern: { mark: "/images/projects/marks/matchup.svg", ground: "#f3f3f3", width: 46, height: 46 },
+		pattern: { mark: "/images/projects/marks/matchup.svg", ground: "var(--surface)", width: 46, height: 46 },
 		ratio: "4 / 5",
 		url: "https://matchup-tr.gta.world/",
 		stack: [{ name: "React", icon: "react" }, { name: "Node.js", icon: "nodejs" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "MySQL", icon: "mysql" }]
@@ -87,7 +87,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "ls chat",
 		description: "a discord-like chat app",
-		pattern: { mark: "/images/projects/marks/lschat.svg", ground: "#f3f3f3", width: 46, height: 46 },
+		pattern: { mark: "/images/projects/marks/lschat.svg", ground: "var(--surface)", width: 46, height: 46 },
 		ratio: "1917 / 906",
 		url: "https://chat-tr.gta.world/",
 		stack: [{ name: "React", icon: "react" }, { name: "Node.js", icon: "nodejs" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "MySQL", icon: "mysql" }]
@@ -95,7 +95,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "Maze Bank Championship",
 		description: "fc26 leagues and teams for the gta world community",
-		pattern: { mark: "/images/projects/marks/mazebank.png", ground: "#f3f3f3", width: 44, height: 45 },
+		pattern: { mark: "/images/projects/marks/mazebank.png", ground: "var(--surface)", width: 44, height: 45 },
 		ratio: "16 / 9",
 		url: "https://mazebankchampionship.pro/",
 		stack: [{ name: "Next.js", icon: "nextjs" }, { name: "Prisma", icon: "prisma" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "MariaDB", src: "https://img.logo.dev/mariadb.org?token=pk_Yb0fJ73UST2bOQAxWsv8ag&size=128&format=png" }]
@@ -103,7 +103,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "sanmail",
 		description: "a webmail service",
-		pattern: { mark: "/images/projects/marks/sanmail.png", ground: "#f3f3f3", width: 46, height: 46 },
+		pattern: { mark: "/images/projects/marks/sanmail.png", ground: "var(--surface)", width: 46, height: 46 },
 		ratio: "1917 / 906",
 		url: "https://mail-tr.gta.world/",
 		stack: [{ name: "React", icon: "react" }, { name: "Node.js", icon: "nodejs" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "MySQL", icon: "mysql" }]
@@ -111,7 +111,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "handshake",
 		description: "a linkedin-like professional network",
-		pattern: { mark: "/images/projects/marks/handshake.svg", ground: "#f3f3f3", width: 46, height: 46 },
+		pattern: { mark: "/images/projects/marks/handshake.svg", ground: "var(--surface)", width: 46, height: 46 },
 		ratio: "1919 / 905",
 		url: "https://handshake.deniz.cyou/",
 		stack: [{ name: "React", icon: "react" }, { name: "Node.js", icon: "nodejs" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "MySQL", icon: "mysql" }]
@@ -127,7 +127,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "ulsahub",
 		description: "a campus hub for ulsa, a fictional university",
-		pattern: { mark: "/images/projects/marks/ulsa.png", ground: "#f3f3f3", width: 48, height: 48 },
+		pattern: { mark: "/images/projects/marks/ulsa.png", ground: "var(--surface)", width: 48, height: 48 },
 		ratio: "16 / 9",
 		url: "https://ulsahub-tr.gta.world/",
 		stack: [{ name: "React", icon: "react" }, { name: "Node.js", icon: "nodejs" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "MySQL", icon: "mysql" }]
@@ -135,7 +135,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "buy me a cookie",
 		description: "a marketplace for buying and selling things",
-		pattern: { mark: "/images/projects/marks/cookie.png", ground: "#f3f3f3", width: 54, height: 54 },
+		pattern: { mark: "/images/projects/marks/cookie.png", ground: "var(--surface)", width: 54, height: 54 },
 		ratio: "1 / 1",
 		url: "https://buymeacookie.xyz/",
 		stack: [{ name: "React", icon: "react" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "PHP", icon: "php" }, { name: "MySQL", icon: "mysql" }]
@@ -143,7 +143,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "soundloop v2",
 		description: "a music streaming service, in the style of apple music",
-		pattern: { mark: "/images/projects/marks/soundloop.png", ground: "#f3f3f3", width: 72, height: 36 },
+		pattern: { mark: "/images/projects/marks/soundloop.png", ground: "var(--surface)", width: 72, height: 36 },
 		ratio: "16 / 9",
 		url: "https://soundloop.app/",
 		stack: [{ name: "React", icon: "react" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "PHP", icon: "php" }, { name: "MySQL", icon: "mysql" }]
@@ -159,7 +159,7 @@ export const projects: ProjectInfo[] = [
 	{
 		name: "vetric",
 		description: "a sports betting website",
-		pattern: { mark: "/images/projects/marks/vetric.png", ground: "#f3f3f3", width: 44, height: 45 },
+		pattern: { mark: "/images/projects/marks/vetric.png", ground: "var(--surface)", width: 44, height: 45 },
 		ratio: "16 / 9",
 		url: "https://vetric.online/",
 		stack: [{ name: "React", icon: "react" }, { name: "Tailwind CSS", icon: "tailwind" }, { name: "PHP", icon: "php" }, { name: "MySQL", icon: "mysql" }]

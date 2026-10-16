@@ -9,6 +9,7 @@ import type { NowPlayingResponseSuccess } from "../pages/api/nowPlaying";
 import { startSmoothScroll } from "../lib/smoothScroll";
 import Balloons from "./Balloons";
 import PageTransition from "./PageTransition";
+import ThemeSwitch from "./ThemeSwitch";
 
 const pages = [
 	{ href: "/", title: "Home" },
@@ -100,6 +101,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 					<b>deniz, Istanbul, Türkiye</b> (41.0082° N, 28.9784° E, <IstanbulTime />)
 				</p>
 				<Playing />
+				<ThemeSwitch />
 			</footer>
 		</div>
 	);
