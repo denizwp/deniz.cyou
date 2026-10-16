@@ -3,6 +3,7 @@ import type { GetServerSideProps } from "next";
 import { useEffect, useState } from "preact/hooks";
 import useSWR from "swr";
 
+import Career from "../components/Career";
 import DiscordCard from "../components/DiscordCard";
 import GenericMeta from "../components/GenericMeta";
 import Sidebar from "../components/Sidebar";
@@ -107,6 +108,7 @@ export default function Now({ at, discord }: NowProps) {
 					<Istanbul at={at} />
 					<GitHub />
 				</div>
+				<Career at={at} />
 			</div>
 		</>
 	);
