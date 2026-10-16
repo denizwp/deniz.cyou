@@ -37,15 +37,15 @@ export default async function handler(
 			}
 
 			const short = await api.getMyTopTracks({
-				limit: 24,
+				limit: 50,
 				time_range: "short_term"
 			});
 			const medium = await api.getMyTopTracks({
-				limit: 24,
+				limit: 50,
 				time_range: "medium_term"
 			});
 			const long = await api.getMyTopTracks({
-				limit: 24,
+				limit: 50,
 				time_range: "long_term"
 			});
 

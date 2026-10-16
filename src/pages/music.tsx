@@ -29,9 +29,10 @@ export default function Music() {
 			.catch(console.error);
 	}, []);
 
-	// one cover per album, captioned with the most played track from it
+	// one cover per album, captioned with the most played track from it; whole rows only, so the grid ends flush
 	const seen = new Set<string>();
-	const tracks = topMusic?.[range].items.filter(t => !seen.has(t.album.id) && seen.add(t.album.id)).slice(0, 24);
+	const albums = topMusic?.[range].items.filter(t => !seen.has(t.album.id) && seen.add(t.album.id));
+	const tracks = albums?.slice(0, Math.min(24, albums.length - (albums.length % 4)));
 
 	return (
 		<>
