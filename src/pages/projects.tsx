@@ -54,11 +54,22 @@ const ROW = 68;
 function Cover({ id, pattern, ratio }: { id: string; pattern: Pattern; ratio: string }) {
 	const { mark, ground, width: w, height: h } = pattern;
 	const pid = `wm-${id}`;
+	// each card starts the grid somewhere else, so neighbours don't line up the same way
+	let seed = 0;
+	for (const c of id) seed = (seed * 31 + c.charCodeAt(0)) >>> 0;
+	const dx = seed % COL;
+	const dy = (seed >>> 8) % (ROW * 2);
 	return (
 		<div className="work-pattern" style={{ aspectRatio: ratio, background: ground }}>
 			<svg width="100%" height="100%" aria-hidden="true">
 				<defs>
-					<pattern id={pid} width={COL} height={ROW * 2} patternUnits="userSpaceOnUse" x="50%" y="50%">
+					<pattern
+						id={pid}
+						width={COL}
+						height={ROW * 2}
+						patternUnits="userSpaceOnUse"
+						patternTransform={`translate(${dx} ${dy})`}
+					>
 						<image href={mark} x={COL / 4 - w / 2} y={ROW / 2 - h / 2} width={w} height={h} />
 						<image href={mark} x={(COL * 3) / 4 - w / 2} y={(ROW * 3) / 2 - h / 2} width={w} height={h} />
 					</pattern>

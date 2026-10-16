@@ -175,6 +175,8 @@ export class BalloonScene {
 	private hovered = -1;
 	private dragging: { i: number; x: number; y: number; moved: number } | null = null;
 	private mode: SceneMode = "home";
+	/** 1 at home, 0 in the strip, eased between */
+	private homeness = 1;
 	private word = { w: 1, h: 1, cy: 0 };
 	private size = { w: 0, h: 0 };
 	private frame = 0;
@@ -291,6 +293,7 @@ export class BalloonScene {
 	}
 
 	setMode(mode: SceneMode) {
+		if (this.mode !== mode && !this.ready) this.homeness = mode === "home" ? 1 : 0;
 		this.mode = mode;
 		if (mode !== "home") this.setHover(-1);
 	}
@@ -319,7 +322,7 @@ export class BalloonScene {
 		this.opts.onHover(i >= 0 ? i : null);
 	}
 
-	private fit() {
+	private fit(dt: number) {
 		const w = this.host.clientWidth;
 		const h = this.host.clientHeight;
 		if (!w || !h) return;
@@ -327,14 +330,19 @@ export class BalloonScene {
 			this.size = { w, h };
 			this.renderer.setSize(w, h, false);
 		}
+		// ease the margins between the two modes instead of snapping them
+		const target = this.mode === "home" ? 1 : 0;
+		this.homeness += (target - this.homeness) * Math.min(1, dt * 5);
+		const mh = 1.25 - 0.07 * this.homeness;
+		const mw = 1.15 - 0.06 * this.homeness;
+
 		const cam = this.camera;
 		cam.aspect = w / h;
-		const home = this.mode === "home";
-		// at home the word fills the width; in the strip it fills the height
+		// always contain the whole word, so it shrinks in place while the box animates
 		const tan = Math.tan(MathUtils.degToRad(cam.fov / 2));
-		const byH = (this.word.h * (home ? 1.18 : 1.25)) / 2 / tan;
-		const byW = (this.word.w * (home ? 1.09 : 1.15)) / 2 / tan / cam.aspect;
-		const dist = home ? Math.max(byH, byW) : byH;
+		const byH = (this.word.h * mh) / 2 / tan;
+		const byW = (this.word.w * mw) / 2 / tan / cam.aspect;
+		const dist = Math.max(byH, byW);
 		cam.position.set(0, this.word.cy, dist + 0.2);
 		cam.lookAt(0, this.word.cy, 0);
 		cam.updateProjectionMatrix();
@@ -453,7 +461,7 @@ export class BalloonScene {
 		const dt = Math.min(0.033, (now - this.last) / 1000);
 		this.last = now;
 		if (!this.ready) return;
-		this.fit();
+		this.fit(dt);
 		this.pick();
 		this.step(dt, now / 1000);
 		this.renderer.render(this.scene, this.camera);
