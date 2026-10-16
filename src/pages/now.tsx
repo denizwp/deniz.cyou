@@ -5,6 +5,7 @@ import useSWR from "swr";
 
 import DiscordCard from "../components/DiscordCard";
 import GenericMeta from "../components/GenericMeta";
+import Sidebar from "../components/Sidebar";
 import SpotifyCard from "../components/SpotifyCard";
 import { weatherDescriptions } from "../data/weather";
 import { DiscordPresence, getDiscord } from "../lib/discord";
@@ -95,23 +96,16 @@ export default function Now({ at, discord }: NowProps) {
 	return (
 		<>
 			<GenericMeta title="Now – deniz" description="What deniz is up to right now." />
-			<div className="now">
-				<div>
-					<h1 className="now-title">right now</h1>
-					<div className="now-cards">
-						<SpotifyCard at={at} />
-						<DiscordCard initial={discord} at={at} />
-					</div>
-					<div className="now-lead">
-						<Istanbul at={at} />
-					</div>
+			<Sidebar>is an 18-year-old developer from turkiye. everything on this page is live, straight from spotify, discord and github.</Sidebar>
+			<div className="live">
+				<h1 className="now-title">right now</h1>
+				<div className="now-cards">
+					<SpotifyCard at={at} />
+					<DiscordCard initial={discord} at={at} />
 				</div>
-				<div className="now-side">
+				<div className="live-text">
+					<Istanbul at={at} />
 					<GitHub />
-					<p>hi... this is deniz, an 18-year-old developer from turkiye.</p>
-					<a className="now-button" href="https://github.com/denizwp" target="_blank" rel="noopener noreferrer">
-						GITHUB
-					</a>
 				</div>
 			</div>
 		</>
