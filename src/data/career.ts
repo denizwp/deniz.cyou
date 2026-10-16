@@ -10,10 +10,10 @@ export interface Stint {
 }
 
 export const work: Stint[] = [
-	{ name: "Retro Store", start: "2026-09" },
-	{ name: "GTA World", start: "2026-07" },
-	{ name: "Vorp", start: "2025-03", end: "2025-09" },
-	{ name: "Cloud Developers", start: "2024-07", end: "2025-01" }
+	{ name: "Retro Store", role: "Developer", url: "https://retrostore.dev", start: "2026-09" },
+	{ name: "GTA World", role: "Web Developer", url: "https://gta.world/", start: "2026-07" },
+	{ name: "VORP", role: "Developer", url: "https://vorp.gg/", start: "2025-03", end: "2025-09" },
+	{ name: "cloud developers", role: "Project Manager & Developer", start: "2024-07", end: "2025-01" }
 ];
 
 export const school: Stint[] = [{ name: "Bahçeşehir University", role: "English Language Teaching", start: "2026" }];
