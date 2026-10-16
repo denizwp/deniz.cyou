@@ -451,8 +451,8 @@ textarea,
 .now-title {
 	margin-left: -0.04em;
 	font-weight: 900;
-	font-size: clamp(5rem, 1rem + 10vw, 11rem);
-	line-height: 0.82;
+	font-size: clamp(3.25rem, 1rem + 5.5vw, 7rem);
+	line-height: 0.85;
 	letter-spacing: -0.055em;
 }
 
@@ -462,16 +462,20 @@ textarea,
 	line-height: 1.33;
 }
 
-/* ---------- work & school: a plain list, dates on the right ---------- */
+/* ---------- work & school: work on the left, school on the right ---------- */
 
 .career {
 	margin-top: 96px;
-	max-width: 760px;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0 72px;
+	align-items: start;
 	font-weight: 400;
 	letter-spacing: -0.02em;
 }
 
 .career-title {
+	grid-column: 1 / -1;
 	font-weight: 900;
 	font-size: clamp(2.5rem, 1rem + 4vw, 5rem);
 	line-height: 0.85;
@@ -485,10 +489,6 @@ textarea,
 		display: grid;
 		gap: 20px;
 	}
-}
-
-.career-group + .career-group {
-	margin-top: 44px;
 }
 
 .career-label {
@@ -779,6 +779,11 @@ textarea,
 
 	.career {
 		margin-top: 64px;
+		grid-template-columns: 1fr;
+	}
+
+	.career-group + .career-group {
+		margin-top: 44px;
 	}
 
 	.stint {
