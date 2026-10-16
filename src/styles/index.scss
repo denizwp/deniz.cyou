@@ -204,19 +204,6 @@ textarea,
 
 /* ---------- chrome ---------- */
 
-// on the inner pages the content scrolls under the fixed menu, so the menu sits on paper
-.site:not(.is-home)::before {
-	content: "";
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	z-index: 25;
-	height: 84px;
-	background: #fff;
-	pointer-events: none;
-}
-
 .elsewhere {
 	position: fixed;
 	top: 30px;
@@ -801,10 +788,6 @@ textarea,
 	.stint-when {
 		padding-top: 0;
 		text-align: left;
-	}
-
-	.site:not(.is-home)::before {
-		height: 92px;
 	}
 
 	// both rows stay put on every page: the pages on one line, the links under them
