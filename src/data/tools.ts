@@ -39,6 +39,21 @@ export const tools: ToolGroup[] = [
 				url: "https://www.typescriptlang.org/"
 			},
 			{
+				name: "Lua",
+				icon: "lua",
+				url: "https://www.lua.org/"
+			},
+			{
+				name: "Python",
+				icon: "py",
+				url: "https://www.python.org/"
+			},
+			{
+				name: "PHP",
+				icon: "php",
+				url: "https://www.php.net/"
+			},
+			{
 				name: "React",
 				icon: "react",
 				url: "https://react.dev/"
@@ -49,9 +64,24 @@ export const tools: ToolGroup[] = [
 				url: "https://nextjs.org/"
 			},
 			{
+				name: "Vite",
+				icon: "vite",
+				url: "https://vite.dev/"
+			},
+			{
 				name: "Tailwind CSS",
 				icon: "tailwind",
 				url: "https://tailwindcss.com/"
+			},
+			{
+				name: "three.js",
+				icon: "threejs",
+				url: "https://threejs.org/"
+			},
+			{
+				name: "Electron",
+				icon: "electron",
+				url: "https://www.electronjs.org/"
 			},
 			{
 				name: "Node.js",
@@ -59,9 +89,29 @@ export const tools: ToolGroup[] = [
 				url: "https://nodejs.org/"
 			},
 			{
+				name: "Express",
+				icon: "express",
+				url: "https://expressjs.com/"
+			},
+			{
+				name: "Fastify",
+				domain: "fastify.dev",
+				url: "https://fastify.dev/"
+			},
+			{
+				name: "Prisma",
+				icon: "prisma",
+				url: "https://www.prisma.io/"
+			},
+			{
 				name: "MySQL",
 				icon: "mysql",
 				url: "https://www.mysql.com/"
+			},
+			{
+				name: "PostgreSQL",
+				icon: "postgres",
+				url: "https://www.postgresql.org/"
 			},
 			{
 				name: "MongoDB",
@@ -69,9 +119,34 @@ export const tools: ToolGroup[] = [
 				url: "https://www.mongodb.com/"
 			},
 			{
-				name: "PHP",
-				icon: "php",
-				url: "https://www.php.net/"
+				name: "Redis",
+				icon: "redis",
+				url: "https://redis.io/"
+			}
+		]
+	},
+	{
+		title: "Hosting",
+		items: [
+			{
+				name: "Docker",
+				icon: "docker",
+				url: "https://www.docker.com/"
+			},
+			{
+				name: "nginx",
+				icon: "nginx",
+				url: "https://nginx.org/"
+			},
+			{
+				name: "GitHub Actions",
+				icon: "githubactions",
+				url: "https://github.com/features/actions"
+			},
+			{
+				name: "Cloudflare",
+				icon: "cloudflare",
+				url: "https://www.cloudflare.com/"
 			}
 		]
 	},
@@ -87,6 +162,11 @@ export const tools: ToolGroup[] = [
 				name: "Blender",
 				icon: "blender",
 				url: "https://www.blender.org/"
+			},
+			{
+				name: "FiveM",
+				domain: "fivem.net",
+				url: "https://fivem.net/"
 			}
 		]
 	}
