@@ -14,6 +14,9 @@ export interface ProjectInfo {
 	name: string;
 	description: React.ReactNode;
 	image: string;
+	/** the screenshot's own size in pixels */
+	width: number;
+	height: number;
 	/** crop used in the index, as a css aspect-ratio */
 	ratio: string;
 	/** which part of the screenshot the crop keeps */
@@ -27,8 +30,9 @@ export const projects: ProjectInfo[] = [
     name: "deniz's tools",
     description: "a multi-purpose toolbox — a proxy, a story creator, a mesh viewer and more",
     image: "/images/projects/movie.png",
-    ratio: "16 / 9",
-    position: "0% 0%",
+    width: 1914,
+    height: 375,
+    ratio: "1914 / 375",
     url: "https://tools.deniz.cyou/",
     stack: [
       {
@@ -53,6 +57,8 @@ export const projects: ProjectInfo[] = [
     name: "azuki",
     description: "a fictional technology company",
     image: "/images/projects/azuki.png",
+    width: 1910,
+    height: 716,
     ratio: "1910 / 716",
     url: "https://azuki.deniz.cyou/",
     stack: [
@@ -78,8 +84,9 @@ export const projects: ProjectInfo[] = [
     name: "matchup",
     description: "a dating app",
     image: "/images/projects/matchup.png",
-    ratio: "4 / 5",
-    position: "59% 50%",
+    width: 1919,
+    height: 908,
+    ratio: "1919 / 908",
     url: "https://matchup-tr.gta.world/",
     stack: [
       {
@@ -104,6 +111,8 @@ export const projects: ProjectInfo[] = [
     name: "ls chat",
     description: "a discord-like chat app",
     image: "/images/projects/chat.png",
+    width: 1917,
+    height: 906,
     ratio: "1917 / 906",
     url: "https://chat-tr.gta.world/",
     stack: [
@@ -129,6 +138,8 @@ export const projects: ProjectInfo[] = [
     name: "sanmail",
     description: "a webmail service",
     image: "/images/projects/mail.png",
+    width: 1917,
+    height: 906,
     ratio: "1917 / 906",
     url: "https://mail-tr.gta.world/",
     stack: [
@@ -154,6 +165,8 @@ export const projects: ProjectInfo[] = [
     name: "handshake",
     description: "a linkedin-like professional network",
     image: "/images/projects/handshake.png",
+    width: 1919,
+    height: 905,
     ratio: "1919 / 905",
     url: "https://handshake.deniz.cyou/",
     stack: [
@@ -179,7 +192,9 @@ export const projects: ProjectInfo[] = [
     name: "ulsahub",
     description: "a campus hub for ulsa, a fictional university",
     image: "/images/projects/ulsahub.png",
-    ratio: "16 / 9",
+    width: 1919,
+    height: 635,
+    ratio: "1919 / 635",
     url: "https://ulsahub-tr.gta.world/",
     stack: [
       {
@@ -204,7 +219,9 @@ export const projects: ProjectInfo[] = [
     name: "buy me a cookie",
     description: "a marketplace for buying and selling things",
     image: "/images/projects/cookie.png",
-    ratio: "1 / 1",
+    width: 1920,
+    height: 1080,
+    ratio: "4 / 3",
     url: "https://buymeacookie.xyz/",
     stack: [
       {
@@ -229,6 +246,8 @@ export const projects: ProjectInfo[] = [
     name: "soundloop v2",
     description: "a music streaming service, in the style of apple music",
     image: "/images/projects/music.png",
+    width: 1920,
+    height: 1080,
     ratio: "16 / 9",
     url: "https://soundloop.app/",
     stack: [
@@ -254,6 +273,8 @@ export const projects: ProjectInfo[] = [
     name: "vetric",
     description: "a sports betting website",
     image: "/images/projects/vetric.png",
+    width: 1920,
+    height: 1080,
     ratio: "16 / 9",
     url: "https://vetric.online/",
     stack: [
@@ -279,6 +300,8 @@ export const projects: ProjectInfo[] = [
     name: "agac project",
     description: "a community of developers",
     image: "/images/projects/agacproject.gif",
+    width: 540,
+    height: 289,
     ratio: "540 / 289",
     url: "https://github.com/agacproject",
     stack: [
@@ -292,6 +315,8 @@ export const projects: ProjectInfo[] = [
     name: "povs.live",
     description: "multiple streamer povs, side by side",
     image: "/images/projects/povs.png",
+    width: 1920,
+    height: 1080,
     ratio: "4 / 3",
     position: "0% 0%",
     url: "",

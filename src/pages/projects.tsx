@@ -36,7 +36,18 @@ const host = (url: string) => {
 	}
 };
 
-function Work({ name, description, image, ratio, position, url, stack }: ProjectInfo) {
+/**
+ * Tells the browser how wide the picture really gets drawn. A crop zooms in,
+ * so a cropped shot needs more pixels than the box it sits in, or it blurs.
+ */
+function sizesFor({ width, height, ratio }: ProjectInfo, share: number) {
+	const zoom = Math.max(1, width / height / ratioOf(ratio));
+	const z = zoom.toFixed(2);
+	return `(max-width: 860px) calc((100vw - 20px) * ${z}), calc((100vw - 268px) * ${share * zoom})`;
+}
+
+function Work({ share, ...project }: ProjectInfo & { share: number }) {
+	const { name, description, image, width, height, ratio, position, url, stack } = project;
 	const caption = (
 		<div className="cap">
 			<b>{name}</b>
@@ -54,10 +65,12 @@ function Work({ name, description, image, ratio, position, url, stack }: Project
 		<Image
 			src={image}
 			alt=""
-			width={1200}
-			height={Math.round(1200 / ratioOf(ratio))}
-			sizes="(max-width: 860px) 100vw, 50vw"
-			style={{ aspectRatio: ratio, objectPosition: position ?? "50% 50%" }}
+			width={width}
+			height={height}
+			sizes={sizesFor(project, share)}
+			quality={90}
+			// never stretch a small source past its own size
+			style={{ aspectRatio: ratio, objectPosition: position ?? "50% 50%", maxWidth: width }}
 			priority
 		/>
 	);
@@ -89,12 +102,12 @@ export default function Projects() {
 			<div className="works">
 				<div className="works-col">
 					{narrow.map(p => (
-						<Work key={p.name} {...p} />
+						<Work key={p.name} share={COLUMNS[0]} {...p} />
 					))}
 				</div>
 				<div className="works-col">
 					{wide.map(p => (
-						<Work key={p.name} {...p} />
+						<Work key={p.name} share={COLUMNS[1]} {...p} />
 					))}
 				</div>
 			</div>
