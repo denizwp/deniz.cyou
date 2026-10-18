@@ -46,6 +46,7 @@ export default function Balloons({ home }: { home: boolean }) {
 					host.classList.toggle("is-hovering", i !== null);
 				},
 				onDrag: dragging => host.classList.toggle("is-dragging", dragging),
+				onLetter: i => window.dispatchEvent(new CustomEvent("balloons:letter", { detail: i })),
 				onPick: i => {
 					const { href } = letters[i];
 					if (href.startsWith("http")) window.open(href, "_blank", "noopener,noreferrer");
@@ -54,8 +55,15 @@ export default function Balloons({ home }: { home: boolean }) {
 			});
 			scene.setMode(routerRef.current.pathname === "/" ? "home" : "strip");
 			sceneRef.current = scene;
-			scene.build().catch(console.error);
+			scene
+				.build()
+				.catch(console.error)
+				.finally(() => window.dispatchEvent(new Event("balloons:ready")));
 		});
+
+		// the loading curtain says when it's going up; the word inflates as it does
+		const onLift = () => sceneRef.current?.reveal();
+		window.addEventListener("loader:lift", onLift);
 
 		// the label rides along with the pointer
 		const onMove = (e: PointerEvent) => {
@@ -69,6 +77,7 @@ export default function Balloons({ home }: { home: boolean }) {
 		return () => {
 			cancelled = true;
 			window.removeEventListener("pointermove", onMove);
+			window.removeEventListener("loader:lift", onLift);
 			scene?.dispose();
 			sceneRef.current = null;
 		};

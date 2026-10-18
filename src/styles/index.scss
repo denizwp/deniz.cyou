@@ -234,6 +234,87 @@ textarea,
 	}
 }
 
+/* ---------- first load: one small balloon breathing until the real ones are built ---------- */
+
+.loader {
+	position: fixed;
+	inset: 0;
+	z-index: 5000;
+	display: grid;
+	place-items: center;
+	background: var(--paper);
+	transition: opacity 500ms ease;
+
+	&.is-leaving {
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
+// a balloon on a string: it floats while the letters are built, then lets go
+.loader-fly {
+	transition: transform 1300ms cubic-bezier(0.5, 0, 0.8, 0.35);
+
+	.is-flying &,
+	.is-leaving & {
+		transform: translateY(-115vh) rotate(-5deg);
+	}
+}
+
+.loader-float {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	animation: loader-float 2.6s ease-in-out infinite;
+}
+
+.loader-balloon {
+	display: block;
+	width: 70px;
+	height: auto;
+	transform-origin: 50% 100%;
+	animation: loader-tilt 2.6s ease-in-out infinite;
+}
+
+.loader-string {
+	display: block;
+	margin-top: -2px;
+	color: var(--grey);
+}
+
+@keyframes loader-float {
+	0%,
+	100% {
+		transform: translateY(6px);
+	}
+
+	50% {
+		transform: translateY(-8px);
+	}
+}
+
+@keyframes loader-tilt {
+	0%,
+	100% {
+		transform: rotate(-4deg);
+	}
+
+	50% {
+		transform: rotate(4deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.loader-float,
+	.loader-balloon {
+		animation: none;
+	}
+
+	.loader-fly {
+		transition: none;
+	}
+}
+
 /* ---------- chrome ---------- */
 
 .elsewhere {

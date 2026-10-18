@@ -6,7 +6,13 @@ const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t!==
 export default function Document() {
 	return (
 		<Html lang="en">
-			<Head />
+			<Head>
+				<link rel="preload" href="/images/loader-balloon.webp" as="image" type="image/webp" />
+				{/* without scripts nothing would ever lift the loading curtain */}
+				<noscript>
+					<style>{".loader{display:none}"}</style>
+				</noscript>
+			</Head>
 			<body>
 				<script dangerouslySetInnerHTML={{ __html: themeScript }} />
 				<Main />

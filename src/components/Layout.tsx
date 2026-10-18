@@ -8,6 +8,7 @@ import { fetcher } from "../lib/fetcher";
 import type { NowPlayingResponseSuccess } from "../pages/api/nowPlaying";
 import { startSmoothScroll } from "../lib/smoothScroll";
 import Balloons from "./Balloons";
+import Loader from "./Loader";
 import PageTransition from "./PageTransition";
 import ThemeSwitch from "./ThemeSwitch";
 
@@ -95,6 +96,8 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 			</main>
 
 			<Balloons home={home} />
+
+			<Loader />
 
 			<footer className="foot">
 				<p>

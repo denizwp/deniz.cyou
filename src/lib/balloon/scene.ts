@@ -43,6 +43,8 @@ export interface BalloonSceneOptions {
 	onHover: (index: number | null) => void;
 	onPick: (index: number) => void;
 	onDrag: (dragging: boolean) => void;
+	/** a letter's geometry is ready; fires once per letter, in whatever order they finish */
+	onLetter?: (index: number) => void;
 	reducedMotion: boolean;
 }
 
@@ -88,7 +90,7 @@ function rasterize(char: string, font: string, S: number) {
 	return { mask, S, size, baseX, baseY };
 }
 
-function runJobs(jobs: { char: string; S: number; options: InflateOptions }[], font: string) {
+function runJobs(jobs: { char: string; S: number; options: InflateOptions }[], font: string, onDone?: (id: number) => void) {
 	const count = Math.min(jobs.length, Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1)));
 	const workers = Array.from(
 		{ length: count },
@@ -110,6 +112,7 @@ function runJobs(jobs: { char: string; S: number; options: InflateOptions }[], f
 			worker.onmessage = (e: MessageEvent<InflateResult & { id: number }>) => {
 				const { id, ...out } = e.data;
 				results[id] = out;
+				onDone?.(id);
 				done++;
 				if (done === jobs.length) {
 					workers.forEach(w => w.terminate());
@@ -227,7 +230,10 @@ export class BalloonScene {
 				options: { res: 36, round: 4.5, fat: 2.5, wrinkles: 0 }
 			}
 		]);
-		const out = await runJobs(jobs, font);
+		// even jobs are the visible skins, odd ones the hit shapes; only the skins count as progress
+		const out = await runJobs(jobs, font, id => {
+			if (id % 2 === 0) this.opts.onLetter?.(id / 2);
+		});
 		if (this.disposed) return;
 
 		const material = new MeshPhysicalMaterial({
@@ -275,7 +281,8 @@ export class BalloonScene {
 				offV: new Vector3(),
 				puff: this.opts.reducedMotion ? 1 : 0.02,
 				puffV: 0,
-				puffAt: performance.now() / 1000 + i * 0.09
+				// stays flat until reveal() says the curtain is going up
+				puffAt: Infinity
 			};
 		});
 
@@ -290,6 +297,12 @@ export class BalloonScene {
 		}
 		this.word = { w: maxX - minX, h: maxY - minY, cy: (maxY + minY) / 2 };
 		this.ready = true;
+	}
+
+	/** inflates the word, one letter after another */
+	reveal(delay = 0) {
+		const t = performance.now() / 1000 + delay;
+		this.letters.forEach((L, i) => (L.puffAt = t + i * 0.05));
 	}
 
 	setMode(mode: SceneMode) {
