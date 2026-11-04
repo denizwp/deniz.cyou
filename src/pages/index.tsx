@@ -65,14 +65,14 @@ export default function Home({ at, discord, albums }: HomeProps) {
 				<Hero />
 				<ProjectCard project={project("soundloop")} wide />
 				<SpotifyCard at={at} />
-				<ProjectCard project={project("wychwood")} />
+				<ProjectCard project={project("capture")} />
 
 				<IstanbulCard at={at} />
 				<ProjectCard project={project("cookie")} wide />
 				<StintCard stint={work[1]} kind="Work" at={at} href="/now" />
 
 				<AlbumCard tile={albums[0]} priority />
-				<ProjectCard project={project("wasteland")} />
+				<MarkCard label="Tools · Everything Else" title="Figma" image="https://skillicons.dev/icons?theme=light&i=figma" tag="Design" tagColor="purple" href="/tools" />
 				<ProjectCard project={project("ulsahub")} wide />
 
 				<ProjectCard project={project("klutchr")} wide />
@@ -83,7 +83,7 @@ export default function Home({ at, discord, albums }: HomeProps) {
 				<MarkCard label="Tools · Everything Else" title="Blender" image="https://skillicons.dev/icons?theme=light&i=blender" tag="3D" tagColor="orange" href="/tools" />
 				<ProjectCard project={project("azuki")} wide />
 
-				<ProjectCard project={project("mazebank")} wide />
+				<ProjectCard project={project("matchup")} wide />
 				<StintCard stint={school[0]} kind="School" at={at} href="/now" />
 				<AlbumCard tile={albums[2]} />
 			</div>

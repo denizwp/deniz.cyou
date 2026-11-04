@@ -516,7 +516,8 @@ html[data-theme="dark"] .tag-stone { background: #2c2a29; border-color: #44403c;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	object-position: top;
+	/* wide screenshots lose their right side, so the app's logo and menu stay in the frame */
+	object-position: left top;
 }
 
 .is-link:hover .shot,
