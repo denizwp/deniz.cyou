@@ -64,7 +64,7 @@ export default function Home({ at, discord, albums }: HomeProps) {
 			<div className="grid">
 				<Hero />
 				<ProjectCard project={project("soundloop")} wide />
-				<SpotifyCard at={at} />
+				<SpotifyCard />
 				<ProjectCard project={project("capture")} />
 
 				<IstanbulCard at={at} />

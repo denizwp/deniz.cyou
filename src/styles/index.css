@@ -471,11 +471,13 @@ html[data-theme="dark"] .tag-stone { background: #2c2a29; border-color: #44403c;
 	animation: rise 0.7s var(--ease) both;
 }
 
-.hero p {
+.hero p,
+.say p {
 	margin-top: 1em;
 }
 
-.hero a {
+.hero a,
+.say a {
 	color: var(--ink);
 	text-decoration: underline transparent;
 	text-decoration-thickness: 1px;
@@ -483,12 +485,14 @@ html[data-theme="dark"] .tag-stone { background: #2c2a29; border-color: #44403c;
 	transition: text-decoration-color 0.2s;
 }
 
-.hero a:hover {
+.hero a:hover,
+.say a:hover {
 	text-decoration-color: currentColor;
 }
 
 /* the tree takes the place of a full stop and a breath */
-.hero img {
+.hero img,
+.say img {
 	display: inline-block;
 	width: auto;
 	height: 0.95em;
@@ -498,38 +502,28 @@ html[data-theme="dark"] .tag-stone { background: #2c2a29; border-color: #44403c;
 
 /* ---------- a screenshot in its frame ---------- */
 
+/* the whole screenshot, always; it shrinks to fit the card and is never cropped */
 .shot {
 	position: absolute;
-	top: 56px;
-	/* past the edge, so short screenshots still run off the card and a hover lift shows no gap */
-	bottom: -12px;
-	left: 50%;
-	width: 68%;
-	margin-left: -34%;
-	overflow: hidden;
-	border-radius: 6px 6px 0 0;
-	box-shadow: var(--shot-shadow);
+	inset: 48px 24px 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	transition: transform 0.6s var(--ease);
 }
 
 .shot img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	/* wide screenshots lose their right side, so the app's logo and menu stay in the frame */
-	object-position: left top;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 6px;
+	box-shadow: var(--shot-shadow);
 }
 
 .is-link:hover .shot,
 .is-link:focus-visible .shot {
-	transform: translateY(-6px) scale(1.012);
-}
-
-/* small cards let the picture run off the right edge */
-.shot-card:not(.is-wide) .shot {
-	left: 16px;
-	width: 130%;
-	margin-left: 0;
+	transform: translateY(-4px);
 }
 
 /* ---------- a logo standing on the card's bottom edge ---------- */
@@ -712,18 +706,6 @@ html[data-theme="dark"] .tag-stone { background: #2c2a29; border-color: #44403c;
 	color: var(--ink);
 }
 
-.song-card.is-wide .song {
-	gap: 28px;
-}
-
-.song-card.is-wide .cover {
-	flex-basis: min(40%, 280px);
-}
-
-.song-card.is-wide .song-artists {
-	margin-top: 8px;
-}
-
 .progress {
 	margin-top: 16px;
 	font-size: 14px;
@@ -881,21 +863,231 @@ html[data-theme="dark"] .tag-stone { background: #2c2a29; border-color: #44403c;
 		font-size: 28px;
 	}
 
-	.shot,
-	.shot-card:not(.is-wide) .shot {
-		left: 16px;
-		width: 125%;
-		margin-left: 0;
+	.shot {
+		inset: 44px 16px 12px;
+	}
+}
+
+/* ---------- project page: cards tall enough for a large screenshot ---------- */
+
+.grid-projects {
+	grid-auto-rows: auto;
+}
+
+.grid-projects .card.is-wide {
+	aspect-ratio: 16 / 10;
+}
+
+/* ---------- now ---------- */
+
+.now-top {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: var(--gap);
+	align-items: start;
+	animation: rise 0.7s var(--ease) both;
+}
+
+.now-words {
+	grid-column: span 3;
+	padding-right: clamp(16px, 4cqw, 64px);
+}
+
+.now-words .head {
+	padding-bottom: 32px;
+}
+
+.say {
+	font: 300 clamp(26px, 2.45cqw, 36px) / 1.25 var(--serif);
+	font-variation-settings: "SOFT" 50, "opsz" 72;
+	letter-spacing: -0.03em;
+	color: var(--soft);
+}
+
+.say p:first-child {
+	margin-top: 0;
+}
+
+.say b {
+	font-weight: inherit;
+	color: var(--ink);
+	font-variant-numeric: tabular-nums;
+}
+
+.say img.face {
+	height: 1em;
+	margin: 0 0 0 0.25em;
+	vertical-align: -0.14em;
+	border-radius: 0.24em;
+}
+
+.now-cover {
+	padding-top: 16px;
+}
+
+.now-cover a {
+	display: block;
+	overflow: hidden;
+	border-radius: 8px;
+	background: var(--card);
+}
+
+.now-cover img {
+	width: 100%;
+	height: auto;
+	transition: transform 0.8s var(--ease);
+}
+
+.now-cover a:hover img {
+	transform: scale(1.03);
+}
+
+.timeline {
+	position: relative;
+	margin-top: clamp(72px, 9cqw, 136px);
+	animation: rise 0.7s var(--ease) 0.08s both;
+}
+
+/* the years sit over the ruler column of the rows below */
+.years {
+	position: absolute;
+	top: calc(clamp(40px, 4.07cqw, 60px) - 20px);
+	right: 0;
+	left: 50%;
+	display: flex;
+	padding-left: calc(var(--gap) / 2);
+	font-size: 14px;
+	color: var(--muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.stints + .stints {
+	margin-top: clamp(56px, 6cqw, 88px);
+}
+
+.stints h2 {
+	margin-bottom: 16px;
+	font: 300 clamp(40px, 4.07cqw, 60px) / 1 var(--serif);
+	font-variation-settings: "SOFT" 50, "opsz" 72;
+	letter-spacing: -0.03em;
+	color: var(--title);
+}
+
+.stints ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.stint {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: var(--gap);
+	align-items: center;
+	padding: 16px 0;
+}
+
+.stint h3 {
+	margin: 0;
+	font: 300 clamp(26px, 2.45cqw, 36px) / 1.11 var(--serif);
+	font-variation-settings: "SOFT" 50, "opsz" 72;
+	letter-spacing: -0.03em;
+	color: var(--soft);
+	transition: color 0.2s;
+}
+
+.stint.is-running h3,
+.stint:hover h3 {
+	color: var(--title);
+}
+
+.stint-info {
+	font-size: 14px;
+	line-height: 20px;
+	color: var(--ink);
+}
+
+.stint-info span {
+	color: var(--muted);
+	font-variant-numeric: tabular-nums;
+}
+
+/* a ruler cut into years, with the time spent there laid over it */
+.track {
+	position: relative;
+	grid-column: span 2;
+	display: flex;
+	height: 10px;
+}
+
+.track span {
+	border-right: 2px solid var(--bg);
+	background: var(--line);
+}
+
+.track i {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	border-radius: 2px;
+	background: var(--soft);
+}
+
+.stint.is-running .track i {
+	background: var(--ink);
+}
+
+@media (max-width: 1099px) {
+	.now-top {
+		grid-template-columns: minmax(0, 1fr);
 	}
 
-	.song-card.is-wide {
-		aspect-ratio: 1;
+	.now-words {
+		grid-column: auto;
+		padding-right: 0;
+	}
+
+	.now-cover {
+		max-width: 320px;
+		padding-top: 24px;
+	}
+
+	.years {
+		position: static;
+		margin-bottom: 16px;
+		padding-left: 0;
+	}
+
+	.stint {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		align-items: start;
+		row-gap: 10px;
+	}
+}
+
+@media (max-width: 639px) {
+	.stint {
+		grid-template-columns: minmax(0, 1fr);
+		row-gap: 6px;
+		padding: 14px 0;
+	}
+
+	.track {
+		grid-column: auto;
+		margin-top: 4px;
+	}
+
+	.say {
+		font-size: 28px;
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.card,
-	.hero {
+	.hero,
+	.now-top,
+	.timeline {
 		animation: none;
 	}
 
