@@ -7,11 +7,8 @@ export default function Document() {
 	return (
 		<Html lang="en">
 			<Head>
-				<link rel="preload" href="/images/loader-balloon.webp" as="image" type="image/webp" />
-				{/* without scripts nothing would ever lift the loading curtain */}
-				<noscript>
-					<style>{".loader{display:none}"}</style>
-				</noscript>
+				{/* the serif sets the first thing anyone reads, so it shouldn't arrive late */}
+				<link rel="preload" href="/fonts/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 			</Head>
 			<body>
 				<script dangerouslySetInnerHTML={{ __html: themeScript }} />

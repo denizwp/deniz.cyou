@@ -18,6 +18,41 @@ let expirationTime = 0;
 let cachedTime = 0;
 let cached: TopMusicResponseSuccess | undefined;
 
+/** most played tracks over three ranges, cached for a day */
+export async function getTopMusic(): Promise<TopMusicResponseSuccess> {
+	if (!cached || Date.now() > cachedTime) {
+		if (Date.now() > expirationTime) {
+			const response = await api.refreshAccessToken();
+			api.setAccessToken(response.body.access_token);
+
+			expirationTime = Date.now() + response.body.expires_in * 1000;
+		}
+
+		const short = await api.getMyTopTracks({
+			limit: 50,
+			time_range: "short_term"
+		});
+		const medium = await api.getMyTopTracks({
+			limit: 50,
+			time_range: "medium_term"
+		});
+		const long = await api.getMyTopTracks({
+			limit: 50,
+			time_range: "long_term"
+		});
+
+		cached = {
+			short: short.body,
+			medium: medium.body,
+			long: long.body
+		};
+
+		cachedTime = Date.now() + 24 * 60 * 60 * 1000;
+	}
+
+	return cached;
+}
+
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse<TopMusicResponse>
@@ -28,37 +63,7 @@ export default async function handler(
 	}
 
 	try {
-		if (!cached || Date.now() > cachedTime) {
-			if (Date.now() > expirationTime) {
-				const response = await api.refreshAccessToken();
-				api.setAccessToken(response.body.access_token);
-
-				expirationTime = Date.now() + response.body.expires_in * 1000;
-			}
-
-			const short = await api.getMyTopTracks({
-				limit: 50,
-				time_range: "short_term"
-			});
-			const medium = await api.getMyTopTracks({
-				limit: 50,
-				time_range: "medium_term"
-			});
-			const long = await api.getMyTopTracks({
-				limit: 50,
-				time_range: "long_term"
-			});
-
-			cached = {
-				short: short.body,
-				medium: medium.body,
-				long: long.body
-			};
-
-			cachedTime = Date.now() + 24 * 60 * 60 * 1000;
-		}
-
-		res.status(200).json(cached);
+		res.status(200).json(await getTopMusic());
 	} catch (err) {
 		res.status(500).json({ error: (err as any)?.message });
 	}

@@ -43,7 +43,7 @@ export default function ThemeSwitch() {
 		<div className="theme-switch" role="radiogroup" aria-label="Theme">
 			{(["light", "dark"] as Theme[]).map(t => (
 				<button key={t} role="radio" aria-checked={theme === t} onClick={() => pick(t)}>
-					{t.toUpperCase()}
+					{t === "light" ? "Light" : "Dark"}
 				</button>
 			))}
 		</div>

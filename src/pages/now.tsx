@@ -1,114 +1,44 @@
-import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import type { GetStaticProps } from "next";
-import { useEffect, useState } from "preact/hooks";
-import useSWR from "swr";
 
-import Career from "../components/Career";
+import AlbumCard from "../components/AlbumCard";
 import DiscordCard from "../components/DiscordCard";
-import GenericMeta from "../components/GenericMeta";
-import Sidebar from "../components/Sidebar";
+import { GitHubCard, IstanbulCard, StintCard } from "../components/LiveCards";
+import PageHead from "../components/PageHead";
 import SpotifyCard from "../components/SpotifyCard";
-import { weatherDescriptions } from "../data/weather";
-import { DiscordPresence, getDiscord } from "../lib/discord";
-import { fetcher } from "../lib/fetcher";
-import { getGitHub, GitHubResponseSuccess } from "./api/github";
-import { getNowPlaying } from "./api/nowPlaying";
-import { getWeather, WeatherResponseSuccess } from "./api/weather";
+import { school, work } from "../data/career";
+import { getLive, getTiles, LiveProps } from "../lib/live";
+import type { AlbumTile } from "../lib/music";
 
-interface NowProps {
-	/** when the server fetched everything, so clocks start from the same moment */
-	at: number;
-	discord: DiscordPresence | null;
-	/** swr's starting data, keyed by api route */
-	fallback: Record<string, unknown>;
+interface NowProps extends LiveProps {
+	album: AlbumTile | null;
 }
-
-// a slow service shouldn't hold the build; its card fills in on the client instead
-const within = <T,>(promise: Promise<T>, ms: number) =>
-	Promise.race([promise, new Promise<null>(resolve => setTimeout(() => resolve(null), ms))]).catch(() => null);
 
 // built ahead and refreshed at most every 30s, so the page opens at once with a recent
 // snapshot; swr and the discord socket bring it up to the second right after
 export const getStaticProps: GetStaticProps<NowProps> = async () => {
-	const [nowPlaying, weather, github, discord] = await Promise.all([
-		within(getNowPlaying(), 4000),
-		within(getWeather(), 4000),
-		within(getGitHub(), 4000),
-		within(getDiscord(), 4000)
-	]);
-
-	const fallback: Record<string, unknown> = {};
-	if (nowPlaying) fallback["/api/nowPlaying"] = nowPlaying;
-	if (weather) fallback["/api/weather"] = weather;
-	if (github) fallback["/api/github"] = github;
-
-	return { props: { at: Date.now(), discord, fallback }, revalidate: 30 };
+	const [live, tiles] = await Promise.all([getLive(), getTiles()]);
+	return { props: { ...live, album: tiles?.short[0] ?? null }, revalidate: 30 };
 };
 
-const clock = new Intl.DateTimeFormat("en-GB", {
-	hour: "2-digit",
-	minute: "2-digit",
-	hour12: false,
-	timeZone: "Europe/Istanbul"
-});
-
-function Istanbul({ at }: { at: number }) {
-	const { data } = useSWR<WeatherResponseSuccess>("/api/weather", fetcher);
-	const [now, setNow] = useState(at);
-
-	useEffect(() => {
-		setNow(Date.now());
-		const id = setInterval(() => setNow(Date.now()), 10_000);
-		return () => clearInterval(id);
-	}, []);
-
-	return (
-		<p>
-			it&apos;s {clock.format(now)} in istanbul
-			{data ? `, ${Math.round(data.temp)}° with ${weatherDescriptions[data.code] ?? "unusual weather"}.` : "."}
-		</p>
-	);
-}
-
-function GitHub() {
-	const { data } = useSWR<GitHubResponseSuccess>("/api/github", fetcher);
-	if (!data) return <p>on github as denizwp.</p>;
-
-	const last = data.events[0];
-	return (
-		<p>
-			{last ? (
-				<>
-					last on github: {last.text}{" "}
-					<a href={last.repoUrl} target="_blank" rel="noopener noreferrer">
-						{last.repo.split("/")[1] ?? last.repo}
-					</a>
-					, {formatDistanceToNowStrict(new Date(last.date), { addSuffix: true })}.{" "}
-				</>
-			) : (
-				"nothing public on github lately. "
-			)}
-			{data.repos} repos, {data.followers} followers.
-		</p>
-	);
-}
-
-export default function Now({ at, discord }: NowProps) {
+export default function Now({ at, discord, album }: NowProps) {
 	return (
 		<>
-			<GenericMeta title="Now – deniz" />
-			<Sidebar>is an 18-year-old developer from turkiye. everything on this page is live, straight from spotify, discord and github.</Sidebar>
-			<div className="live">
-				<h1 className="now-title">right now</h1>
-				<div className="now-cards">
-					<SpotifyCard at={at} />
-					<DiscordCard initial={discord} at={at} />
-				</div>
-				<div className="live-text">
-					<Istanbul at={at} />
-					<GitHub />
-				</div>
-				<Career at={at} />
+			<PageHead title="now">
+				What I&apos;m up to at this very moment, straight from Spotify, Discord and GitHub, and where I work and study.
+			</PageHead>
+			<div className="grid">
+				<SpotifyCard at={at} wide />
+				<DiscordCard initial={discord} at={at} />
+				<IstanbulCard at={at} />
+				<GitHubCard at={at} />
+				{work.map(stint => (
+					<StintCard key={stint.name} stint={stint} kind="Work" at={at} />
+				))}
+				{school.map(stint => (
+					<StintCard key={stint.name} stint={stint} kind="School" at={at} />
+				))}
+				{/* the month's most played, which also closes the last row */}
+				<AlbumCard tile={album ?? undefined} />
 			</div>
 		</>
 	);

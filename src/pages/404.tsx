@@ -1,25 +1,15 @@
 import Link from "next/link";
 
-import GenericMeta from "../components/GenericMeta";
+import PageHead from "../components/PageHead";
 
 export default function Custom404() {
 	return (
-		<>
-			<GenericMeta title="404 – deniz" />
-			<div className="now">
-				<div>
-					<h1 className="now-title">404</h1>
-					<div className="now-lead">
-						<p>
-							this page doesn&apos;t exist. go back{" "}
-							<Link href="/">
-								<a>home</a>
-							</Link>
-							, or pick a letter below.
-						</p>
-					</div>
-				</div>
-			</div>
-		</>
+		<PageHead title="404">
+			This page doesn&apos;t exist. Go back{" "}
+			<Link href="/">
+				<a>home</a>
+			</Link>{" "}
+			or pick somewhere from the menu.
+		</PageHead>
 	);
 }

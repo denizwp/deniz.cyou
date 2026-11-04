@@ -1,11 +1,11 @@
-import Image from "next/future/image";
-import { useEffect, useState } from "preact/hooks";
+import type { GetStaticProps } from "next";
+import { useState } from "preact/hooks";
 
-import GenericMeta from "../components/GenericMeta";
-import Sidebar from "../components/Sidebar";
-import type { TopMusicResponseSuccess } from "./api/topMusic";
+import AlbumCard from "../components/AlbumCard";
+import PageHead from "../components/PageHead";
+import { getTiles, Ranges } from "../lib/live";
 
-type Range = keyof TopMusicResponseSuccess;
+type Range = keyof Ranges;
 
 const options: { name: string; value: Range }[] = [
 	{ name: "Past month", value: "short" },
@@ -13,84 +13,41 @@ const options: { name: string; value: Range }[] = [
 	{ name: "All time", value: "long" }
 ];
 
-const link = { target: "_blank", rel: "noopener noreferrer" };
+export const getStaticProps: GetStaticProps<{ ranges: Ranges | null }> = async () => ({
+	props: { ranges: await getTiles() },
+	revalidate: 3600
+});
 
-export default function Music() {
-	const [topMusic, setTopMusic] = useState<TopMusicResponseSuccess | null>(null);
+export default function Music({ ranges }: { ranges: Ranges | null }) {
 	const [range, setRange] = useState<Range>("short");
 
-	useEffect(() => {
-		fetch("/api/topMusic")
-			.then(res => res.json())
-			.then(info => {
-				if (info.error) return;
-				setTopMusic(info);
-			})
-			.catch(console.error);
-	}, []);
-
-	// one cover per album, captioned with the most played track from it; whole rows only, so the grid ends flush
-	const seen = new Set<string>();
-	const albums = topMusic?.[range].items.filter(t => !seen.has(t.album.id) && seen.add(t.album.id));
-	const tracks = albums?.slice(0, Math.min(24, albums.length - (albums.length % 4)));
+	// whole rows only, so the grid ends flush
+	const all = ranges?.[range] ?? [];
+	const tiles = all.slice(0, Math.min(24, all.length - (all.length % 4)));
 
 	return (
 		<>
-			<GenericMeta title="Music – deniz" />
-			<Sidebar>listens to a lot of turkish pop, k-pop and whatever adéla put out last.</Sidebar>
-			<h1 className="sr-only">Music</h1>
+			<PageHead title="music">
+				I listen to a lot of Turkish pop, K-pop and whatever Adéla put out last. These are my most played, straight from Spotify.
+			</PageHead>
 
-			<div className="ranges" role="radiogroup" aria-label="Time range">
+			<div className="pill ranges" role="group" aria-label="Time range">
 				{options.map(({ name, value }) => (
-					<button
-						key={value}
-						role="radio"
-						aria-checked={range === value}
-						onClick={() => setRange(value)}
-					>
-						{name.toUpperCase()}
+					<button key={value} aria-pressed={range === value} onClick={() => setRange(value)}>
+						{name}
 					</button>
 				))}
 			</div>
 
-			<div className="tiles" key={range}>
-				{tracks
-					? tracks.map((track, i) => (
-							// the cover and the title open the song; each name opens its own page
-							<div key={track.id} className="work-item">
-								<a className="work-pic" href={track.external_urls.spotify} {...link} aria-label={track.name}>
-									<Image
-										src={track.album.images[0].url}
-										alt=""
-										width={640}
-										height={640}
-										sizes="(max-width: 860px) 50vw, 22vw"
-										priority={i < 8}
-									/>
-								</a>
-								<div className="cap">
-									<b>
-										<a href={track.external_urls.spotify} {...link}>
-											{track.name}
-										</a>
-									</b>
-									{track.artists.map((artist, k) => (
-										<span key={artist.id}>
-											{k > 0 && ", "}
-											<a href={artist.external_urls.spotify} {...link}>
-												{artist.name}
-											</a>
-										</span>
-									))}{" "}
-									——{" "}
-									<a href={track.album.external_urls.spotify} {...link}>
-										{track.album.name}
-									</a>
-								</div>
-							</div>
-					  ))
-					: [...new Array(12)].map((_, i) => <div key={i} className="tile-empty" />)}
-			</div>
+			{ranges ? (
+				<div className="grid" key={range}>
+					{tiles.map((tile, i) => (
+						<AlbumCard key={tile.id} tile={tile} priority={i < 4} />
+					))}
+				</div>
+			) : (
+				<p className="empty">Spotify isn&apos;t answering right now, so there&apos;s nothing to show. Try again in a bit.</p>
+			)}
 		</>
 	);
 }

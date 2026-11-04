@@ -1,111 +1,65 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "preact/hooks";
-import useSWR from "swr";
 
 import { socials } from "../data/socials";
-import { fetcher } from "../lib/fetcher";
-import type { NowPlayingResponseSuccess } from "../pages/api/nowPlaying";
-import { startSmoothScroll } from "../lib/smoothScroll";
-import Balloons from "./Balloons";
-import Loader from "./Loader";
-import PageTransition from "./PageTransition";
+import { external } from "./Card";
+import { useIstanbulTime } from "./LiveCards";
 import ThemeSwitch from "./ThemeSwitch";
 
 const pages = [
-	{ href: "/", title: "Home" },
+	{ href: "/", title: "Deniz" },
 	{ href: "/projects", title: "Projects" },
 	{ href: "/music", title: "Music" },
 	{ href: "/now", title: "Now" },
 	{ href: "/tools", title: "Tools" }
 ];
 
-const clock = new Intl.DateTimeFormat("en-GB", {
-	hour: "2-digit",
-	minute: "2-digit",
-	hour12: false,
-	timeZone: "Europe/Istanbul"
-});
-
-function IstanbulTime() {
-	const [now, setNow] = useState<string | null>(null);
-
-	useEffect(() => {
-		const tick = () => setNow(clock.format(Date.now()));
-		tick();
-		const id = setInterval(tick, 10_000);
-		return () => clearInterval(id);
-	}, []);
-
-	return <>{now ?? "--:--"}</>;
-}
-
-/** one plain line about the music, where a copyright notice usually goes */
-function Playing() {
-	const { data } = useSWR<NowPlayingResponseSuccess>("/api/nowPlaying", fetcher, { refreshInterval: 15_000 });
-	const track = data?.track;
-	if (!data) return <p>&nbsp;</p>;
-	if (!track) return <p>not listening to anything right now.</p>;
-
-	const verb = !data.isPlayingNow ? "last played" : data.isPaused ? "paused" : "listening to";
+function Elsewhere({ className }: { className: string }) {
 	return (
-		<p>
-			{verb}{" "}
-			<a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-				{track.name}
-			</a>{" "}
-			by {track.artists.map(a => a.name).join(", ")}
-		</p>
-	);
-}
-
-function Elsewhere() {
-	return (
-		<nav className="elsewhere" aria-label="Elsewhere">
+		<nav className={className} aria-label="Elsewhere">
 			{socials.map(({ name, url }) => (
-				<a key={name} href={url} target="_blank" rel="noopener noreferrer">
-					{name === "Buy Me a Coffee" ? "COFFEE" : name.toUpperCase()}
+				<a key={name} href={url} {...external}>
+					{name}
 				</a>
 			))}
 		</nav>
 	);
 }
 
-export default function Layout({ children }: React.PropsWithChildren<{}>) {
-	const { pathname } = useRouter();
-	const home = pathname === "/";
-
-	useEffect(() => {
-		startSmoothScroll();
-	}, []);
+function Foot() {
+	const time = useIstanbulTime();
 
 	return (
-		<div className={home ? "site is-home" : "site"}>
-			<nav className="pills" aria-label="Pages">
-				{pages.map(({ href, title }) => (
-					<Link key={href} href={href}>
-						<a aria-current={pathname === href ? "page" : undefined}>{title}</a>
-					</Link>
-				))}
-			</nav>
+		<footer className="foot">
+			<p>
+				Deniz, Istanbul, Türkiye <span>(41.0082° N, 28.9784° E{time && `, ${time}`})</span>
+			</p>
+			<Elsewhere className="foot-links" />
+			<ThemeSwitch />
+		</footer>
+	);
+}
 
-			<Elsewhere />
+export default function Layout({ children }: React.PropsWithChildren<{}>) {
+	const { pathname } = useRouter();
 
-			<main className="page">
-				<PageTransition route={pathname}>{children}</PageTransition>
-			</main>
-
-			<Balloons home={home} />
-
-			<Loader />
-
-			<footer className="foot">
-				<p>
-					<b>deniz, Istanbul, Türkiye</b> (41.0082° N, 28.9784° E, <IstanbulTime />)
-				</p>
-				<Playing />
-				<ThemeSwitch />
-			</footer>
+	return (
+		<div className="site">
+			<a className="skip" href="#content">
+				Skip to content
+			</a>
+			<header className="top">
+				<nav className="pill" aria-label="Pages">
+					{pages.map(({ href, title }) => (
+						<Link key={href} href={href}>
+							<a aria-current={pathname === href ? "page" : undefined}>{title}</a>
+						</Link>
+					))}
+				</nav>
+			</header>
+			<Elsewhere className="elsewhere" />
+			<main id="content">{children}</main>
+			<Foot />
 		</div>
 	);
 }
