@@ -14,6 +14,7 @@ export interface Project {
 const shot = (id: string, width: number, height: number) => ({ src: `/images/shots/${id}.webp`, width, height });
 
 export const projects: Project[] = [
+	{ id: "latch", name: "Latch", url: "https://heylatch.app/", shot: shot("latch", 1920, 855) },
 	{ id: "tools", name: "deniz's tools", url: "https://tools.deniz.cyou/", shot: shot("tools", 1919, 1079) },
 	{ id: "azuki", name: "azuki", url: "https://azuki.deniz.cyou/", shot: shot("azuki", 3840, 2160) },
 	{ id: "matchup", name: "matchup", url: "https://matchup-tr.gta.world/", shot: shot("matchup", 1919, 908) },

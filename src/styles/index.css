@@ -1109,3 +1109,22 @@ html[data-theme="dark"] .tag-stone { background: #2c2a29; border-color: #44403c;
 		transform: none;
 	}
 }
+
+/* ---------- smooth scroll (lenis) ---------- */
+
+html.lenis,
+html.lenis body {
+	height: auto;
+}
+
+.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+	overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+	overflow: hidden;
+}

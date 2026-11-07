@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "preact/hooks";
 
 import { socials } from "../data/socials";
+import { resetScroll, startSmoothScroll } from "../lib/smoothScroll";
 import { external } from "./Card";
 import { useIstanbulTime } from "./LiveCards";
 import ThemeSwitch from "./ThemeSwitch";
@@ -41,7 +43,15 @@ function Foot() {
 }
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
-	const { pathname } = useRouter();
+	const router = useRouter();
+	const { pathname } = router;
+
+	useEffect(() => {
+		startSmoothScroll();
+		// a scroll still easing on the old page would otherwise carry over to the new one
+		router.events.on("routeChangeComplete", resetScroll);
+		return () => router.events.off("routeChangeComplete", resetScroll);
+	}, []);
 
 	return (
 		<div className="site">
