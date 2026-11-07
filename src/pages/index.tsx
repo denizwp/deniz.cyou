@@ -68,12 +68,12 @@ export default function Home({ at, discord, albums }: HomeProps) {
 				<ProjectCard project={project("capture")} />
 
 				<IstanbulCard at={at} />
-				<ProjectCard project={project("cookie")} wide />
+				<ProjectCard project={project("latch")} wide />
 				<StintCard stint={work[1]} kind="Work" at={at} href="/now" />
 
 				<AlbumCard tile={albums[0]} priority />
 				<MarkCard label="Tools · Everything Else" title="Figma" image="https://skillicons.dev/icons?theme=light&i=figma" tag="Design" tagColor="purple" href="/tools" />
-				<ProjectCard project={project("ulsahub")} wide />
+				<ProjectCard project={project("cookie")} wide />
 
 				<ProjectCard project={project("klutchr")} wide />
 				<DiscordCard initial={discord} at={at} />
