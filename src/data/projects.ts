@@ -16,17 +16,17 @@ const shot = (id: string, width: number, height: number) => ({ src: `/images/sho
 export const projects: Project[] = [
 	{ id: "latch", name: "Latch", url: "https://heylatch.app/", shot: shot("latch", 1920, 855) },
 	{ id: "tools", name: "deniz's tools", url: "https://tools.deniz.cyou/", shot: shot("tools", 1919, 1079) },
-	{ id: "azuki", name: "azuki", url: "https://azuki.deniz.cyou/", shot: shot("azuki", 3840, 2160) },
-	{ id: "matchup", name: "matchup", url: "https://matchup-tr.gta.world/", shot: shot("matchup", 1919, 908) },
-	{ id: "klutchr", name: "klutchr", url: "https://nood.deniz.cyou/", shot: shot("klutchr", 3840, 2160) },
-	{ id: "lschat", name: "ls chat", url: "https://chat-tr.gta.world/", shot: shot("lschat", 1917, 906) },
-	{ id: "sanmail", name: "sanmail", url: "https://mail-tr.gta.world/", shot: shot("sanmail", 1917, 906) },
-	{ id: "handshake", name: "handshake", url: "https://handshake.deniz.cyou/", shot: shot("handshake", 1919, 905) },
-	{ id: "ulsahub", name: "ulsahub", url: "https://ulsahub-tr.gta.world/", shot: shot("ulsahub", 3840, 2160) },
-	{ id: "cookie", name: "buy me a cookie", url: "https://buymeacookie.xyz/", shot: shot("cookie", 3840, 2160) },
-	{ id: "soundloop", name: "soundloop v2", url: "https://soundloop.app/", shot: shot("soundloop", 1919, 1079) },
+	{ id: "azuki", name: "Azuki", url: "https://azuki.deniz.cyou/", shot: shot("azuki", 3840, 2160) },
+	{ id: "matchup", name: "MatchUp", url: "https://matchup-tr.gta.world/", shot: shot("matchup", 1919, 908) },
+	{ id: "klutchr", name: "Klutchr", url: "https://nood.deniz.cyou/", shot: shot("klutchr", 3840, 2160) },
+	{ id: "lschat", name: "LS Chat", url: "https://chat-tr.gta.world/", shot: shot("lschat", 1917, 906) },
+	{ id: "sanmail", name: "SanMail", url: "https://mail-tr.gta.world/", shot: shot("sanmail", 1917, 906) },
+	{ id: "handshake", name: "Handshake", url: "https://handshake.deniz.cyou/", shot: shot("handshake", 1919, 905) },
+	{ id: "ulsahub", name: "UlsaHub", url: "https://ulsahub-tr.gta.world/", shot: shot("ulsahub", 3840, 2160) },
+	{ id: "cookie", name: "Buy Me A Cookie", url: "https://buymeacookie.xyz/", shot: shot("cookie", 3840, 2160) },
+	{ id: "soundloop", name: "Soundloop v2", url: "https://soundloop.app/", shot: shot("soundloop", 1919, 1079) },
 	{ id: "capture", name: "Capture Assistant", url: "https://github.com/denizwp/captureassistant/releases", mark: "/images/marks/tree.png" },
-	{ id: "vetric", name: "vetric", url: "https://vetric.online/", shot: shot("vetric", 1920, 855) }
+	// { id: "vetric", name: "Vetric (Fictional)", url: "https://vetric.online/", shot: shot("vetric", 1920, 855) }
 ];
 
 /** throws on a typo, so a missing card fails the build instead of leaving a hole in the grid */

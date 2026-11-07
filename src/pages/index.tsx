@@ -35,14 +35,14 @@ function Hero() {
 				Hey, I&apos;m <Page href="/now">Deniz</Page>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img src="/images/marks/tree.png" alt="" width={214} height={256} /> I&apos;m 18, I live in <Page href="/now">Istanbul</Page> and I
-				like building <Page href="/projects">things</Page> for real and made-up companies.
+				like building <Page href="/projects">projects</Page> for real and made-up companies.
 			</h1>
 			<p>
-				These days I&apos;m a developer at{" "}
+				These days I&apos;m working at{" "}
 				<a href="https://retrostore.dev" {...external}>
 					Retro Store
 				</a>{" "}
-				and a web developer at{" "}
+				and{" "}
 				<a href="https://gta.world/" {...external}>
 					GTA World
 				</a>

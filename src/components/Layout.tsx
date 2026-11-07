@@ -9,11 +9,11 @@ import { useIstanbulTime } from "./LiveCards";
 import ThemeSwitch from "./ThemeSwitch";
 
 const pages = [
-	{ href: "/", title: "Deniz" },
-	{ href: "/projects", title: "Projects" },
-	{ href: "/music", title: "Music" },
-	{ href: "/now", title: "Now" },
-	{ href: "/tools", title: "Tools" }
+	{ href: "/", title: "deniz" },
+	{ href: "/projects", title: "projects" },
+	{ href: "/music", title: "music" },
+	{ href: "/now", title: "now" },
+	{ href: "/tools", title: "tools" }
 ];
 
 function Elsewhere({ className }: { className: string }) {
