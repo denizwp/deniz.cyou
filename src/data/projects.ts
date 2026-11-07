@@ -25,7 +25,7 @@ export const projects: Project[] = [
 	{ id: "ulsahub", name: "UlsaHub", url: "https://ulsahub-tr.gta.world/", shot: shot("ulsahub", 3840, 2160) },
 	{ id: "cookie", name: "Buy Me A Cookie", url: "https://buymeacookie.xyz/", shot: shot("cookie", 3840, 2160) },
 	{ id: "soundloop", name: "Soundloop v2", url: "https://soundloop.app/", shot: shot("soundloop", 1919, 1079) },
-	{ id: "capture", name: "Capture Assistant", url: "https://github.com/denizwp/captureassistant/releases", mark: "/images/marks/tree.png" },
+	{ id: "capture", name: "Capture Assistant", url: "https://github.com/denizwp/captureassistant/releases", shot: shot("capture", 1128, 745) },
 	// { id: "vetric", name: "Vetric (Fictional)", url: "https://vetric.online/", shot: shot("vetric", 1920, 855) }
 ];
 
